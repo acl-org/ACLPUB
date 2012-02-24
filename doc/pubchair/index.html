@@ -1,0 +1,84 @@
+<html><head><title>ACLPUB HOWTO: A Guide for the Publications Chair of an ACL-Affiliated Conference</title></head><body>
+
+<h2>ACLPUB HOWTO: A Guide for the Publications Chair of an ACL-Affiliated Conference</h2>
+
+<p>Much more is coming on this webpage about how to do your job.
+(Please edit this webpage yourself and check it back in to CVS!)</p>
+
+<p>This is just a quick stub explaining how to use the software.
+Start with the other HOWTO document, which is aimed at book chairs.
+You yourself will typically be the book chair for the main
+proceedings.  Other volumes will typically be assembled by their
+program chairs and sent to you.</p>
+
+<p>In the end, you will receive a bunch of <code>proceedings</code>
+directories from the different book chairs, including yourself.</p>
+
+<p>Now switch to your role as publications chair to put everything
+together.  Create a master working directory somewhere, perhaps called
+<code>conference</code>.  You will do all your work as pub chair in
+this directory.</p>
+
+<p><i>Copy</i> the file <code>.../aclpub/make/Makefile_pubchair</code>
+to <code>.../conference/Makefile</code>.</p>
+
+<p>Create a directory <code>.../conference/books</code> and unpack
+each of the <code>proceedings</code> directories under it.  Of course
+you will have to rename the <code>proceedings</code> directories so
+that they don't all have the same name: e.g,
+<code>.../conference/books/main</code>, <code>.../conference/books/w01-discourse</code>,
+<code>.../conference/books/w02-conll</code>, etc.</p>
+
+<p>Now here are the main things to build in the
+<code>conference</code> directory.  All 5 of the following will be
+made if you type <code>make all</code>.</p>
+<blockquote><pre>
+make print     <i># then try "make print.zip" to package up the results</i>
+make cdrom     <i># then try "make cdrom-web" to put the results on a web server for proofreading by others</i>
+make anthology <i># then try "make anthology-web" or "make anthology.tgz"</i>
+make advertisements
+make copyright-signatures
+</pre></blockquote>
+
+<p>Unfortunately, some of the CD-ROM templates (HTML files in
+<code>aclpub/templates</code>) still hardcode stuff from ACL 2005.
+This will eventually be corrected through use of the <code>meta</code>
+file, but for now, your best bet is to edit the <i>templates</i> to
+your liking and remake.</p>
+
+<p>There are a number of other things I'm planning to improve.  The most
+important is to support hand-editing of automatically generated files,
+in such a way that the edits are preserved if the file is
+automatically regenerated.</p>
+
+<p>You should improve this document yourself, to pass on your
+experience to future chairs.  Please contact Jason Eisner for a
+CVS username and password.  Then you can modify your copy of
+<code>aclpub</code> and check the changes back into the CVS
+repository as follows:
+<blockquote><pre>
+<i># put this in your .bashrc or .cshrc file</i>
+export CVSROOT=:pserver:<i>USERNAME</i>@ftp.clsp.jhu.edu/aclpub <i># bash</i>
+setenv CVSROOT :pserver:<i>USERNAME</i>@ftp.clsp.jhu.edu/aclpub <i># csh</i>
+
+<i># only have to do this once on a given machine</i>
+cvs login     <i># now type your password</i>
+
+<i># check in your changes</i>
+cd .../aclpub
+cvs update
+cvs commit
+</pre></blockquote>
+
+<p>If you don't want to set <code>CVSROOT</code>, you could
+try it this way:</p>
+
+<blockquote><pre>
+alias aclcvs='cd ~/aclpub; cvs -d :pserver:<i>USERNAME</i>@ftp.clsp.jhu.edu:/aclpub'
+aclcvs <i>COMMAND</i>    <i># instead of cvs COMMAND</i>
+</pre></blockquote>
+
+
+<hr>
+<i>Jason Eisner</i>
+</body></html>

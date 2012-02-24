@@ -1,0 +1,53 @@
+# Cute hack used by the metaval script.
+# 
+# The file named by META (which should be passed in) 
+# is a makefile that is only used to define variable values.
+# It gets to use all the usual recursive expansions, string functions, 
+# verbatim definitions with define/endef, etc.  $ must be written as $$.
+#
+# To print all var/val pairs (tab separated), one per line:
+#    make META=meta                # prints the values of all variables
+#    make META=meta LISTALL        # synonym
+#
+# To print just the values of just abbrev and year, one per line:
+#    make META=meta abbrev year
+#
+# Same thing, but print var/val pairs:
+#    make META=meta SHOWVARS=1 abbrev year
+#
+# Multiline values (via define/endef) will be printed using a
+# line-final \ at the end of every line before the last.
+#
+# You should probably use the --warn-undefined-variables flag to make.
+
+ifndef META
+#$(error Please define META from outside.)
+endif
+
+NULLSTRING :=# empty string
+SPACE := $(NULLSTRING) # single space
+define NEWLINE
+
+
+endef
+
+OLDVARS := $(filter-out INPUTTEXT,$(.VARIABLES))
+include $(META)   
+VARS := $(filter-out $(OLDVARS) OLDVARS,$(.VARIABLES))
+
+LISTALL: $(VARS)
+LISTALL: SHOWVARS=1
+
+$(VARS):
+# Print varname if we're supposed to.
+	@echo -n $(if $(SHOWVARS),'$@	')
+# Old way to print value.  Newline is encoded as \n, and \ as \\.
+# We are careful to escape ' before passing it to the shell.
+	@#echo '$(subst ','\'',$(subst $(NEWLINE),\n,$(subst \,\\,$($@))))'
+# New way to print value: here we really do print multiple lines,
+# with all but the last ending in a \.
+# Make doesn't let us pass a multi-line echo command to the shell, so we 
+# use multiple single-line echo commands: replace \ with \B, space with \S, 
+# newline with \$(SPACE). Then use foreach to iterate over 
+# the space-separated words, transforming back the \B and \S as we echo each one.
+	@$(foreach line,$(subst $(NEWLINE),\$(SPACE),$(subst $(SPACE),\S,$(subst \,\B,$($@)))),@echo '$(subst ','\'',$(subst \B,\,$(subst \S,$(SPACE),$(line))))'$(NEWLINE))

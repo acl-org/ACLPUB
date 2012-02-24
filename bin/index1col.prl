@@ -1,0 +1,53 @@
+#!/usr/bin/perl
+
+# *** THIS FILE IS NO LONGER USED ***
+# ACL proceedings through 2004 used this to generate an author index.
+# We now use the standard latex method, which has a somewhat different
+# look (not necessarily preferable) and makes hyperlinks easy.
+
+$curpage = 1;
+
+$fn = "$ENV{ACLPUB}/templates/index1col.tex.head";
+open(FILE,$fn) || die "Can't open $fn: $!\n";
+while(<FILE>) {
+  printf("%s",$_);
+}
+printf("\n");
+
+while(<STDIN>) {
+   chop;
+   $line=$_;
+
+   if ($line =~ /^T:/) {
+      $num_authors = 0;
+   }
+   elsif ($line =~ /^A:/) {
+      $line =~ s/^A: //;
+      $authors{$line} = $authors{$line} .  $curpage . ", ";
+   }
+   elsif ($line =~ /^L:/) {
+      $line =~ s/^L: //;
+      $paplength = $line;
+      $curpage += $paplength; 
+   }
+}
+
+
+while (($author, $pages) = each %authors) {
+  $pages =~ s/,[ ]*$//;
+  $sauthor = $author;
+  $sauthor =~ s/[^a-zA-Z ]//g;
+  $sauthor =~ tr/a-z/A-Z/;
+  $author_array[$i++] = $sauthor . "#" . $author . "\\dotfill " . $pages;
+}
+
+@sorted_author = sort @author_array;
+
+for($i = 0; $i <= $#sorted_author; $i++) {
+  $sa = $sorted_author[$i];
+  $sa =~ s/.*#//;
+  printf("%s\\\\\n",$sa);
+}
+
+
+printf("\\end{document}\n");

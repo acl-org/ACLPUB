@@ -1,0 +1,32 @@
+See the README file in the parent directory for general information.
+
+This is the doc subdirectory for the aclpub package.
+It contains information for three types of people:
+
+* The publications chair, who is responsible for coordinating all
+  publishing activities for a conference and its associated
+  workshops.  Usually this consists of many "books," one for each
+  of the following:
+
+  1. main conference
+  2. student session
+  3. session for short papers, posters, and/or demos
+  4. tutorial abstracts
+  5. EACH co-located workshop or conference
+
+  The books must be printed, turned into a CD-ROM, delivered to
+  the ACL Anthology, etc.
+
+* A book chair -- e.g., the program chair of a single workshop, who is
+  responsible for producing and proofreading the book for that
+  workshop.
+
+  Each book contains various front matter (including a program), a
+  collection of papers, and an index.  It is produced in print and
+  electronic formats using the aclpub package.  The relevant files are
+  then sent to the publications chair.
+
+* An individual author, who must submit camera-ready copy for an
+  accepted paper.  An author is not expected to use the aclpub
+  package, but he or she must be instructed on how to make
+  an appropriate PDF file and submit it to the book chair.

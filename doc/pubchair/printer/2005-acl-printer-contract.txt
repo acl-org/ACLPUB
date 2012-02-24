@@ -1,0 +1,84 @@
+From: jason
+Subject: Re: Fwd: URGENT: need costs
+To: radev@umich.edu
+Cc: knight@isi.edu, pkoehn@inf.ed.ac.uk
+Date: Mon Apr 11 12:09:26 2005
+
+> This document seems to reflect the one-volume-per-workshop-day
+> format. Is this what you decided to do?
+
+No, but naturally Philipp asked Omnipress to price out that option
+before we discussed it with everyone else.  That's why it's in the
+document.  But the discussion seemed to bring up more worries than
+enthusiasm, so we're going to stick to the tried-and-true format.
+
+(Philipp has also replied.)
+
+jason
+
+From: pkoehn@inf.ed.ac.uk
+Subject: Re: Fwd: URGENT: need costs
+To: radev@umich.edu
+Cc: Jason Eisner <jason@cs.jhu.edu>, knight@isi.edu
+Date: Mon, 11 Apr 2005 17:03:39 +0100
+
+Hi Drago,
+
+this is not exactly right. The proposal has both options listed
+-- the 800 page / 500 copies option for $9,790 and the
+80 page / 50 copies option for $755.
+
+I guess the current state of discussion is to go with one
+proceeding per workshop.
+
+Costs then depends on how many workshops
+actually take place, how many attendants per workshop, how many
+pages per workshop. But as I stated earlier the cost for
+workshop proceedings will be pretty much number_of_workshops times $755.
+
+Greetings,
+Philipp
+
+Quoting radev@umich.edu:
+
+> This document seems to reflect the one-volume-per-workshop-day
+> format. Is this what you decided to do?
+
+
+From: Jodi Ray <jray@omnipress.com>
+Subject: re[2]: 2005 Conference Materials- Omnipress Proposal
+To: Jason Eisner <jason@cs.jhu.edu>
+cc: Philipp Koehn <pkoehn@inf.ed.ac.uk>, Priscilla Rasmussen <acl@aclweb.org>
+Date: Thu, 17 Mar 2005 11:55:47 -0600
+Organization: OMNIPRESS
+
+ Hi Jason,
+
+I appreciate your thoughts.
+
+1) Yes, the per unit price on the 800 page, 500 quantity 
+[was miscalculated and is not $9.79 but] $19.58. 
+
+2) Regarding the 500 quantity for the combined Workshop Proceedings, just
+let me know what looks realistic and I can revise it.  That quantity was
+used just as a rough idea for conceptual planning.
+
+3) An 800 page book will weigh roughly 4 pounds.
+
+4) I like the idea of putting combining the Workshop Proceedings into 2
+volumes with different quantities.  I can work up pricing for this option.
+Please share the estimate quantity for the 500 and the 300 page books.
+
+5) Looking at the Spring 2004 HLT-NAACL Workshops with 8 books, the
+average is 102 pages.
+
+6) Now if I shared our magic formula you wouldn't need me! :)  Actually,
+there is a lot that goes into the entire price so it is not easy or
+possible to share any type of formula.  So you can just let me know the
+specifications and I'll do the work for you.
+
+Thank you Jason!
+
+Best Regards,
+
+Jodi

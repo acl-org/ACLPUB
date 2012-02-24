@@ -1,0 +1,111 @@
+Report of COLING/ACL 2006 Publications Chair
+
+
+As the publications chair for this conference, 
+I have directly benefitted from the hard work of the 
+previous publications chairs Jason Eisner and Philipp 
+Koehn, who have prepared a set of excellent tools which, 
+when used in combination with data from START, streamline 
+the publication process considerably.  I have made certain 
+adjustments to the scripts and various templates to 
+customize them for A4 size and with appropriate headers 
+to suit this year's conference.  
+
+1. Main conference publications
+
+The printing of main conference proceedings is different 
+this year.  As we step forward to protect our environment, 
+we are moving away from hardcopies.  Participants do not get 
+hardcopy proceedings, unless they explicity request during 
+registration and pay extra for them.  It turned out that out 
+of 600+ pre-registered participants, only 100+ had opted for 
+them.  The demand for the printed companion volume was even less, 
+and considering the budget, it was finally decided not to print 
+hardcopies of the companion volume.
+
+2. Workshop publications
+
+All 16 workshops have printed proceedings.  The publication 
+tools were distributed to the workshop organisers in advance.  
+They were responsible to assemble their own volumes, for which 
+I had done some overall final editing and proofreading to fit 
+everything harmoniously together.
+
+All proceedings covers were designed by the local organizing committee.
+
+3. CDROM
+
+All papers in the main conference and workshops are available 
+on CDROM, which are distributed to all participants.  We have 
+only included pdf files this time as we have a lot of papers 
+and it happened that the ps files alone had almost taken up 
+the full capacity of a CD.  Moreover, the conversion of files 
+from pdf to ps had not been smooth at all (see technical 
+issues below).
+
+All papers are also expected to be available at the ACL 
+Anthology by the time of the conference.
+
+4. Technical issues
+
+(a) Deviant paper formatting (e.g. paper size, font 
+embedding, etc.) has always been a problem, and it is no
+ exception this time.  About one-third of the main conference
+  papers and posters were incorrectly sized, although it has
+   been emphasised again and again that A4 size is required.
+     I had to ask those authors to re-submit a correctly 
+     sized version.
+
+(b) The font-embedding problem had been a frustrating one.
+  Nimbus fonts cannot be retained when using pdflatex to 
+  concatenate individual pdf files.  As my system did not 
+  seem to have tetex-3.0, I had to find work-arounds by 
+  manipulating the font files and the font-mapping files.
+
+(c) The conversion of the pdf files to ps files was not smooth.  
+Workshop organisers had reported problems of various kinds using 
+acroread for the conversion, such as missing pages.  I myself also 
+experienced unpredictable behaviour of the conversion of papers with 
+Asian fonts, not only with acroread but also with pdf2ps.  
+It seems Acrobat Professional is more reliable but it works on 
+windows.
+
+(d) The publication tools/scripts are unix/linux-based.  Several 
+workshop organisers do not use unix and therefore have problems 
+running the scripts to assemble their workshop proceedings.  I had 
+asked them to supply the necessary materials (e.g. frontmatters, 
+paper ordering, etc.)  and run the scripts, and let them proofread 
+the product.
+
+(e) The most unexpected hiccup, after all, comes from the printing 
+house in the last minute.  Although they managed to solve the problem
+ by changing to some more tolerant printers (as they called them), 
+ they had to ask the local organisers to proofread the printouts.  
+ Thanks to Robert Dale and his team for doing this extra work in the 
+ last minute.
+
+5. Suggestions and discussions
+
+(a) It might be better to ask authors to submit all source files, ps, 
+pdf of the final papers, in case the publications chair needs a quick 
+fix to formatting problems, and it saves the risky process of converting
+ pdf to ps.
+
+(b) We should consider whether we will go on to print hardcopy proceedings
+ in future conferences.  The problem this year is we could not decide on
+  the quantity until very late, after the early registration period.  
+  This introduced uncertainty in the publication process.
+
+(c) I wish to re-echo the suggestion made by Jason and Philipp last year
+ for centralized computing.  It is important to make sure the up-to-date 
+ and correctly configured and mutually compatible software needed to run 
+ the scripts are available, for the publication process to go smoothly.  
+ The publications chair and the workshop organisers should have access to
+  them.
+
+(d) Early communications with the printing house is apparently important.  
+Obviously what can be printed on simple office printers is not necessarily
+ printable elsewhere.
+
+Olivia Kwong
+July 2006

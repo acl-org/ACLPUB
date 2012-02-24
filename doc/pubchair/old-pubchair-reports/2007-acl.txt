@@ -1,0 +1,83 @@
+Report of ACL 2007 Publications Chair
+
+
+
+As the publications chair for this conference, I have used the 
+publication tool ACL PUB built by ACL2005 publications chairs Jason 
+Eisner and Philipp Koehn. 
+
+
+1. Main conference publications 
+
+
+Same CoLing/ACL 06, participants do not get hardcopy proceedings, unless 
+they explicity request during registration and pay extra for them. On 
+the other hand, we do prepare the printed companion volume, as Priscilla 
+find it hard to sell the proceedings to libraries and others 
+post-conference and then have to explain why they are not getting the full 2-
+volume set. Also it does form part of the written record of the conference.
+
+
+A tool has been given to Start to integrate to take away the author ID 
+information, which could be ready for the next meeting. 
+
+
+2. Workshop publications
+
+
+All 16 workshops have printed proceedings.  Besides ACL PUB, a dummy 
+data set was also created and distributed to the other book chairs, 
+basically the organizers of WS, P&D, SRW, collocated conference in 
+advance, so that they could have a dryrun to avoid the last minute 
+panic. They've been given further messages on how to assemble the 
+proceeding, feedback on their proceeding issues after the proofreading.
+
+
+
+All proceedings covers were designed by the local organizing committee.
+
+
+3. CDROM
+
+
+All papers in the main conference and workshops are available on CDROM,
+which are distributed to all participants. This time it appears only 
+EMNLP-CoNLL encounter problem on converting pdf to ps, which could be
+solved finally. If no more issue appears on the conversion to ps files, 
+we might still keep to ps files to make it easier to the unix users.  
+
+
+All papers are also expected to be available at the ACL Anthology by the 
+time if not earlier of the conference.
+
+
+4. Technical issues
+
+
+Deviant paper formatting (e.g. paper size, font embedding, etc.) has 
+always been a problem, and it is no exception this time.  99 out of 131 
+papers have been communicated with the authors to make the necessary 
+ammendaments. Among which about 26 papers used A4 instead of Letter 
+sized required, although it has been emphasised again and again that 
+Letter size is required.  
+
+
+
+The similar thing happens to almost all the other proceedings as well. 
+      
+
+5. Suggestions and discussions
+
+
+(1)It'll be good to make the report of the previous years' publication 
+chair available to the current one. So that he or she could benefit from 
+the experience. This might be extended to the other book chairs as well. 
+
+
+(2)It needs to remind the other book chairs in advance that they're 
+responsible to the quality of their proceedings. Some of them tends to 
+overlook the paper formatting issues totally.  
+
+
+Su Jian
+June 2007

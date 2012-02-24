@@ -1,0 +1,51 @@
+This is the aclpub package.
+Please see the doc subdirectory for documentation.
+
+HISTORY
+-------
+The aclpub package and documentation were built in 2005 by 
+Jason Eisner and Philipp Koehn, based in part on scripts by David
+Yarowsky that had been used for several years previously.
+
+Use the "cvs log" command to see what changes have been made since then.
+Please feel free to make further improvements.  
+
+ANONYMOUS CHECKOUT
+------------------
+Anyone can check out the latest version anonymously as follows:
+   cvs -d :pserver:anoncvs@ftp.clsp.jhu.edu:/aclpub checkout aclpub
+ 
+MAINTAINING THE CODE, DOCUMENTATION, TEMPLATES, AND STYLE FILES
+---------------------------------------------------------------
+Publication chairs and other interested users are expected to improve 
+the aclpub package for themselves and future users.  
+
+Simply modify your own checked-out copy of the package, and commit
+those changes back into the CVS repository as appropriate.
+
+To do this, you must obtain a username and password by emailing
+   Jason Eisner <jason at cs dot jhu dot edu>
+and including "aclpub" in the subject line.  
+
+Then specify your password once via
+  cvs -d :pserver:USERNAME@ftp.clsp.jhu.edu:/aclpub login
+This will record password information in ~/.cvspass.
+
+Thereafter, you can run commands that interact with the repository via
+  cvs -d :pserver:USERNAME@ftp.clsp.jhu.edu:/aclpub <command>
+where <command> is something like "checkout aclpub", "update", "commit", 
+or "help".
+
+NOTE: 
+
+If you want to simplify the above to
+  cvs <command>
+then just set an environment variable in your shell startup file:
+  export CVSROOT=:pserver:USERNAME@ftp.clsp.jhu.edu:/aclpub
+Alternatively, you could simplify to
+  aclcvs <command>
+by defining a shell alias:
+  alias aclcvs='cvs -d :pserver:USERNAME@ftp.clsp.jhu.edu:/aclpub'
+
+We would have preferred to use Subversion instead of CVS, but on many
+systems only CVS is installed by default.  We could switch over in future.

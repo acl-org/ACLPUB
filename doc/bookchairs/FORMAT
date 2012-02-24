@@ -1,0 +1,134 @@
+
+Below is the format to use for a very simple flat author/title 
+database that can be used by perl scripts to generate multiple
+tables of content and indexes, both for the hard-copy proceedings
+and the CDROM.
+
+Using a standard database for everything can save time and
+reduce typographical errors.
+
+
+EXAMPLE OF DATABASE ENTRY (MORE EXAMPLES BELOW):
+-----------------------------------------------
+
+  P: 1
+  T: Headline Generation Based on Statistical Translation 
+  A: Banko, Michele
+  A: Mittal, Vibhu O.
+  A: Witbrock, Michael J.
+  H: 12:10-12:30
+  F: banko.pdf
+  L: 8
+
+
+FORMAT FOR TITLE/AUTHOR DATABASE:
+--------------------------------
+
+P or ID: Paper ID Number - REQUIRED
+    The ID number assigned in the reviewing process.
+
+T: Title (in desired case).   REQUIRED
+       - Include \\ if/where linebreak is needed.
+
+A: Author (family name, personal name(s))   
+      - list in order given on paper
+      - Do not include \\ for linebreaks. Direct editing is necessary for 
+            cases of long author lists with strange linebreaks.
+      - at least 1 required
+
+H: Hours of presentation (for inclusion on program) - OPTIONAL
+        For example,    H: 11:30-11:50
+
+F: PDF Filename for inclusion on CDROM - OPTIONAL NOW, REQUIRED BY SEPT 8.
+     (This is the actual PDF filename for each paper on the CDROM.
+       We *need* this information to create a correct index for
+        the CDROM. This is the major reason why we need a database
+        created in this format.)
+    The last name of the first author is suggested (e.g. banko.pdf),
+    with numbers to distinguish names with multiple occurrences
+    (e.g. chen.pdf, chen2.pdf, chen3.pdf). 
+
+L: Paper Length (in pages) - REQUIRED
+
+     (do not give the starting pages - this will be computed
+      automatically by summing up paper lengths.)
+
+SP: Starting Page Number - OPTIONAL and NOT CURRENTLY SUPPORTED
+
+    This is computed automatically from the sum of paper lengths,
+    but may be worth including as a sanity check
+
+I: Institution - OPTIONAL and NOT CURRENTLY SUPPORTED
+
+     If you wish to add a person's institution to any of the
+     output files then you will need to modify the Perl programs
+     to accommodate this field.
+
+C: Copyright Signature - OPTIONAL
+
+     When generated from START data, this entry will contain
+     the signature of the submitter when approving the release
+     of the copyright.
+
+M: Offset - OPTIONAL
+
+     Correction to the position of the paper when included in the
+     proceedings. The changes are x-axis change and y-axis change
+     in millimeter. The x-axis change is not implemented.
+
+X: Additional Program Information
+
+     This is not part of a paper record, but has to be placed
+     in a separate block. 
+
+Please separate papers by a single blank line.
+
+
+==================================================================
+EXAMPLES:
+
+X: * Sunday, June 26, 2005
+
+X: + 8:45--9:00 Opening
+
+X: + 9:00--10:00 Invited Talk by Justine Cassell
+
+X: + 10:00--10:30 Break
+
+X: = Session M1R: Machine Learning and Statistical Models
+
+P: 215
+T: A High-Performance Semi-Supervised Learning Method for Text Chunking
+A: Ando, Rie
+A: Zhang, Tong
+F: final/215/215_Paper.pdf
+L: 9
+H: 10:30--11:00
+C: Rie Ando
+M: 0 6
+
+P: 304
+T: Scaling Conditional Random Fields Using Error-Correcting Codes
+A: Cohn, Trevor
+A: Smith, Andrew
+A: Osborne, Miles
+F: final/304/304_Paper.pdf
+L: 8
+H: 11:00--11:30
+C: Trevor Cohn
+M: 0 6
+
+P: 382
+T: Logarithmic Opinion Pools for Conditional Random Fields
+A: Smith, Andrew
+A: Cohn, Trevor
+A: Osborne, Miles
+F: final/382/382_Paper.pdf
+L: 8
+H: 11:30--12:00
+C: Andrew Smith
+M: 0 6
+
+
+
+==================================================================

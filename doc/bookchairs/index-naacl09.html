@@ -1,0 +1,875 @@
+<html><head><title>ACLPUB HOWTO: Putting Together an ACL Proceedings Volume</title></head><body>
+
+<h2>ACLPUB HOWTO: Putting Together an ACL Proceedings Volume</h2>
+
+<h3>Who Should Read This Document</h3>
+
+<p>This guide to the <code>aclpub</code> software will help you create
+a single proceedings volume for an ACL-affiliated conference.
+Presumably, you are one of the following:</p>
+
+<ul>
+  <li>the program chair of a workshop
+  <li>the program chair of the short paper, poster, and/or demo session
+  <li>the publications chair of the overall conference (who
+  traditionally assembles the main proceedings)
+</ul>
+
+<p>In short, you are a "book chair."  This document will assume that
+you are specifically the program chair of a workshop, since most
+workshops are run like this.</p>
+
+<p><font size=-1><i>Note:</i> For our purposes, the student research workshop and
+the short paper session are considered to be separate logical books,
+even though they may be physically bound together (along with tutorial
+program info) into a single "companion volume."</font></p>
+
+<p><font size=-1><i>Note:</i>There is an additional HOWTO aimed at the
+publications chair of the overall conference.</font></p>
+
+<h3>Overview</h3>
+
+<p>We have tried to automate the process as much as possible.
+However, it still requires manual input.  You should allocate 2-3
+hours for this process.  <b>The final look of your proceedings is your
+responsibility!</b></p>
+
+<p>By following these instructions, you will produce the
+following:</p>
+
+<ul>
+  <li><p>a single <code>book.pdf</code> file that contains your entire
+  proceedings volume.  The volume will then be professionally printed
+  and also distributed as a PDF file on the conference CD-ROM.  It is
+  meant to look good both when printed and when viewed in a browser onscreen during
+  the conference.</p>
+
+  <p>In brief, the scripts use the LaTeX <code>pdfpages</code> package
+  to combine all the papers plus front matter (title pages, tables of contents, etc.)
+  into a single PDF file.
+  Page numbers and citation/copyright information are automatically
+  "stamped" onto the included papers.  Papers with incorrect margins are
+  shifted vertically at your discretion.  The workshop program, the
+  table of contents, and the author index are produced almost
+  automatically and contain clickable hyperlinks for the reader's
+  convenience.</p>
+
+  <li><p>a <code>spine.ps</code> file for the binding of the printed
+  volume.
+
+  <li><p>a <code>cdrom</code> directory that will be included on the
+  conference CD-ROM.  This contains HTML web pages, modfied PDF and
+  PostScript versions of the individual papers, and BibTeX
+  bibliography entries.</p>
+
+  <li><p>a <code>copyright-signatures</code> file with electronic
+  signatures from the authors.  This will be sent to the ACL main
+  office.</p>
+
+  <li><p>an <code>advertisement.html</code> webpage that you, or 
+  the conference webmaster, can use to advertise your program in
+  advance.</p>
+
+  <li><p>a few auxiliary data files that will be used again by the
+  publications chair to produce other material for the CD-ROM (e.g.,
+  a consolidated <a
+  href="http://www.essex.ac.uk/linguistics/research/clgroup/aclbib/">BibTeX
+  database</a> and a consolidated author index)
+  and the online <a href="http://www.aclweb.org/anthology">ACL
+  Anthology</a>.</p>
+  
+</ul>
+
+<p>Here is a gratuitous flowchart to illustrate the process.  You will
+be using a makefile that knows all about this flowchart and will
+rebuild files whenever necessary.</p>
+
+<p><img src="HOWTO.png"></p>
+
+<h3>Who's Responsible</h3>
+
+<ul>
+  <li><p><b>If you have trouble figuring out how to use the
+scripts,</b> ask the publications chair for help.</p>
+
+  <li><p><b>If you think there is something wrong with the scripts, or have
+  constructive comments,</b> email the publications chairs.</p>
+  
+  <li><p><b>If you want to improve the scripts or documentation</b>, you can
+  check changes into the CVS repository.  (Contact Jason Eisner for CVS write access.)</p>
+</ul>
+  
+<p><i>Acknowledgments:</i> The aclpub package and documentation were
+built in 2005 by Jason Eisner and Philipp Koehn, based in part on
+scripts by David Yarowsky that had been used for several years
+previously.</p>
+
+<h3>Get Software</h3>
+
+<p>You'll want to use a Unix or Cygwin machine that offers all the
+"usual" Unix commands, including CVS, GNU make, and a not-too-old <A
+HREF="http://www.tug.org/teTeX">TeX distribution</A> that includes the
+<A
+HREF="http://www.ctan.org/tex-archive/macros/latex/contrib/pdfpages/">pdfpages
+package</A>.</p>
+<p>You'll also want to install the <a href="http://www.foolabs.com/xpdf/download.html">xpdf package</a> in order to have the tool pdftops.</p>
+<p>First go to your home directory and grab the latest version of the
+software.  This will create a directory <code>~/aclpub</code>:</p>
+
+<blockquote><pre>
+cvs -d :pserver:anoncvs@ftp.clsp.jhu.edu:/aclpub checkout aclpub
+</pre></blockquote>
+
+<font size=-1><p>If you'd rather put the software somewhere else, go
+ahead.  Just set the <code>ACLPUB</code> environment variable to the
+directory where you put it:</p>
+
+<blockquote><pre>
+export ACLPUB=~/editing/myworkshop/aclpub   <i># in sh or bash</i>
+setenv ACLPUB ~/editing/myworkshop/aclpub   <i># in csh or tcsh</i>
+</pre></blockquote>
+To check whether you're running bash or tcsh, run <pre>echo $0</pre> (that's a zero, not the letter O).
+</font>
+<h3>Set Up Working Directory</h3>
+
+<p>Create a directory somewhere, called <code>proceedings</code>.
+You will do all your work in this directory.  Eventually, you'll
+send a copy of this directory to the publications chair.</p>
+
+<p><i>Copy</i> the file <code>.../aclpub/make/Makefile_bookchair</code>
+to <code>.../proceedings/Makefile</code>.</p>
+
+<p>Depending on how your system is configured, you may soon get a
+message asking you to install some less common Perl modules.  If you
+would like to check for this message now, type the following:
+
+<blockquote><pre>
+make perl-modules
+</pre></blockquote>
+
+If you don't get any instructions, your system is okay.  If you do,
+following these instructions will result in the download and
+installation of the necessary Perl models (Text::PDF, and Compress:Zlib, which
+it depends on).  You can choose to install these system-wide, or in the local
+directory.  If you install then in the local directory, make sure to set
+the PERL5LIB environment variable to include the <b>lib</b> directories for
+each package:
+
+<blockquote><pre>
+export PERL5LIB=<i>pathto</i>/Compress-Zlib-1.34/lib:<i>pathto</i>/Text-PDF-0.29/lib:$PERL5LIB   <i># in sh or bash</i>
+setenv PERL5LIB <i>pathto</i>/Compress-Zlib-1.34/lib:<i>pathto</i>/Text-PDF-0.29/lib:$PERL5LIB   <i># in tcsh</i>
+</pre></blockquote>
+
+<h3>Get Data from START</h3>
+
+<p>Assuming you used START to collect camera-ready copy, now you'll
+want to get the camera-ready PDF files and metadata provided by your
+authors.</p>
+
+<ul>
+  <li>Use your web browser to go to the START Manager Console.
+  </li><li>Choose the option "Final Manuscripts / Monitor Final
+  Submissions." Download the submissions (a tarball of
+  PDF files) and save it as
+<code>.../proceedings/final.tgz</code>.</li> </ul>
+
+<p>The tarball will soon be unpacked into a directory called
+<code>final</code>.  (Type <code>make final</code> if you want to make
+that happen now.)  If your authors upload any changes to START after
+this step, you can either download a new tarball or else make manual
+changes in the <code>final</code> directory.</p>
+
+<h3>Check Copyright Signatures</h3>
+
+<p>Your first job is to check that your authors signed their copyright
+forms via START.  To create the <code>copyright-signatures</code>
+file, type</p>
+
+<blockquote><pre>
+make copyright-signatures
+</pre></blockquote>
+
+<p>DO NOT EDIT THIS FILE; it is a legal record.  Please review it ASAP
+to make sure that appropriate signatures have been provided for all
+papers.  Then email it to the publications chair, pointing out any
+papers with missing or inappropriate signatures (e.g., "Mickey
+Mouse").  You or the publications chair will need to extract <a
+href="http://www.aclweb.org/acl2005/pubs/copyright">hardcopy
+signatures</a> from those papers' authors in time for their papers to
+be included.</p>
+
+<p>If you did not use START to gather the papers, you will need to get
+hardcopy forms from your authors.  See our <a
+href="http://www.aclweb.org/acl2005/pubs/copyright">copyright
+webpage</a> and contact the publications chairs.</p>
+
+<h3>Create Metadata</h3>
+
+<p>Almost all the data about the papers will be maintained in a file
+called <code>db</code> (for "database").  To create a first version
+from the information in the <code>final</code> directory, type:</p><p>
+
+</p><blockquote><pre>
+make db
+</pre></blockquote>
+
+<p>You will be editing the <code>db</code> file below, so take a look.
+(Here is a description of its <a
+href="http://www.iccs.inf.ed.ac.uk/%7Epkoehn/pubchair-acl05/FORMAT">FORMAT</a>.)
+Entries are separated by blank lines.  Make sure that the filename lines do
+not have trailing whitespace. The first entry for the ACL
+2005 main proceedings looks like this:</p>
+
+<blockquote><pre>
+P: 7                                                                  <i># submission ID of this paper</i>
+T: Coarse-to-fine n-best parsing and MaxEnt discriminative reranking  <i># title</i>
+A: Charniak, Eugene                                                   <i># author</i>
+A: Johnson, Mark                                                      <i># another author</i>
+F: final/7/7_paper.pdf                                                <i># filename of PDF file</i>
+L: 8                                                                  <i># length in pages</i>
+</pre></blockquote>
+
+<p>If you did not use START to gather the papers and the metadata,
+then you have to manually create a directory of the camera-ready PDF
+papers, called <code>final</code>.  The PDF filenames do not need to
+have the form <code>final/7/7_paper.pdf</code>; for example, you could
+use <code>final/charniak-johnson.pdf</code> if you prefer.  You must
+also create a <code>db</code> file of metadata in the above format.
+Required fields in the <code>db</code> file are P:, T:, A:, F:, and
+L:.</p>
+
+<p>If you did use START, but want to add additional papers (invited talk
+abstracts, shared task descriptions, ...), then you can add entries
+to the <code>db</code> file similarly.</p>
+
+<p><font color="magenta">At present, each <code>db</code> entry including
+the last must be <i>followed</i> by a <i>single</i> blank line.</font></p>
+
+<p><font color="magenta">Make sure to get the <code>L:</code> fields
+right.  At present, the <code>L:</code> field in a <code>db</code>
+entry is only checked against the actual paper length when and if the
+entry is created from START metadata.  You will not get a second
+warning if you don't fix it, or fix it incorrectly, or create the
+<code>db</code> file manually without help from START.</font></p>
+
+<h3>Get Rough Cut</h3>
+
+<p>The following command extracts the first two pages from
+each paper and adds margin markings and generates a first
+rough cut of the proceedings, <code>book.pdf</code>:</p>
+
+<blockquote><pre>
+make draft
+</pre></blockquote>
+
+<p>As a convenience, the following command will update
+<code>book.pdf</code> <i>and</i> fire up Acrobat:
+
+<blockquote><pre>
+make view
+</pre></blockquote>
+
+<p>The rough cut is not a full volume yet (e.g., no author index,
+and only the first couple of pages of each paper will be present).
+But it will reveal a number of potential problems in the automatically
+produced <code>db</code> file or the submitted PDF files.</p>
+
+<p>It is possible that your system won't be able to make
+<code>book.pdf</code> if your version of <code>pdflatex</code> and
+<code>pdfpages</code> is too old.  For example, you may get a message
+that it cannot handle some submitted file that is PDF version 1.5.
+You could (1) upgrade your software, (2) run on a machine with more
+recent software, or (3) ask the author to send you the source
+<code>.tex</code> of the submitted file so that you can run it through
+your older version of <code>pdflatex</code> yourself, producing a PDF
+version 1.4 file.</p>
+
+<h3>Use Rough Cut to Check and Fix the PDF files</h3>
+
+<p>Flip through the rough cut.  Do all the fonts in the papers display
+and print correctly?  If not, you will need to ask the author to email
+you a corrected version of the PDF file. 
+<p>
+
+<p>The publications chair has probably put up a webpage with
+instructions for authors, based on the version at
+<code>.../aclpub/doc/authors</code>.  Remind the author to consult
+that page.</p>
+
+<p>You can substitute the author's corrected PDF file for the bad
+version in the <code>final</code> directory.  If the length, title, or
+author list has changed for some reason, you will have to edit or
+recreate the <code>db</code> file as well.</p>
+
+<p>Also ask the author for the LaTeX or Word sources, so that you can
+produce the corrected PDF file yourself on your machine, if
+necessary.</p>
+
+There are three common problems:<p></p>
+
+<ul>
+  <li><p>The paper uses the wrong overall font.  Typically, the
+author didn't start his or her LaTeX file with</p>
+  <blockquote>
+    <pre>
+\documentclass[11pt]{article}
+\usepackage{times}</pre>
+  </blockquote>
+  </li>
+  
+  <li>
+    <p>Asian fonts don't display correctly or cause the PDF viewer
+  to report an error.  In this case, the author will need to produce a
+  new version of the
+  PDF file, with Asian fonts embedded.<br>
+  <br>
+  As an aid to detecting papers that have not correctly embedded Asian fonts, you can use the &quot;make cdrom&quot; command. One aspect of this process is the production of the cdrom/ps directory. As pdf files are converted to ps format and placed in that directory, diagnostic messages regarding fonts will be generated by the pdftops command.<br>
+  <br>
+  In particular the following warnings may appear when processing papers by authors from Japan:<br>
+  <br>
+  <font face="Courier New, Courier, monospace">Error: Unknown character collection 'Adobe-Japan1'<br>
+  Error: Couldn't find a font to substitute for 'Ryumin-Light-Identity-H' ('Adobe-Japan1' character collection)<br>
+  Error: Couldn't find a font to substitute for 'GothicBBB-Medium-Identity-H' ('Adobe-Japan1' character collection)</font></p>
+    <p>Also, the following warnings may appear when processing papers by authors from China:<br>
+      <br>
+      <font face="Courier New, Courier, monospace">Error: Unknown character collection 'Adobe-GB1'<br>
+      Error: Couldn't find 'GBK-EUC-H' CMap file for 'Adobe-GB1' collection<br>
+      Error: Unknown CMap 'GBK-EUC-H' for character collection 'Adobe-GB1'<br>
+      Error: Unknown font tag 'F1' </font></p>
+  </li>
+  
+  <li>
+    <p>A paper's individual camera-ready PDF file looks okay when
+  viewed alone, but when it appears as part of <code>book.pdf</code>,
+  there is too much space between the letters.</p>
+
+  <p>We are not sure why this occasionally happens.  But we suspect that
+  it is a problem with embedded fonts.  The solution is to recreate
+  the paper's PDF file with a more up-to-date version of
+  <code>pdflatex</code>.</p>
+  </li>
+
+  <li><p>Very occasionally, a bad paper may cause
+  acroread to crash.  Try to isolate the bad paper by viewing
+  the individually submitted PDF files in the <code>final</code>
+  directory, and contact the author.</p>
+  </li>
+</ul>
+
+<h3>Use Rough Cut to Check and Fix the <code>db</code> File</h3>
+
+<p>Now you will check that the metadata in the <code>db</code> are
+correct and correctly formatted.</p>
+
+<ul>
+  <li><p>Count the papers to make sure you're not missing any (e.g., due to an 
+  author's failure to submit camera-ready copy).</p>
+  
+  </li><li><p>For
+  each paper in the rough cut, check that the <code>db</code> information
+  (which was supplied by the author when submitting the camera-ready paper)
+  really matches the author/title on the actual camera-ready paper.
+  If not, fix the <code>db</code> file.</p>
+  
+  </li><li><p>Each author in the <code>db</code> file should have a separate
+  <code>A:</code> entry.  (<i>Note:</i> the <code>R:</code> entry is for debugging
+  help only.)  Sometimes the splitting of multiple authors into separate
+  authors is faulty and needs to be fixed.</p>
+
+  </li><li><p>Capitalization of authors in the <code>db</code> file
+  should be as in BibTeX.  Example:</p>
+  
+  <blockquote><pre>
+Piet Q. van Oostrum, Jr.
+  </pre></blockquote>
+  
+  </li><li>Check the author index at the end of the rough cut to make
+  sure that you don't have separate entries for "Doe, Jane" and
+  "Doe, J."  That is, if the same author contributed to multiple
+  papers, make sure his or her name is written the same way each
+  time in the <code>db</code> file.</li>
+  
+  <li><p>Capitalization of titles in the <code>db</code> file should
+  be exactly as in BibTeX, since the <code>db</code> file will
+  be used to create public BibTeX files for use by anyone.</p>
+  
+  <p>BibTeX format is designed to provide enough information for
+  BibTeX to use any capitalization style as directed.  The
+  proceedings program and table of contents will use the default
+  BibTeX conventions almost directly.  However, your <code>db</code>
+  file will also be turned into public BibTeX entries that can be
+  used by anyone, with any bibliographic style.</p>
+
+  <p>Example:</p>
+  
+  <blockquote><pre>
+The Good, the Bad, and the Ugly: A Mixed-Case Guide to Capitalization in {BibTeX}
+    </pre></blockquote>
+  
+  <p>Specifically:</p>
+
+  <ul>
+    <li>Always capitalize the first word of the title, and any word
+    following a colon.
+
+    </li><li>Except as above, lowercase the following "little words":
+    articles, prepositions, coordinating conjunctions, and the
+    infinitive marker "to."
+
+    </li><li>Capitalize all content words.  This includes hyphenated words:
+    <code>Mixed-Case</code>.
+    
+    </li><li>If a content word is inherently capitalized and must retain
+    capitalization even in a lowercase style (such as ACL's prescribed style
+    <code>acl.bst</code>), "protect" it by
+    surrounding at least the capital letters with curly braces:
+    <code>{E}nglish</code>, <code>{C}homsky</code>,
+    <code>{IBM}</code>, <code>{CFG}s</code>, <code>{HMM}s</code> (or
+    if you prefer, <code>{English}</code>, <code>{Chomsky}</code>,
+    <code>{IBM}</code>, <code>{CFGs}</code>, <code>{HMMs}</code>).
+
+    </li><li>Use LaTeX math mode where appropriate: <code>An $O(n^2)$
+    Algorithm for $n$-gram Smoothing</code>.
+
+    </li><li>Use <a href="http://www-h.eng.cam.ac.uk/help/tpl/textprocessing/teTeX/latex/latex2e-html/ltx-401.html">LaTeX
+    commands for accents</a>.</li>
+
+  </ul>
+
+  <p><font color="magenta">In future, correcting the bibtex
+  capitalization should be attempted first by a
+  script.  Protected words could be found by simple corpus analysis
+  (e.g., from the submitted papers themselves).</font></p>
+</li>
+
+</ul>
+
+<p><font color=magenta>The <code>db</code> file does not currently
+permit comments.</font></p>
+
+<h3>Use Rough Cut to Check and Adjust Margins</h3>
+
+<p>If you are satisfied with author and title information after making
+appropriate changes in the <code>db</code> file, regenerate the rough
+cut, by again typing</p>
+
+<blockquote><pre>
+make draft           <i># or "make view"</i>
+</pre></blockquote>
+
+<p>The top/bottom margins of the paper are very often wrong.
+Unfortunately we have not yet found an automatic method to fix this.
+However, we have made it relatively easy for you to fix manually.</p>
+
+<p>The rough-cut version of <code>book.pdf</code> includes a margin
+frame and rulers that should make it easy to detect how much each
+paper must be shifted to fit. Each paper is also stamped with its
+submission ID.</p>
+
+<p>Look especially at page 2 of each paper.  If the text doesn't fit
+within the frame, look at the top of the text to see how many
+millimeters it should be moved, and add an <code>M:</code> line for
+the paper into <code>db</code>. The format of the line is</p>
+
+<blockquote><pre>
+M: x-axis-movement y-axis-movement[,more-options]
+</pre></blockquote>
+
+<p>Positive values move up and to the right.  Negative values move
+down and to the left.  For example, if the top of the text is
+<code>14mm</code> below the top of the frame, according to the ruler,
+then enter the values <code>0 14</code>.</p>
+
+Common values are:
+<blockquote><pre>
+M: 0 6
+M: 0 -12
+</pre></blockquote>
+
+<p>Horizontal correction is rarely needed.  In an exceptional case,
+you may need to shrink a page or clip it against a specified bounding
+box or something.  You can do this by appending some options that will
+be passed to the <A
+HREF="http://www.cs.brown.edu/system/software/latex/doc/grfguide.pdf">LaTeX
+includegraphics command</A>, which slurps in the page as a graphical
+object:</p>
+
+<blockquote><pre>
+M: 0 6,scale=0.95
+M: 0 10,bb=0 90 612 792,clip
+</pre></blockquote>
+
+<FONT color=magenta>You should be able to use multiple <code>M:</code>
+lines in order to handle different pages of a paper differently, but
+this isn't implemented yet.</FONT>
+
+<p>After entering the margin movement information, you can regenerate
+the rough cut (just type <code>make draft</code> again) and check that
+everything is at the right place.  Iterate until convergence.</p>
+
+<p><i>Note:</i> If you want the rough cut to include more than 2 pages
+of each paper, look in the <code>Makefile</code> to see where the
+number <code>2</code> was specified.</p>
+
+<h3>Set Schedule (or at least order of papers)</h3>
+
+<p>In an ACL proceedings, papers should be ordered chronologically by
+their time in the program.  This makes the proceedings volume useful
+at the conference itself.</p>
+
+<p>But the scripts you are using simply use the order of the papers in the
+<code>db</code> file.  Therefore, it is necessary to reorder the
+<code>db</code> file chronologically.</p>
+
+<p>We provide another mechanism to help you do this with low risk of
+error.  This mechanism also helps you add special <code>H:</code> and
+<code>X:</code> lines to the <code>db</code> file.  Those lines help
+determine the workshop program that will appear at the front of the
+proceedings.</p>
+
+<p>Your first step is to create a draft <code>order</code> file from
+the current <code>db</code>.  Type</p>
+
+<blockquote><pre>
+make get-order
+</pre></blockquote>
+
+<p>Here (roughly) is the start of the draft <code>order</code> file
+generated for the ACL 2005 main conference:</p>
+
+<blockquote><pre>
+* Wednesday, June 29, 2005
++ 8:45--9:00 Opening Remarks
++ 9:00--10:00 Invited Talk by John Doe
+= Session 1: Important Matters Resolved
+7 10:00--10:30 # Charniak: Coarse-to-fine n-best parsing ...
+20 10:00--10:30 # Liu: Log-linear Models for Word Ali...
+36 10:00--10:30 # Boulis: A Quantitative Analysis of Lex...
+57 10:00--10:30 # Sasaki: Question Answering as Question...
+60 10:00--10:30 # Nivre: Pseudo-Projective Dependency P...
+61 10:00--10:30 # Stevenson: A Semantic Approach to IE Patt...
+62 10:00--10:30 # Hutchinson: Modelling the substitutability...
+</pre></blockquote>
+
+<p>You should manually reorder this file and insert additional
+information about days, sessions, and extra events.  Your final
+<code>order</code> file might begin like this:</p>
+
+<blockquote><pre>
+* Sunday, June 26, 2005
++ 8:45--9:00 Opening
++ 9:00--10:00 Invited Talk by Justine Cassell
++ 10:00--10:30 Break
+= Session M1R: Machine Learning and Statistical Models
+215 10:30--11:00 # Ando: A High-Performance Semi-Superv...
+304 11:00--11:30 # Trevor: Scaling Conditional Random Fie...
+382 11:30--12:00 # Smith: Logarithmic Opinion Pools for ...
+= Session M1M: Word Sense Disambiguation
+228 10:30--11:00 # Curran: Supersense Tagging of Unknown ...
+124 11:00--11:30 # Kohomban: Learning Semantic Classes for ...
+240 11:30--12:00 # Dang: The Role of Semantic Roles in ...
+= Session M1B: Generation
+245 10:30--11:00 # Di Eugenio: Aggregation improves learning:...
+417 11:00--11:30 # Paiva: Empirically-based Control of N...
+305 11:30--12:00 # Soricut: Towards Developing Generation ...
++ 12:00--1:30 Lunch
+= Session Session M2R: Parsing
+403 1:30--2:00 # Matsuzaki: Probabilistic CFG with latent ...
+177 2:00--2:30 # Miyao: Probabilistic disambiguation m...
+65 2:30--3:00 # McDonald: Online Large-Margin Training o...
+60 3:00--3:30 # Nivre: Pseudo-Projective Dependency P...
+</pre></blockquote>
+
+<p>The <code>order</code> file can contain these kinds of lines:</p>
+
+<ul>
+
+  <li><p><b>Comments:</b> Anything following <code>"#"</code> on a line
+  will be ignored by the scripts.  
+  
+
+  </p></li><li><p><b>Scheduled papers:</b> A typical line contains a paper
+  number followed by a timeslot.   (An optional comment indicates
+  the first author and title, for your convenience.)</p>
+  </li>
+  
+  <li><p><b>Unscheduled papers:</b> You may omit a paper's timeslot
+  (e.g., in a poster session where the posters run in parallel).  The
+  paper ID is enough.  Remember that the order of papers in the
+  <code>order</code> file will determine the order in the
+  proceedings.</p></li>
+
+  <li><p><b>Days:</b> At the start of each day of the workshop (even if
+  there is only one day), add a line beginning
+  with <code>*</code> such as:</p>
+  
+  <blockquote><pre>
+* Sunday, June 26, 2005
+  </pre></blockquote>
+  </li>
+
+  <li><p><b>Session titles:</b> The workshop may be broken up into several
+  sessions. For each session title add a line beginning with <code>=</code> such as:</p>
+
+  <blockquote><pre>
+= Session M1R: Machine Learning and Statistical Models
+  </pre></blockquote>
+  </li>
+
+  <li><p><b>Events that do not correspond to papers:</b>
+  Breaks, opening remarks, invited talks, panel discussions, awards,
+  etc.  For each such event, add a line beginning with <code>+</code>
+  such as:</p>
+
+  <blockquote><pre>
++ 9:00--10:00 Invited Talk by Justine Cassell
+  </pre></blockquote>
+
+  <p>The timing of breaks may be coordinated across all the workshops
+  on a given day.  This allows participants from different workshops
+  to mingle over shared snacks.  <b>Please consult the workshops chair
+  when deciding when to place your breaks.</b></p>
+  
+  </li>
+
+</ul>
+
+<p>Once you have edited the <code>order</code> file, you can again try</p>
+
+<blockquote><pre>
+make draft           <i># or "make view"</i>
+</pre></blockquote>
+
+<p>You are free to edit the <code>db</code> and <code>order</code>
+files whenever you want.  The <code>db</code> file still controls the
+look of the proceedings.  However, whenever you change the
+<code>order</code> file, the <code>db</code> file will be rearranged
+to match it, and this in turn will affect the proceedings.  (If the
+<code>order</code> file is inconsistent with the <code>db</code> file,
+you'll get an error message about extra or missing entries.)</p>
+
+<p><b>Warning:</b> Don't be tempted to directly edit the
+<code>H:</code> or <code>X:</code> lines in the <code>db</code> file.
+(Such edits will indeed affect your proceedings, but those lines in
+<code>db</code> will be completely replaced when and if you change
+<code>order</code> again.  <font color=magenta>A safer scheme would make
+<code>db</code> by combining human-editable files
+<code>metadata</code> and <code>order</code>; a human should not edit
+<code>db</code> in place.  This is an easy change and would also
+simplify the makefile.</font>)
+
+<h3>Recreate the Proceedings</h3>
+
+<p>Once you're satisfied with the rough cut, have a look at
+what the final proceedings will look like:</p>
+
+<blockquote><pre>
+make shipout                         <i># create "final" version of book.pdf</i>
+</pre></blockquote>
+
+<p>You can switch between <code>make draft</code> and <code>make
+shipout</code> as often as you like.  The target file is always called
+<code>book.pdf</code>.</p>
+
+<p>For convenience, <code>make book.pdf</code> will update whichever
+version of <code>book.pdf</code> you are currently working with,
+and <code>make view</code> will both update and display it.</p>
+
+<h3>Edit Workshop-Specific Pages</h3>
+
+<p>A number of <code>*.tex</code> files now have to be manually edited
+for workshop-specific information:</p>
+
+<ul>
+
+  <li><p>Edit your workshop title and date in <code>titlepage.tex</code>.
+  This will appear on the title page and the workshop cover.  You can type
+  <code>make titlepage.pdf</code> to see quickly what just 
+  this page will look like.</p></li>
+  
+  <li><p>Add the logos of your sponsors (if you have any) to the start of
+  the proceedings, by editing <code>copyright.tex</code>.  You can type
+  <code>make copyright.pdf</code> to see quickly what just
+  this page will look like.</p></li>
+  
+  <li><p>Add your preface by editing <code>preface.tex</code>.  You can type
+  <code>make preface.pdf</code> to see quickly what just
+  this page will look like.</p></li>
+  
+  <li><p>Add contributors' names by editing <code>organizers.tex</code>.
+  You can type <code>make organizers.pdf</code> to see quickly
+  what just this page will look like.</p></li>
+  
+  <li><p>Fix any ugly page breaks in <code>program.tex</code> and
+  <code>toc.tex</code>.  You can type <code>make program.pdf</code> or 
+  <code>make toc.pdf</code> to see quickly what just
+  these pages will look like.  </p></li>
+  
+  <li><p>You will have noticed that citation information is stamped at
+  the bottom of the first page of every paper.  Edit the
+  <code>\citeinfo</code> command in <code>citation-stamp.tex</code> to reflect
+  how your workshop should properly be cited.  In particular, be
+  sure to change the title.  <font color=magenta>This should really
+  come from <code>meta</code>.</font> </p></li>
+
+  <li><p>Edit the PDF metadata in <code>book.tex</code>.  (This will
+  appear in the PDF "Document Properties" of the online
+  proceedings.)</p>
+  <ul>
+    <li>edit "pdftitle" field to reflect proceedings title.</li>
+    
+    <li>optionally edit "pdfauthor" field to include name of your SIG.</li>
+  </ul>
+  <font color=magenta>This should really come from <code>meta</code>.</font>
+  </li>
+
+  <li><p>While not usually necessary, you can edit
+  <code>allpapers.tex</code> to fine-tune the treatment
+  of individual papers: how they are
+  citation-stamped, indexed in the Author Index, graphically included via <A
+  HREF="http://www.ctan.org/tex-archive/macros/latex/contrib/pdfpages/pdfpages.pdf"><code>\includepdf</code></A>,
+  etc.</p></li>
+
+</ul>
+
+<h3>Final Onscreen Check</h3>
+
+Regenerate the proceedings, and continue to edit the <code>.tex</code> files until
+everything looks good:
+
+<blockquote><pre>
+make shipout           <i># or "make view"</i>
+</pre></blockquote>
+
+<p>Make sure that all names are spelled correctly, etc.</p>
+
+<p>Just in case, check the following production issues:</p>
+
+<ul>
+  <li><p>The first paper should start on an odd page.  That is,
+  page 1 should correspond to an odd-numbered page of the full PDF file,
+  so that it appears on the right side in the printed volume.  (This
+  is supposed to be arranged automatically by <code>\isodd</code>
+  macros in <code>book.tex</code>.)
+
+  <li><p>There should be red hyperlinks in the table of contents, program,
+  and author index, as well as "bookmarks" at the left of
+  the PDF window.  All of these should work when clicked.
+  <font color="magenta">In future, it would be nice to have
+  hierarchical bookmarks grouped by session.</font></p>
+
+  <li><p>The first page of <i>every</i> paper should have a citation
+  stamped below the page number.  This may occasionally be cut off
+  (for completely bitmapped papers).  Contact the publications chairs
+  for a short-term fix. <font color="magenta">There exists a long-term
+  fix for next year.</font></p>
+
+</ul>
+
+<h3>Final Printed Check</h3>
+
+<p>Try printing the PDF file on a black-and-white Postscript printer.
+Just because everything works onscreen does not guarantee that it will
+work in the printout.</p>
+
+<p>Make sure everything looks fine onscreen and prints fine!  Look
+through the online and printed proceedings carefully.  It is the
+responsibility of the workshop chair to make sure that everything is
+correct.</p>
+
+<h3>Create a Spine Text for the Proceedings</h3>
+
+<p>Edit the file <code>spine.tex</code> to reflect the text that you
+want to appear on the binding of the volume.  (<i>Note:</i> If the
+volume is too thin to support spine text, this file will be ignored.)</p>
+
+<p>Now type
+<blockquote><pre>
+make spine
+</pre></blockquote>
+and check the result with
+<blockquote><pre>
+gv spine.ps
+</pre></blockquote>
+</p>
+
+<h3>Make Your CD-ROM Directory</h3>
+
+<p>Now it's time to build your contribution to the CD-ROM, including
+HTML pages and BibTeX entries.  For this, you will need to create a
+file called <code>meta</code> with some metadata about your workshop as a
+whole.  Here is an example of the format <font color=magenta>(but this
+format will change soon)</font>:</p>
+
+<blockquote><pre>
+abbrev		EduApp
+type		WORKSHOP
+title 		Second Workshop on Building Educational Applications Using NLP
+url		http://www.ets.org/research/conferences/nlp.html
+booktitle	Proceedings of the Second Workshop on Building Educational Applications Using NLP
+month		June
+year		2005
+location	Ann Arbor, Michigan
+chairs		Jill Burstein (Educational Testing Service)
+chairs		Claudia Leacock (Personal Knowledge Technologies)
+bib_url		http://www.aclweb.org/anthology/W/W05/W05-02%02d
+</pre></blockquote>
+
+<p>Contact the publications chair for the correct value of the about
+the <code>bib_url</code> field for <b>your</b> workshop.  This
+determines its permament URL in the ACL Anthology.</p>
+
+<p>To create the cdrom directory, try</p>
+
+<blockquote><pre>
+make cdrom
+</pre></blockquote>
+
+<p>To create an advertisement webpage for your workshop (basically a
+copy of <code>cdrom/program.html</code> that has been stripped of
+actual links to the papers), try</p>
+
+<blockquote><pre>
+make advertisement
+</pre></blockquote>
+
+<h3>Wrap Everything Up and Send It Off!</h3>
+
+<p>You should still be in the <code>"proceedings"</code> directory that you created
+at the beginning.  Type the following:</p>
+
+<blockquote><pre>
+make all
+</pre></blockquote>
+
+<p>This will check that everything is up to date, and package up your
+<code>proceedings</code> directory as a tarball file
+<code><code>proceedings.tgz</code> in the parent directory.</p>
+
+<p>Send <code>../proceedings.tgz</code> by the deadline to the
+publications chair.  Use an email attachment if necessary, but it
+would be nicer just to email an <code>http:</code> or
+<code>ftp:</code> URL where the <code>proceedings.tgz</code> file can
+be downloaded.  <FONT color="magenta">One day, the makefile should
+know how to upload to a standard ftp site or something ...</FONT></p>
+
+<p>While we want the whole tarball so that we can rerun the scripts in
+case of problems, it is especially essential that we receive:</p>
+<ul>
+  <li><code>book.pdf</code>, the proceedings</li>
+  <li><code>db</code>, the reordered database file</li>
+  <li><code>final.tgz</code>, the PDF files of the papers and metadata</li>
+  <li><code>citation-stamp.tex</code>, the template for the citation text stamped on each paper
+  <li><code>spine.ps</code>, the spine</li>
+  <li><code>copyright-signatures</code>, the file with the copyright signatures</li>
+  <li>anything that should go on the CD in addition to the papers</li>
+</ul>
+
+<p>Congratulations and <b>thank you</b>!</p>
+
+<hr>
+ 
+Contact the NAACL-HLT 2009 publications chairs 
+(Eric Ringger and Christy Doran) at 
+ <a href="mailto:naacl09pub@gmail.com">naacl09pub@gmail.com</a>.
+</body></html>

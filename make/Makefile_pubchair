@@ -1,0 +1,342 @@
+# Makefile for publications chair.
+# After getting contributions from the book chairs, assemble
+# all contributions from all books.
+
+####################
+# "make all" will pretty much build everything all at once.   
+# Only things not built are the exports, which you may or may
+# not want to make explicitly:
+#    print.zip
+#    cdrom-web
+#    anthology-web or anthology.tgz
+
+all: print cdrom anthology advertisements copyright-signatures
+.PHONY: all
+
+####################
+# Global variables.
+
+# Where to find the remaining aclpub materials.
+# We use the ACLPUB environment variable, or ~/aclpub if it isn't set.
+
+SHELL = bash
+ACLPUB ?= ~/aclpub
+ifneq (ok,$(shell if [ -d $(ACLPUB) ]; then echo ok; fi ))
+	ACLPUB = $(error Please set the environment variable ACLPUB to the aclpub package directory)
+endif
+BIN = $(ACLPUB)/bin
+TEMPLATES = $(ACLPUB)/templates
+
+# Where to find inputs.  The books/* directories for 
+# particular proceedings should be created before running this makefile.
+# They will need to contain at least a Makefile and some inputs for it
+# (db, final, etc.)
+#
+# If $(bookdirs) changes (i.e., the set of books changes), then so will 
+# all the vars below, and we should rebuild stuff.  So if any of these
+# vars are prerequisite, then books should also be a prerequisite, so that
+# we'll notice if the set changes.
+
+bookdirs = $(wildcard books/*)
+dbs = $(addsuffix /db,$(bookdirs))
+
+# The targets in the $(bookdirs) that will be brought up to date by 
+# recursive make.  Typically, the book chairs will already have created 
+# these, but we remake them to ensure that they're always up to date.
+#
+# We will refuse to build our own targets unless the recursive make 
+# was successful on all of the bookdirs.  If some of your bookdirs
+# are incomplete and you want to see what happens anyway, then move
+# the incomplete bookdirs out of the way.
+# 
+# NOTE: We handle makes in the subdirs using the technique suggested
+# in the GNU Make manual, section 4.5, in order to ensure that we
+# notice errors and can build in parallel.  However, the things that 
+# we're remaking are files, not directories, so we allow them to be
+# real targets, not phony ones.  This way, if they don't change upon
+# remaking, then they won't trigger other updates.
+
+pdfs = $(addsuffix /book.pdf,$(bookdirs))
+spines = $(addsuffix /spine.ps,$(bookdirs))
+cdroms = $(addsuffix /cdrom,$(bookdirs))
+bibs = $(addsuffix /cdrom/bib,$(bookdirs))
+ads = $(addsuffix /advertisement.html,$(bookdirs))
+copyrights = $(addsuffix /copyright-signatures,$(bookdirs))
+
+# Names for some of our output files.
+
+unified = ACL-2005-with-workshops# !!! should get from metameta file
+unified-bib = cdrom/$(unified).bib
+printzip = acl-conference-volumes.zip
+anthtgz = $(unified).tgz
+isbnpat = print/*isbn*.eps
+
+####################
+# Installing software
+# !!! for anthology, pubchair also needs Text::BibTeX
+
+Makefile: $(ACLPUB)/make/Makefile_pubchair  # update this makefile itself if necessary
+	cp $< $@   # !!! shouldn't just copy
+
+update:     # update the aclpub software from CVS repository
+	cd $(ACLPUB); cvs -d :pserver:anoncvs@ftp.clsp.jhu.edu:/aclpub update -d
+
+####################
+# Make a directory print/ of stuff to be sent to the printer.
+# (If you want to zip it up, use make print.zip.)
+
+print:  books $(pdfs) $(spines)
+	@echo adding PDF and PS files to the $@ directory
+	@mkdir -p $@
+	for path in $(bookdirs); do \
+		dir=$${path##*/}; \
+		ln -sf ../$$path/book.pdf print/$$dir-book.pdf; \
+		ln -sf ../$$path/spine.ps print/$$dir-spine.ps; \
+	done
+ifeq ($(wildcard $(isbnpat)),)
+	@echo Can\'t find any ISBN barcode images named "$(isbnpat)".
+	@echo 'Please add them as appropriate (or create an empty file'
+	@echo 'with such a name to fool me into thinking you did).'
+	@exit 1
+endif
+
+# Recursive make, using an implicit pattern rule below..
+
+$(pdfs): %: %---shipout---make
+
+$(spines): %: %---spine---make
+
+# Package up the print materials.
+
+print.zip: print
+	zip -r print.zip print
+	# Let's also make an alternative name for outside use ...
+	ln -sf print.zip $(printzip)
+	@echo 'You could send $(printzip) to the'
+	@echo 'printing company.  Or they might like to receive'
+	@echo 'the proceedings in some other way (e.g., by ftp-ing'
+	@echo 'the files in the print directory).  Ask them.'
+
+$(printzip): print.zip
+
+####################
+# Make the CD-ROM in directory cdrom/ .
+# (If you want to put it on the web, use make cdrom-web.)
+
+.PHONY: cdrom cdrom-dir cdrom-subdirs
+
+cdrom: cdrom-subdirs cdrom/index.html cdrom/authors.html cdrom/$(unified).bib
+
+cdrom-subdirs: books $(cdroms) $(pdfs)   # using $(pdfs) ensures that we have shipout versions
+	$(cdrom-dir)
+	@echo linking subdirs into cdrom directory
+	for path in $(bookdirs); do \
+		abbrev=`perl -ne 'print if s/abbrev\s+//' $$path/meta`; \
+		dir=$${path##*/}; \
+		rm -f cdrom/$$abbrev; \
+		ln -sf ../$$path/cdrom cdrom/$$abbrev; \
+	done
+
+cdrom/index.html: $(TEMPLATES)/mainindex.html.head
+	$(cdrom-dir)
+	@if [ -e cdrom/index.html ]; then mv cdrom/index.html index.html.cdrom$$$$.bak; fi  # !!! temporary, for safety: backup
+	@echo building $@ 
+	cp -f $< $@ # !!! need a real way to generate, preferably using booknum meta field
+
+cdrom/authors.html: $(BIN)/unified-authors.pl books $(dbs)
+	$(cdrom-dir)
+	@echo building unified author index in $@
+	$< $(dbs) > $@
+
+$(unified-bib): books $(bibs) cdrom/index.html
+	$(MAKE) cdrom-subdirs
+	@echo building unified bibliography in $@
+# !!! should really have a booknum meta field used by both and by url_acl
+	@echo trying to concatenate .bib files in same order as listed in cdrom/index.html
+	@echo WARNING: If you get errors below, it may be because you still have to 
+	@echo "   edit cdrom/index.html by hand (we don't generate it automatically yet)"
+	cat `perl -ne 'print "cdrom/$$1/*.bib\n" if m{href="(.*)/index.html"}' cdrom/index.html` > $@;
+
+define cdrom-dir  # initialize cdrom directory
+@mkdir -p cdrom
+@cp -r $(TEMPLATES)/cdrom-root-files/* cdrom  # !!! shouldn't just copy here: use auto mechanism
+endef
+
+
+# Recursive make, using an implicit pattern rule below..
+
+$(cdroms): %: %---cdrom---make
+	@# now clean out any backup files that the book chair left behind
+	@find $@ -name "*~" -o -name "\#*\#" -o -name "*.bak" | xargs --no-run-if-empty rm   
+
+$(bibs): %/bib: %---cdrom/bib---make
+
+# Put cdrom on the web.
+
+cdrom-web: cdrom
+	$(call webify,$<)
+	@echo 'Ask the book chairs and other conference organizers to proofread your CD-ROM.'
+	@echo 'Use a service like www.dead-links.com to check it for technical problems.'
+	# other options -- http://www.htmlhelp.com/tools/valet/, http://www.htmlhelp.com/tools/validator/
+	@echo 'For information on how to burn your CD-ROM, see the aclpub documentation.'
+
+####################
+# Make ACL Anthology contribution in directory anthology/ .
+# (If you want to put it on the web, use make anthology-web.)
+# (If you want to tar it up, use make anthology.tgz.)
+
+anthology: $(BIN)/anthologize.pl cdrom
+	$< cdrom $@
+
+# Put anthology on the web.
+
+anthology-web: anthology
+	$(call webify,$<)
+	@echo Please tell the ACL Anthology editor (www.aclweb.org/anthology)
+	@echo where to grab your Anthology contribution from the web.
+
+# Alternatively, package anthology up as a tarball.
+
+anthology.tgz: anthology
+	tar cfzh $@ $<
+	# Let's also make an alternative name for outside use
+	ln -s $@ $(anthtgz)
+	@echo Please send $(anthtgz) to the ACL Anthology editor.
+
+$(anthtgz): anthology.tgz
+
+####################
+# Assemble a .zip file of all advertisement.html files.  
+
+.PHONY: advertisements 
+advertisements: advertisements.zip   
+	@echo Please send the $< file to the
+	@echo conference webmaster.
+
+advertisements.zip: books $(ads) cdrom-dir
+	mkdir advertisements
+	cp cdrom/*.css advertisements
+	$(call collect-and-zip,$(basename $@),advertisement.html)
+
+# Recursive make, using an implicit pattern rule below..
+
+$(ads): %: %---advertisement---make
+
+
+####################
+# Assemble a .zip file of all copyright-signatures files.
+
+.PHONY: copyright-signatures
+copyright-signatures: copyright-signatures.zip 
+	@echo Please send the $< file to 
+	@echo the ACL main office.  It is a legal record of signatures.
+
+copyright-signatures.zip: books $(copyrights)
+	$(call collect-and-zip,$(basename $@),copyright-signatures)
+
+# Recursive make, using an implicit pattern rule below.
+
+$(copyrights): %: %---copyright-signatures---make
+
+####################
+# Clean up files that we generated from this makefile.  Use 
+# clean-subdirs or mostly-clean subdirs to clean the
+# subdirectories too.
+#
+# !!! should delete an edited file only if it is identical to its auto
+#    (leave behind a patch??).   
+
+
+.PHONY: clean clean-subdirs mostlyclean-subdirs
+
+clean:
+	for path in $(bookdirs); do \
+		dir=$${path##*/}; \
+		rm -f print/$$dir-book.pdf print/$$dir-spine.ps; \
+	done
+	-if [ -e print ]; then rmdir print; fi   # only succeeds if dir is empty (maybe user added custom files)
+	rm -f print.zip $(printzip)
+	rm -rf $(patsubst $(TEMPLATES)/cdrom-root-files/%,cdrom/%,$(wildcard $(TEMPLATES)/cdrom-root-files/*))
+	for path in $(bookdirs); do \
+		abbrev=`perl -ne 'print if s/abbrev\s+//' $$path/meta`; \
+		dir=$${path##*/}; \
+		rm -f cdrom/$$abbrev; \
+	done
+	rm -f cdrom/index.html cdrom/authors.html $(unified-bib)
+	-if [ -e cdrom ]; then rmdir cdrom; fi   # only succeeds if dir is empty (maybe user added custom files)
+	rm -rf anthology $(anthtgz) advertisements.zip copyright-signatures.zip
+	find . -maxdepth 1 -name "*~" -o -name "\#*\#" -o -name "*.bak" | xargs --no-run-if-empty rm -r # backups
+	@echo 'Consider also "make mostlyclean-subdirs" or "make clean-subdirs"'
+
+clean-subdirs:
+	for dir in $(bookdirs); do $(MAKE) -C $$dir clean; done
+
+mostlyclean-subdirs:
+	for dir in $(bookdirs); do $(MAKE) -C $$dir mostlyclean; done
+
+
+####################
+# Utilities.
+
+# !!! abbrev = $(shell perl -ne 'print if s/abbrev\s+//' $(1)/meta)
+
+# This implicit pattern rule is a trick for recursive make.  The
+# target path/bar---foo---make can be used as a prerequisite to some
+# higher target, and will cause us to try to remake it using "make -C
+# path/ foo".  This is better than just putting "make -C path/ foo" into
+# the commands for the parent target, because this way we can force it to run
+# even if the parent target appears to be up to date.  (That is important
+# if the recursive makefile knows about some additional dependencies of 
+# the parent target, and we don't.  See "recursive make considered harmful.")
+# 
+# path/bar---foo---make is ugly.  But it is important that the
+# filename be the first thing because of how implicit pattern rules
+# handle directories.  And it is important that make be the last thing
+# because implicit pattern rules only match at the edge.
+
+%---make: FORCE
+	$(MAKE) -C $(dir $(word 1,$(subst ---, ,$@))) $(word 2,$(subst ---, ,$@))
+FORCE:
+
+# Collect the $(2) files from all bookdirs into a directory $(1),
+# which we then zip up.
+
+define collect-and-zip
+	mkdir -p $(1)
+	for path in $(bookdirs); do \
+		abbrev=`perl -ne 'print if s/abbrev\s+//' $$path/meta`; \
+		cp -p $$path/$(2) $(1)/$$abbrev ; \
+	done
+	chmod 444 $(1)/*    # publicly readable, but read-only
+	chmod 555 $(1)
+	zip -r $(1).zip $(1)
+	chmod -R +w $(1)
+	rm -rf $(1)
+endef
+
+# Rsync a copy of directory $(1).
+
+define webify
+	$(if $(ACLPUB_WEBDIR),,$(error $(webify-err)))
+	@echo rsyncing `du -sLh $(1) | cut -f1` $(1) directory to $(ACLPUB_WEBDIR) ... # show human-readable size, including followed symlinks
+	find $(1) -follow -type f | xargs chmod 444   # publicly readable, but read-only
+	find $(1) -follow -type d | xargs chmod 555   
+	-rsync -avzLP --delete $(1) $(ACLPUB_WEBDIR)
+	find $(1) -follow -type d | xargs chmod 755   # permissions back to normal
+	find $(1) -follow -type f | xargs chmod 644
+endef	
+
+define webify-err
+
+To show a copy of $(1) on the web, please set the 
+variable ACLPUB_WEBDIR to a rsync target directory
+(e.g., user@server.myuniv.edu:public_html/acl), and export that var.
+The directory should be writeable by you, world-readable, and 
+world-executable.
+
+endef
+
+
+# In general, throw away a target if only partly built.
+
+.DELETE_ON_ERROR:	

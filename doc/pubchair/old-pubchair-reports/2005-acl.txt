@@ -1,0 +1,239 @@
+From: Jason Eisner <jason@cs.jhu.edu>
+Date: Fri, 17 Jun 2005 22:09:16 -0400
+
+Report of ACL 2005 Publications Co-Chairs
+Jason Eisner and Philipp Koehn
+-----------------------------------------
+
+Assembling ACL's publications has often been overwhelming, not only
+for publications chairs, but also for the chairs of individual workshops.
+
+We set out this year to streamline the daunting process.  It involves
+about 15 proceedings volumes, each with its own program chair,
+program, and front matter.  The various proceedings must be produced
+in print, CD-ROM, and ACL Anthology forms, and are jointly indexed by
+a BibTeX database and an author index.  All of the 300+ submitted
+papers require copyright transfer agreements, and many of the papers
+present problems with formatting, fonts, or metadata.  The metadata
+include a mix of LaTeX, HTML, and Latin-1 encodings.  A serious
+challenge is managing the many requests for corrections and special
+handling that flow in throughout.
+
+Our innovations were as follows:
+
+1. Online instructions to authors for how to prepare their
+   camera-ready papers (style files, paper size, font embedding,
+   resolution and color of graphics, testing one's file).  
+
+2. Final submission by authors via the START system.  Accepted authors
+   were asked to simultaneously submit three things:
+
+   a. Camera-ready PDF file.  This service was easy to add since START
+      already provided it to some other conferences.
+
+   b. Final metadata.  Accepted authors could use START to confirm or
+      revise the paper title, author list, etc.
+
+   c. Copyright agreement signature.  The submitting author
+      electronically signed ACL's copyright transfer agreement by
+      typing his or her name.  
+
+   Paper shuffling was greatly reduced by this new facility, which was
+   used by the main conference, poster/demo session, and almost all
+   workshops.  Two or three workshop chairs chose to skip START and
+   collect a., b., and c. manually, but they regretted it.
+
+   In the case of c., we asked for hard copy only if the electronic
+   signature was missing or appeared invalid.  Thanks to the ACL Exec
+   for agreeing to allow this procedure.  We argued (not as lawyers)
+   that these electronic signatures were legally pretty safe, thanks
+   to recent legislation and case law, and that the risks to ACL were
+   small in any case.
+
+3. End-to-end PDF production.  We found a way to use pdflatex to
+   assemble each proceedings volume as a single large PDF book.  
+   Pages are automatically numbered.
+
+   This has several advantages:
+
+   a. It greatly reduces paper handling and the risk of error.  (In
+      past years, it was up to the printer to concatenate individual
+      papers in the correct order and number the pages.)  Crucially,
+      it is possible to make even last-minute changes and inspect the
+      resulting final volume.
+
+   b. Beyond adding page numbers, we also added a small-type "citation
+      stamp" at the bottom of each paper's first page, giving full
+      bibliographic information for that paper and asserting ACL's
+      copyright.  This follows the practice of many journals.  The
+      citation stamp is convenient for readers who might otherwise
+      lose track of the provenance of a xeroxed or online paper.
+
+   c. We were able to translate and scale individual papers, giving
+      the proceedings a more even look than in past years.  Many
+      papers had incorrect margins and needed to be vertically or
+      horizontally shifted.
+
+   d. The resulting single PDF volume is also a convenient way to
+      browse the proceedings onscreen during the conference.
+      Navigation and full-text search are surprisingly fast.  We also
+      included hyperlinks and bookmarks.  For example, one can jump to
+      a paper by clicking its name in the program or the table of
+      contents.
+
+   e. Individual PDF papers prepared for the CD-ROM and ACL Anthology
+      are also graced with page numbers, citation stamps, and
+      corrected margins.  This wasn't possible in past years, when
+      those things were handled by the printer.
+
+4. Coordination with the ACL Anthology.  We package up the papers for
+   immediate submission to the ACL Anthology.  The automatically
+   generated BibTeX entries include each paper or book's future URL in
+   the Anthology.  We hope that this will make it possible to add
+   papers to the Anthology at the time of the conference.
+
+5. Scripting.  Because of 2. and 3. above, the publications pipeline
+   now starts earlier (with START data) and ends later (with a PDF
+   volume, anthology package, and copyright signature database, as
+   well as CD-ROM, BibTeX, etc.).  To handle this, we substantially
+   extended the suite of scripts that have been used in past years (by
+   David Yarowsky and others).
+
+6. Makefile.  A single makefile, rather than a human, now decides when
+   and how to (re)run the various scripts.  It combines data from the
+   authors (via START), the program chair, and the publications chair
+   to produce the various intermediate files and outputs.  Using a
+   makefile safely ensures that changes to input files are
+   appropriately propagated to the outputs.
+
+7. Instructions.  Except for the main session proceeedings, we handed
+   off production responsibilities to the individual program chairs.
+   We wrote step-by-step instructions so that each workshop program
+   chair could easily produce a proceedings to his or her
+   satisfaction.  A typical step is to edit some file, type "make
+   such-and-such," and check the result.
+
+We plan to make further improvements to the scripts, makefile,
+and instructions before handing them off to future publications
+chairs (starting with HLT-EMNLP 2005).  Two in particular are
+worth mentioning:
+
+8. The publications process is plagued by multiple agents editing the
+   same files.  We believe we can improve the makefile to safely merge
+   changes from different agents, a la CVS.
+
+   For example, a script regenerates program.tex whenever the metadata
+   are edited, but a human may also tinker with program.tex to adjust
+   the formatting or content.  The scripts themselves may be both
+   edited by the publications chair and customized by individual
+   workshop chairs during the process.
+ 
+9. We hope to write clear and detailed instructions for future
+   publications chairs, including our suggestions for future
+   improvements.  We'll include these instructions and a master
+   makefile as part of our scripts package.  We hope they will be
+   maintained in future along with the scripts (and our instructions
+   to authors and workshop chairs).
+ 
+While most of our suggestions for the future will appear in our
+instructions for our successors, a few specific issues are of more
+general interest:
+
+a. FINANCIAL.  Rich Gerber has mentioned to several people that he
+   will want to renegotiate terms for next year.  He threw in the
+   workshops, poster/demo session, etc. for no extra cost.  But that
+   meant he had to provide tech support for 10-15 different workshop
+   chairs -- almost as much work as hosting many separate conferences.
+   Doing all this for $400 total made him feel like "a bit of a
+   chump."
+
+   In our opinion, it would be reasonable to pay him more.  The START
+   system has proved invaluable.  
+
+b. COPYRIGHT.  The ACL Exec should consider changing the language of
+   our copyright transfer agreement.  Some authors would like a
+   clearer statement that they can post papers to the web.  Other
+   authors would like to retain copyright altogether, granting ACL a
+   non-exclusive license to redistribute the original work.
+
+   Prof. Christina Bohannan of the U. Iowa Law School characterizes our
+   current agreement as both vague and overly complex, and suggests this
+   possibility (thanks to Marc Light):
+
+   "The copyright holder permits ACL, and permits ACL to authorize third
+   parties, to reproduce, distribute, perform, display, and otherwise use
+   the copyrighted work without further permission from the author.  The
+   permission granted to ACL shall be construed as a non-exclusive
+   license and shall not otherwise affect the copyright holder's rights
+   under the Copyright Act and other applicable law."
+
+   She adds that a non-exclusive license (such as the above) is
+   legally easier for ACL to acquire than a copyright transfer.  In
+   other words, if ACL had to go to court, we would find it easier to
+   prove that we had acquired such a license, e.g. on the basis of a
+   single electronic signature.  (In fact, legally it would suffice to
+   get the oral agreement of any one of the copyright holders.)
+
+c. CENTRALIZED COMPUTING.  ACL should provide a machine (perhaps
+   aclweb.org) to host publications activities.  This machine should
+   provide three functions:
+
+   * A CVS or Subversion repository that maintains a definitive
+     version of all scripts, templates, and instructions.  At present,
+     publications scripts are passed informally from one conference to
+     another.  We had to solicit and consolidate fragmentary versions
+     from several sources.  It is possible that we missed improvements
+     made, for example, by the last EACL chair, whom we didn't contact.
+
+   * Up-to-date and correctly configured software needed to run the
+     scripts (pdflatex, GNU make, bash, certain Perl modules, and 
+     perhaps a version-control system such as Subversion).
+
+     Workshop program chairs and publications chairs should have
+     access to this machine (with appropriate permissions) to produce
+     their respective proceedings.  ssh access is the simplest
+     solution.  Alternatively, someone could set up a specialized web
+     interface that allowed them to run the scripts, edit selected
+     text files, and view the PDF results.
+
+     The reason for a centralized machine is that some publications
+     chairs or workshop chairs may not have the needed software
+     installed.  Obtaining the software can be tricky even with root
+     permissions: we ourselves were unable to configure tetex-3.0
+     correctly when building it from source, but the Cygwin
+     distribution of tetex-3.0 worked out of the box.
+
+     (The particular issue in this case was getting pdflatex to
+     correctly retain embedded Nimbus fonts when concatenating PDF
+     submissions.  Nimbus fonts are open-source replacements for PDF's
+     default fonts; they are used in camera-ready submissions produced
+     by the most recent versions of pdflatex.)
+
+   * After running the scripts, workshop chairs should leave their
+     results on the central machine, where the publications chair can
+     find and modify the latest version.  Ideally, all edits should be
+     version-controlled for safety.  
+     
+d. NUMBER OF CHAIRS.  The publications process is now closer to a
+   turnkey system.  However, until it stabilizes, we recommend
+   enlisting two publications co-chairs for future conferences, as for
+   ACL'04 and ACL'05.  There are still more than enough software,
+   policy, and hand-holding issues to keep two people busy.
+
+The final production numbers for ACL'05 publications were as follows.  
+     
+Main Proceedings         $12,980 ($13.66 each)  950 books @ 660 pages
+Companion Proceedings     $7,345 ($7.73 each)   950 books @ 328 pages
+12 Workshop Proceedings  $12,980 ($12.07 each)  1075 books @ avg. 118 pages 
+CD-ROMS                   $3,425                1000 CD-ROMS
+--------------------------------
+TOTAL                    $36,730
+
+We thank Rich Gerber for setting up START for our needs; Omnipress for
+their patience; the ACL Exec for allowing electronic copyright
+signatures; Drago Radev and Owen Rambow for various suggestions; and
+David Yarowsky and many other contributors for the publications scripts 
+we inherited.
+
+-Jason Eisner & Philipp Koehn
+
