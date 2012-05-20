@@ -224,6 +224,52 @@ s/\\\'{C}/C/g;
 s/\\\'{s}/s/g;
 s/\\\'{c}/c/g;
 
+s/{\\l}/l/g;
+s/\\\={e}/e/g;
+s/\\\={u}/u/g;
+s/\\\={\\\i}/i/g;
+s/\\\={a}/a/g;
+
+s/\\v{s}/s/g;
+
+s/\\v{g}/g/g;
+
+s/\\c{k}/k/g;
+
+s/\\c{l}/l/g;
+
+s/\\v{z}/z/g;
+
+s/\\v{c}/c/g;
+
+s/\\c{n}/n/g;
+
+s/\\\={E}/E/g;
+
+s/\\\={U}/U/g;
+
+s/\\\={I}/I/g;
+
+s/\\\={A}/A/g;
+
+s/\\v{S}/S/g;
+
+s/\\c{G}/G/g;
+
+s/\\c{K}/K/g;
+
+s/\\c{L}/L/g;
+
+s/\\v{Z}/Z/g;
+
+s/\\v{C}/C/g;
+
+s/\\c{N}/N/g;
+
+s/\\c{S}/S/g;
+
+s/\\v{a}/a/g;
+
 # italicization (not too careful about nested {}).
 
 s/{\\em (.+)}/$1/;
