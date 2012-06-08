@@ -9,6 +9,8 @@
 
 next if /^url/;    # don't mess with url or bib_url lines (e.g., don't delete ~)
 
+s/\015//g;       # kill CR from DOS format files
+
 s/\r//g;         # kill CR from DOS format files
 
 # latex cruft
@@ -164,7 +166,7 @@ s/\\v{R}/&#344;/g;
 s/\\v{r}/&#345;/g;
 s/\\v{S}/&#352;/g;
 s/\\v{s}/&#353;/g;
-s/\\v{Z}/&#142;/g;
+s/\\v{Z}/&#381;/g;
 s/\\v{z}/&#158;/g;
 s/{\\AA}/&Aring;/g;
 s/{\\aa}/&aring;/g;
@@ -230,6 +232,9 @@ s/\\\"{I}/&Iuml;/g;
 s/\\\"{O}/&Ouml;/g;
 s/\\\"{U}/&Uuml;/g;
 
+s/\{\\o\}/&oslash;/g; 
+s/\{\\O\}/&Oslash;/g;  
+
 s/\\o/&oslash;/g;
 s/\\O/&Oslash;/g;
 s/\\u{g}/&#287;/g;
@@ -259,6 +264,11 @@ s/\\\={E}/&#274;/g;
 s/\\\={I}/&#298;/g;
 s/\\\={O}/&#332;/g;
 s/\\\={U}/&#362;/g;
+
+s/ě/&#283;/g;
+
+s/\{\\L\}/&#0321/g; 
+s/\{\\l\}/&#0322/g; 
 
 s/ł/&#322;/g;
 s/{\\l}/&#322;/g;
@@ -323,8 +333,8 @@ s/\\c{K}/&#310;/g;
 s/Ļ/&#315;/g;
 s/\\c{L}/&#315;/g;
 
-s/Ž/&#142;/g;
-s/\\v{Z}/&#142;/g;
+s/Ž/&#381;/g;
+s/\\v{Z}/&#381;/g;
 
 s/Č/&#268;/g;
 s/\\v{C}/&#268;/g;
