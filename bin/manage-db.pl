@@ -216,7 +216,16 @@ sub include {
             $author_clean =~ s/\\.//g;
             $author = "$author_clean\@$author";
         }
-	print TEX "\\index{$author}\n" unless $option eq 'cd';
+	my $_name = $author;
+	if ($_name !~ /^(.+), (.+)$/) {
+	    if ($_name =~ /^(.*),/) {
+		$_name = $1;
+	    }
+	    else {
+		$_name = 'unknown';
+	    }
+	}
+	print TEX "\\index{$_name}\n" unless $option eq 'cd';
     }
     $addtotoc = "addtotoc={1,chapter,1,{$title},ref:paper_$id}";
 

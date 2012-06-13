@@ -44,15 +44,20 @@ while(<DB>) {
     $prevblank = 0;
   } elsif ($line =~ /^A:/) {
     $line =~ s/^A:[ ]*//;
-    $line =~ /^(.*), (.*)$/;
-    $ln = $1; $fns = $2;
-    if ($ln eq $fns) {
-        $authors[$authornum++] = $fns;
+    # test for only last name
+    if ($line =~ /^(.+), (.+)$/) {
+	$ln = $1; $fns = $2;
+	$_name = $fns . " " . $ln;
+    }
+    elsif ($line =~ /^(.*),/) {
+	$_name = $1;
     }
     else {
-      $authors[$authornum++] = $fns . " " . $ln;
+	$_name = 'unknown';
     }
-  } elsif ($line =~ /^L:/) {
+    $authors[$authornum++] = $_name;
+  }
+  elsif ($line =~ /^L:/) {
     $line =~ s/^L:[ ]*//;
     $length[$papnum] = $line;
     $endauthor[$papnum] = $authornum-1;

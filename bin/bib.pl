@@ -85,7 +85,16 @@ while(<DB>) {
     $title[$pn] = $_;
   }
   elsif (s/^A: *//) {
-    push @{$authors[$pn]}, $_;
+      $_name = $_;
+      if ($_name !~ /^(.+), (.+)$/) {
+	  if ($_name =~ /^(.*),/) {
+	      $_name = $1;
+	  }
+	  else {
+	      $_name = 'unknown';
+	  }
+      }
+      push @{$authors[$pn]}, $_name;
   }
   elsif (s/^L: *//) {
     warn "double length for paper $pn: $startpage[$pn], $_"
