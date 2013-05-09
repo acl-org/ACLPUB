@@ -350,6 +350,7 @@ s/\\_/_/g;     # Underscore.
                # Ampersand done above.
 s/\Q\^{}\E/&#94;/g; # Caret
 #s/\Q\#\E/&#35;/g; # Pound
+s/\$@\$/&#64;/g; # AT
 
 
 # italicization (not too careful about nested {}).
