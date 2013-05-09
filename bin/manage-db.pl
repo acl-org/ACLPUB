@@ -264,7 +264,9 @@ sub order {
 	    push @SCHEDULE,$id;
 	}
 	die("unknown paper id in order: $id") if ! defined($DB{$id});
-	die("duplicate paper id in order: $id") if defined($DUP_CHECK{$id});
+#
+# Allow duplicates - 9 May 2013 - perhaps a warning
+#	die("duplicate paper id in order: $id") if defined($DUP_CHECK{$id});
 	push @ORDER,$id;
 	$TIME{$id} = $time if $time && ($time =~ /[0-9]/ || $time eq 'none');
 	$DUP_CHECK{$id}++;
@@ -505,9 +507,12 @@ sub store_in_db {
 	exit;
     }
     else {
-	if (defined($$DB{$id})) {
-	    die("duplicate paper id in db: $id");
-	}
+#
+# Allow duplicates - 9 May 2013 - perhaps a warning
+#
+#	if (defined($$DB{$id})) {
+#	    die("duplicate paper id in db: $id");
+#	}
 	foreach (keys %{$PAPER}) {
 	    $$DB{$id}{$_} = $$PAPER{$_};
 	}
