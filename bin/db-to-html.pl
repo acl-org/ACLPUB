@@ -345,8 +345,11 @@ s/\\c{N}/&#325;/g;
 s/Ş/&#350;/g;
 s/\\c{S}/&#350;/g;
 
-#Underscore
-s/\\_/_/g;
+# Latex chars
+s/\\_/_/g;     # Underscore.
+               # Ampersand done above.
+s/\Q\^{}\E/&#94;/g; # Caret
+#s/\Q\#\E/&#35;/g; # Pound
 
 
 # italicization (not too careful about nested {}).

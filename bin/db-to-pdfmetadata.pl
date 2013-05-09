@@ -270,6 +270,12 @@ s/\\c{S}/S/g;
 
 s/\\v{a}/a/g;
 
+#Latex chars
+s/\\_/_/g;      # Underscore
+                # Ampersand done above.
+s/\Q\^{}\E/^/g; # Caret
+#s/\Q\#\E/\#/g;  # Pound
+
 # italicization (not too careful about nested {}).
 
 s/{\\em (.+)}/$1/;

@@ -100,3 +100,9 @@ s/Č/\\v{C}/g;
 s/Ņ/\\c{N}/g;
 s/Ş/\\c{S}/g;
 s/ﬁ/fi/g;
+#
+# Latex Chars
+s/([^\\])(_)/$1\\$2/g;   # unescaped underscore
+s/([^\\])(\&)/$1\\$2/g;  # unescaped ampersand
+s/([^\\])(\^)/$1\\^{}/g; # unescaped carrot
+#s/([^\\])(\Q#\E)/$1\\#/g;   # pound
