@@ -274,7 +274,7 @@ s/\\v{a}/a/g;
 s/\\_/_/g;      # Underscore
                 # Ampersand done above.
 s/\Q\^{}\E/^/g; # Caret
-#s/\Q\#\E/\#/g; # Pound
+s/\Q\#\E/#/g;   # Pound
 s/\$@\$/@/g;    # AT
 
 # italicization (not too careful about nested {}).

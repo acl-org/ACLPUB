@@ -105,5 +105,5 @@ s/ﬁ/fi/g;
 s/([^\\])(_)/$1\\$2/g;   # unescaped underscore
 s/([^\\])(\&)/$1\\$2/g;  # unescaped ampersand
 s/([^\\])(\^)/$1\\^{}/g; # unescaped carrot
-#s/([^\\])(\Q#\E)/$1\\#/g;   # pound can't do it because of comments in order file.
+s/([^=]+)(\#)([^=]+)/${1}\\#${3}/g;    # pound sign - watch out for separator #=%=#
 s/([^\\])(\@)/$1\$@\$/g;  # unescaped at-sign
