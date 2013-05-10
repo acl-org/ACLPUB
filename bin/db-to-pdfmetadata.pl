@@ -149,6 +149,7 @@ s/\\v{e}/e/g;
 s/\\v{N}/N/g;
 s/\\v{n}/n/g;
 s/\\v{S}/S/g;
+s/\\v{r}/r/g;
 s/\\v{s}/s/g;
 s/\\v{Z}/Z/g;
 s/\\v{z}/z/g;
