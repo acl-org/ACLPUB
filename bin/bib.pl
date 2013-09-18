@@ -17,18 +17,23 @@ while(<META>) {
   $month = $value if $key eq 'month';
   $year = $value if $key eq 'year';
   $location = $value if $key eq 'location';
+  $publisher = $value if $key eq 'publisher';
   $booktitle = $title[0] = $value if $key eq 'booktitle';   # booktitle is also title of "paper 0"
   $urlpattern = $value if $key eq 'bib_url';
   push @{$authors[0]}, $value if $key eq 'chairs';  # chairs are authors of "paper 0"
 }
 close(META);
 
+if (!$publisher) {
+    $publisher = 'Association for Computational Linguistics';
+}
+
 # should check that const fields actually get defined?
 @constfields =  ("booktitle = {$booktitle}",
                  "month     = {$month}",
                  "year      = {$year}",
                  "address   = {$location}",
-                 "publisher = {Association for Computational Linguistics}");
+                 "publisher = {$publisher}");
 
 # changed  15-5-2011 because premise is not clear - what should be a
 # valid URL for ACL Anthology?
