@@ -100,6 +100,9 @@ s/Ž/\\v{Z}/g;
 s/Č/\\v{C}/g;
 s/Ņ/\\c{N}/g;
 s/Ş/\\c{S}/g;
+s/Ș/\\c{S}/g;
+s/ș/\\c{s}/g;
+s/ț/\\c{t}/g;
 s/ﬁ/fi/g;
 #
 # Latex Chars
