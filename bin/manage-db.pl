@@ -90,8 +90,10 @@ sub create_db {
 		print DB "T: $title\n";
 		print DB "S: $shorttitle\n" if -e $shorttitle;
 		for(my $i=1;$i<=$#LAST;$i++) {
-		    print DB "A: $LAST[$i], $FIRST[$i]\n";
-#	            print DB "O: $ORG[$i]\n" if $ORG[$i];
+		    if ($LAST[$i] || $FIRST[$i]) {
+			print DB "A: $LAST[$i], $FIRST[$i]\n";
+#   	                print DB "O: $ORG[$i]\n" if $ORG[$i];
+		    }
 		}
 		my $file = `ls final/$id/*Paper.pdf | head -1`; 
 		die unless defined $file;
