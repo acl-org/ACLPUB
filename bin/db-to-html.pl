@@ -120,6 +120,7 @@ s/\\\'{\\i}/&iacute;/g;
 s/\\\'{o}/&oacute;/g;
 s/\\\'{u}/&uacute;/g;
 s/\\\'{y}/&yacute;/g;
+s/\\\'{u}/&#324;/g;
 
 s/\\\`{a}/&agrave;/g;
 s/\\\`{e}/&egrave;/g;
