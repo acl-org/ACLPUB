@@ -325,7 +325,7 @@ spine.ps: spine.tex
 ####################
 # This book's contribution to the CD-ROM
 
-cdrom: cdrom/index.html cdrom/program.html cdrom/authors.html cdrom/bib cdrom/pdf cdrom/ps
+cdrom: cdrom/index.html cdrom/program.html cdrom/authors.html cdrom/bib cdrom/pdf
 
 cdrom/index.html: $(BIN)/index.pl db meta $(TEMPLATES)/index.html.head
 	@$(quit-if-exists)
@@ -360,14 +360,6 @@ endif
 	$(cdrom-dir)
 	@echo creating pdf files ...
 	$< create-cd < meta
-
-cdrom/ps: cdrom/pdf $(wildcard cdrom/pdf/*.pdf)
-	@if [ "`which pdftops`" == "" ]; then echo "You need the 'pdftops' command from the xpdf package."; echo "Refer to the bookchair HOWTO for details."; exit 1; else echo "You have 'pdftops'.  continuing ..."; fi
-	@echo creating ps files ...
-	rm -rf cdrom/ps; mkdir -p cdrom/ps
-	@# rebuild whole directory at once
-#	cd cdrom/pdf; for pdf in *.pdf; do acroread -toPostScript -size letter < $$pdf > ../ps/$${pdf%.pdf}.ps; done
-	cd cdrom/pdf; for pdf in *.pdf; do echo "Converting $$pdf ..."; pdftops $$pdf ../ps/$${pdf%.pdf}.ps; done
 
 define cdrom-dir  # initialize cdrom directory
 @mkdir -p cdrom
@@ -435,7 +427,7 @@ clean: mostlyclean
 	rm -f book.pdf spine.ps 
 	rm -f copyright-signatures 
 	rm -f *.css
-	if [ -e cdrom ]; then cd cdrom; rm -rf index.html program.html bib authors.html pdf ps *.bib *.pdf; fi   # !!! should only delete abbrev-year.bib, abbrev-year.pdf
+	if [ -e cdrom ]; then cd cdrom; rm -rf index.html program.html bib authors.html pdf *.bib *.pdf; fi   # !!! should only delete abbrev-year.bib, abbrev-year.pdf
 	-if [ -e cdrom ]; then rmdir cdrom; fi   # only succeeds if dir is empty (maybe user added custom files)
 	rm -f advertisement.html
 
