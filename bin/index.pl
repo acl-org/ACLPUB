@@ -25,6 +25,12 @@ $urlpattern =~ m/\%0(\d)d/;
 my $digits = $1; # checked in bib.pl
 $fmzeros = sprintf "%0${digits}d", 0;
 
+# Initialize Type to account for old templates.
+#    linktype = old: Original layout with 4 columns.
+#    linktype = new; New layout with brackets for links, to accommodate unlimited number of attachments.
+#
+$linktype = 'old';
+
 #add header information
 open(HEADER, "$ENV{ACLPUB}/templates/index.html.head") || die;
 while (<HEADER>) {
@@ -37,6 +43,13 @@ while (<HEADER>) {
   s/<XXX CHAIRS>/$chairs/g;
   s/000/$fmzeros/g;
   print;
+   
+  # Determine if the template is old-style or new.  New style has
+  # hyperlinks in brackets.
+  if (/bib\<\/a\>\]/) {
+    $linktype = 'new';
+  }
+
 }
 close HEADER;
 
@@ -85,8 +98,10 @@ while (<DB>) {
     my $fn_base = sprintf "%0${digits}d", ++$papnum;
     $file = "$abbrev$fn_base";
 
-    $text .=<<EOD;
+    # This for the old-style templates, with 4 column format
+    if ($linktype eq 'old') {
 
+	$text .=<<EOD;
 		<tr class="$temp">
 			<td valign="top"><a href="pdf/$file.pdf">pdf</a></td>
 			<td valign="top"><a href="bib/$file.bib">bib</a></td>
@@ -94,6 +109,42 @@ while (<DB>) {
 			<td valign="top" align="left"><a name="$start">pp.&nbsp;$start&#8211;$end</a></td>
 		</tr>\n
 EOD
+
+    }
+
+    # For the new-style templates with 2 columns
+    else {
+        # Initially the minimal links.
+        my $listoflinks = qq{[<a href="pdf/$file.pdf">pdf</a>] [<a href="bib/$file.bib">bib</a>]};
+
+        # Other possibilities.
+        $possibleFinalAttachments = 'datasets|notes|software|optional';
+
+        # Find if this submission has any additional files.
+        my @files = glob("cdrom/additional/$file*");
+
+        # If so, add them to the list of links.
+	if (@files) {
+	    my @filechoices = split(/\|/,$possibleFinalAttachments);
+	    foreach my $choice (@filechoices) {
+		if (my @thisfn = grep(/$choice/i, @files)) {
+		    $thisfn[0] =~ s/^cdrom\///;
+		    $listoflinks .= qq{ [<a href="$thisfn[0]">$choice</a>] };
+		}
+	    }
+	}
+	$text .=<<EOD;
+
+	<tr class="$temp">
+	    <td valign="top" align="left"><a href="pdf/$file.pdf"><i>$title</i></a><br>$new<br>
+	    $listoflinks
+	    </td>
+	    <td valign="top" align="left"><a name="$start">pp.&nbsp;$start&#8211;$end</a></td>
+	    </tr>\n
+EOD
+
+    }
+
     print $text;   # !!! should deal with special case of a 1-page paper, as we do elsewhere
     $text = "";
     $author = "";

@@ -346,6 +346,13 @@ sub get_order {
     close(DB);
 }
 
+sub fname {
+    $_ = shift @_;
+    @_ = split (/\/|\\/, $_);
+    $_ = pop @_;
+    return $_;
+}
+
 sub create_cd {
     my %DB = load_db(1,1);
 
@@ -430,6 +437,7 @@ sub create_cd {
         open(TEXTEMPLATE, "<$ENV{ACLPUB}/templates/cd.tex.head") || die;
         open(TEX,">cd.tex") || die;
         my $pdf_title = $DB{$id}{"T"}[0];
+
         #my $pdf_authors = join("; ", @{$DB{$id}{"A"}});
         my @authors;
         foreach my $author (@{$DB{$id}{"A"}}) {
@@ -465,8 +473,36 @@ sub create_cd {
         $papnum++;
         my $papnum_formatted = sprintf("%0${digits}d",$papnum);
         system("mv cd.pdf cdrom/pdf/$abbrev$papnum_formatted.pdf")==0 || die;
+
+        # Copy additional files (other than paper) into a directory called "additional"
+        # Rename the files to conform to the paper numbering/codes for the pdfs and bib files.
+        # 
+        # Important:  For now, we will have a fixed set of possible file names, taken from 
+        # recent ACL conferences.  We separate them by '|' for regex search.  This string
+        # will also be included in the script index.pl .  We can eventually make this 
+        # a parameter in the UI.
+        #
+        $possibleFinalAttachments = 'datasets|notes|software|optional';
+
+	my $pid = $DB{$id}{"P"}[0];         # Get START paperid.
+        my @files = glob("final/$pid/*");   # Get the files in the final place for the paperid.
+
+        
+	@files = grep(/$possibleFinalAttachments/i, @files);       # Limit the files to the choices we want.
+	if (@files) {
+	    my $oldprefix = $pid . '_';
+	    my $newprefix = $abbrev . $papnum_formatted . '_';
+	    mkdir("cdrom/additional") || skip;
+	    foreach my $file (@files) {
+		my $newname = fname($file);
+		$newname =~ s/^$oldprefix/$newprefix/;
+		system "cp $file cdrom/additional/$newname";
+	    }
+	}
     }
 }
+
+
 
 sub load_db {
     my ($ordered, $strip_latex) = @_;

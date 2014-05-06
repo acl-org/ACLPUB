@@ -325,7 +325,7 @@ spine.ps: spine.tex
 ####################
 # This book's contribution to the CD-ROM
 
-cdrom: cdrom/index.html cdrom/program.html cdrom/authors.html cdrom/bib cdrom/pdf
+cdrom: cdrom/program.html cdrom/authors.html cdrom/bib cdrom/pdf cdrom/index.html
 
 cdrom/index.html: $(BIN)/index.pl db meta $(TEMPLATES)/index.html.head
 	@$(quit-if-exists)
