@@ -433,6 +433,8 @@ sub create_cd {
 
     print STDERR "creating pdf files stamped with citation info...\n";
     my $papnum = 0;
+    open(PAPERMAP, ">id_map.txt") || die;
+
     foreach my $id (@{$DB{"paper-order"}}) {
         open(TEXTEMPLATE, "<$ENV{ACLPUB}/templates/cd.tex.head") || die;
         open(TEX,">cd.tex") || die;
@@ -487,6 +489,9 @@ sub create_cd {
 	my $pid = $DB{$id}{"P"}[0];         # Get START paperid.
         my @files = glob("final/$pid/*");   # Get the files in the final place for the paperid.
 
+        # paper map - maps the ACL IDs to START IDs.  For external use.
+	print PAPERMAP "$abbrev$papnum_formatted $pid\n";
+
         
 	@files = grep(/$possibleFinalAttachments/i, @files);       # Limit the files to the choices we want.
 	if (@files) {
@@ -500,6 +505,7 @@ sub create_cd {
 	    }
 	}
     }
+    close(PAPERMAP);
 }
 
 
