@@ -234,6 +234,8 @@ sub url {
 
     my $url1 = sprintf $urlpattern, 12345678;  # will fill up any initial spaces (not that we should see any in a URL)
     my $url2 = sprintf $urlpattern, -1;        # will start with - or fff... or 377...
+#
+#    Too damn picky - don't die if the URL is wrong.
     die "Unexpected error" if $url1 eq $url2;
 
     # Now extract longest common prefix and longest common suffix.
