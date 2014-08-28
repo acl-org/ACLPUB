@@ -157,7 +157,7 @@ sub print_program {
           printf("\\end{tabular}\n");
           printf("\\newpage\n");
           
-          printf("\\begin{tabular}{p{20mm}p{138mm}}\n");
+          printf("\\begin{tabular}{p{20mm}p{128mm}}\n");
           printf("\\\\\n");
 	  if (!defined($extra[$pn+1]) || $extra[$pn+1] !~ /^\*/) {
 	      printf("\\multicolumn{2}{l}{\\bf $day (continued)} \\\\");
