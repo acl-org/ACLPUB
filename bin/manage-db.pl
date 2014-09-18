@@ -356,6 +356,9 @@ sub fname {
 sub create_cd {
     my %DB = load_db(1,1);
 
+    # with content not latex-stripped, for the cd.tex
+    my %DBTEX = load_db(1,0);
+
     my($abbrev,$year,$title,$url,$urlpattern);
     while(<STDIN>) {
 	my $meta .= $_;
@@ -438,7 +441,11 @@ sub create_cd {
     foreach my $id (@{$DB{"paper-order"}}) {
         open(TEXTEMPLATE, "<$ENV{ACLPUB}/templates/cd.tex.head") || die;
         open(TEX,">cd.tex") || die;
+
         my $pdf_title = $DB{$id}{"T"}[0];
+
+	# to handle titles with hashes
+        my $pdf_title_tex = $DBTEX{$id}{"T"}[0];
 
         #my $pdf_authors = join("; ", @{$DB{$id}{"A"}});
         my @authors;
@@ -452,7 +459,7 @@ sub create_cd {
         my $pdf_authors = join(" ; ", @authors);
         my $pdf_subject = "$abbrev $year";
         while (<TEXTEMPLATE>) {
-            s/__PDFTITLE__/$pdf_title/;
+            s/__PDFTITLE__/$pdf_title_tex/;
             s/__PDFAUTHOR__/$pdf_authors/;
             s/__PDFSUBJECT__/$pdf_subject/;
             print TEX;
