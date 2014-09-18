@@ -114,5 +114,11 @@ s/ﬁ/fi/g;
 s/([^\\])(_)/$1\\$2/g;   # unescaped underscore
 s/([^\\])(\&)/$1\\$2/g;  # unescaped ampersand
 s/([^\\])(\^)/$1\\^{}/g; # unescaped carrot
+
 s/([^=#])(\#)([^=#])/${1}\\#${3}/g;    # pound sign - watch out for separator #=%=#
+s/^(\#)([^=#])/\\#${2}/g;
+s/([^=#])(\#)$/${1}\\#/g;
+s/#=%=##/#=%=#\\#/g;
+s/##=%=#/\\##=%=#/g;
+
 s/([^\\])(\@)/$1\$@\$/g;  # unescaped at-sign
