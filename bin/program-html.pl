@@ -112,11 +112,27 @@ for ($pn = 0; $pn < $papnum; $pn++) {
 
     ## SESSION TITLE
     elsif ($type eq '=') {
-      print ("<tr><td valign=top>&nbsp;</td><td valign=top><b>$content</b></td></tr>\n");
+	# look for time if exists
+	if ($content =~ /^([0-9,\.\:]+)(\Q&#8211;\E)([0-9,\.\:]+) (.*)$/) {
+	    my $time = "$1$2$3";
+	    my $description = $4;
+	    print("<tr><td valign=top><b>$time</b></td><td valign=top><b>$description</b></td></tr>\n");
+	}
+	else {
+	    print ("<tr><td valign=top>&nbsp;</td><td valign=top><b>$content</b></td></tr>\n");
+	}
     }
 
     ## EXTRA (Breaks, Invited Talks, Business Meeting, ...)
     elsif ($type eq '+') {
+      if ($content !~ /^(\S+) (.+)$/) {
+	print STDERR "format error in extra (+) line: $extra[$pn] || $content\n";
+      }
+      my ($time,$description) = ($1,$2);
+      print ("<tr><td valign=top>$time</td><td valign=top>$description</td></tr>\n");
+    }
+    ## EXTRA TYPE 2
+    elsif ($type eq '!') {
       if ($content !~ /^(\S+) (.+)$/) {
 	print STDERR "format error in extra (+) line: $extra[$pn] || $content\n";
       }

@@ -91,11 +91,27 @@ sub print_program {
 
 	   ## SESSION TITLE
 	   elsif ($type eq '=') {
+               # look for time if exists
+	       if ($content =~ /^([0-9,\.\:\-]+) (.*)$/) {
+		   my ($time,$description) = ($1,$2);
+		   printf("{\\bf %s} & {\\bf %s} \\\\\n",$time,$description);
+	       }
+	       else {
 	        printf(" & {\\bf %s} \\\\\n",$content);
+	       }
 	    }
 
 	   ## EXTRA (Breaks, Invited Talks, Business Meeting, ...)
 	   elsif ($type eq '+') {
+	       if ($content !~ /^(\S+) (.+)$/) {
+		   print STDERR "format error in extra (+) line: $extra[$pn]\n";
+	       }
+	       my ($time,$description) = ($1,$2);
+	       printf("%s & %s \\\\\n",$time,$description);
+               $numlines += 0.8 if $description =~ /\\\\/;
+	   }
+           ## EXTRA TYPE 2
+	   elsif ($type eq '!') {
 	       if ($content !~ /^(\S+) (.+)$/) {
 		   print STDERR "format error in extra (+) line: $extra[$pn]\n";
 	       }

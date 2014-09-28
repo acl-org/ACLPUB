@@ -258,7 +258,7 @@ sub order {
 	s/\S*\#.*$//;
 	next if /^\s*$/;
 	my ($id,$time,$title) = split(/ +/,$_,3);
-	if ($id eq '*' || $id eq '=' || $id eq '+') {
+	if ($id eq '*' || $id eq '=' || $id eq '+' || $id eq '!') {
 	    push @SCHEDULE,$_;
 	    next;
 	}
@@ -321,7 +321,8 @@ sub get_order {
 #   additional items, format: + TIME DESCRIPTION
 * Wednesday, June 29, 2005
 + 8:45--9:00 Opening Remarks
-+ 9:00--10:00 Invited Talk by John Doe
+! 9:00--10:00 Invited Talk by John Doe
+= 9:00--10:00 Session 1: Important Matters Unresolved
 = Session 1: Important Matters Resolved\n";
     while(<DB>) {
 	chomp;
