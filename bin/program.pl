@@ -110,14 +110,48 @@ sub print_program {
 	       printf("%s & %s \\\\\n",$time,$description);
                $numlines += 0.8 if $description =~ /\\\\/;
 	   }
-           ## EXTRA TYPE 2
+           ## EXTRA TYPE 2 - with presenter.
 	   elsif ($type eq '!') {
-	       if ($content !~ /^(\S+) (.+)$/) {
-		   print STDERR "format error in extra (+) line: $extra[$pn]\n";
+	       my $time = $description = ();
+	       if ($content =~ /^(\S+) (.+)$/) {
+		   ($time,$description) = ($1,$2);
 	       }
-	       my ($time,$description) = ($1,$2);
-	       printf("%s & %s \\\\\n",$time,$description);
-               $numlines += 0.8 if $description =~ /\\\\/;
+	       else {
+		   $description = $content;
+               }
+	       if ($time) {
+		   printf("%s & ",$time);
+	       }
+	       else {
+		   print " & ";
+	       }
+
+               # Get title, presenter, affiliation, url out of title.
+	       $description =~ /([^%]+) %by (.+)$/;
+
+               my ($title,$rest) = ($1,$2);
+
+	       printf("{\\em %s}\\\\\n",$title);
+	       $rest =~ /[\s ]*([^%]+)[\s ]*/;
+	       my $xauthors = $1;
+	       printf("         & ");
+	       printf("%s\\\\\n",$xauthors);
+#	       $numlines += 1.6;
+
+	       if ($rest =~ /[\s ]*%a[\s ]*([^%]+)/) {
+		   my $affiliation = $1;
+		   printf("         & ");
+		   printf("%s\\\\\n",$affiliation);
+#		   $numlines += 0.8;
+	       }
+
+	       if ($rest =~ /[\s ]*%u[\s ]*([^%]+)/) {
+		   my $url = $1;
+		   printf("         & ");
+		   printf("%s\\\\\n",$url);
+#		   $numlines += 0.8;
+	       }
+
 	   }
 	   else {
 	   }
