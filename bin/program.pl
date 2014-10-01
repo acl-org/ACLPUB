@@ -94,11 +94,12 @@ sub print_program {
                # look for time if exists
 	       if ($content =~ /^([0-9,\.\:\-]+) (.*)$/) {
 		   my ($time,$description) = ($1,$2);
-		   printf("{\\bf %s} & {\\bf %s} \\\\\n",$time,$description);
+		   printf("\\\\{\\bf %s} & {\\bf %s} \\\\\n",$time,$description);
 	       }
 	       else {
-	        printf(" & {\\bf %s} \\\\\n",$content);
+	        printf("\\\\ & {\\bf %s} \\\\\n",$content);
 	       }
+               $numlines += 0.8; 
 	    }
 
 	   ## EXTRA (Breaks, Invited Talks, Business Meeting, ...)
@@ -107,8 +108,8 @@ sub print_program {
 		   print STDERR "format error in extra (+) line: $extra[$pn]\n";
 	       }
 	       my ($time,$description) = ($1,$2);
-	       printf("%s & %s \\\\\n",$time,$description);
-               $numlines += 0.8 if $description =~ /\\\\/;
+	       printf("\\\\{\\bf %s} & {\\bf\\em %s} \\\\\n",$time,$description);
+               $numlines += 0.8; # if $description =~ /\\\\/;
 	   }
            ## EXTRA TYPE 2 - with presenter.
 	   elsif ($type eq '!') {
@@ -136,21 +137,24 @@ sub print_program {
 	       my $xauthors = $1;
 	       printf("         & ");
 	       printf("%s\\\\\n",$xauthors);
-#	       $numlines += 1.6;
+	       $numlines += 0.8;
 
-	       if ($rest =~ /[\s ]*%a[\s ]*([^%]+)/) {
-		   my $affiliation = $1;
-		   printf("         & ");
-		   printf("%s\\\\\n",$affiliation);
-#		   $numlines += 0.8;
-	       }
 
-	       if ($rest =~ /[\s ]*%u[\s ]*([^%]+)/) {
-		   my $url = $1;
-		   printf("         & ");
-		   printf("%s\\\\\n",$url);
+#              No affiliations/URLs - so much for that idea.
+#
+#	       if ($rest =~ /[\s ]*%a[\s ]*([^%]+)/) {
+#		   my $affiliation = $1;
+#		   printf("         & ");
+#		   printf("%s\\\\\n",$affiliation);
 #		   $numlines += 0.8;
-	       }
+#	       }
+#
+#	       if ($rest =~ /[\s ]*%u[\s ]*([^%]+)/) {
+#		   my $url = $1;
+#		   printf("         & ");
+#		   printf("%s\\\\\n",$url);
+#		   $numlines += 0.8;
+#	       }
 
 	   }
 	   else {
