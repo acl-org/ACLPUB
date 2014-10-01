@@ -129,18 +129,32 @@ for ($pn = 0; $pn < $papnum; $pn++) {
 	print STDERR "format error in extra (+) line: $extra[$pn] || $content\n";
       }
       my ($time,$description) = ($1,$2);
-      print ("<tr><td valign=top>$time</td><td valign=top>$description</td></tr>\n");
+      print ("<tr><td valign=top><b>$time</b></td><td valign=top><b><em>$description</em></b></td></tr>\n");
     }
     ## EXTRA TYPE 2
     elsif ($type eq '!') {
-      if ($content !~ /^(\S+) (.+)$/) {
-	print STDERR "format error in extra (+) line: $extra[$pn] || $content\n";
-      }
-      my ($time,$description) = ($1,$2);
-      print ("<tr><td valign=top>$time</td><td valign=top>$description</td></tr>\n");
+	my $time = $description = ();
+	if ($content =~ /^([0-9,\.\:]+)/) {
+	    if ($content =~ /^(\S+) (.+)$/) {
+		($time,$description) = ($1,$2);
+	    }
+	}
+	else {
+	    $description = $content;
+	}
+	print ("<tr><td valign=top>$time</td>");
+
+	# Get title, presenter, affiliation, url out of title.
+	$description =~ /([^%]+) %by (.+)$/;
+
+	my ($title,$rest) = ($1,$2);
+
+	$rest =~ /[\s ]*([^%]+)[\s ]*/;
+	my $xauthors = $1;
+
+	print "<td valign=top><em>$title</em><br>$xauthors</td></tr>\n";
     }
-    $numlines += 2;
-    #	   printf("\\\\\n");
+
   } else {
 
     ### PRINT HOURS IN PROGRAM
