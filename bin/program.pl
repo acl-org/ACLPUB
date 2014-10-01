@@ -85,6 +85,10 @@ sub print_program {
 	   my $content = $2;
 	   ## DAY
 	   if ($type eq '*') {
+	       if ($numlines > 0) {
+		   print "\\\\";
+	       }
+
 	       printf("\\multicolumn{2}{l}{\\bf $content} \\\\\n");
 	       $day = $content;
 	   }
@@ -207,7 +211,7 @@ sub print_program {
 	   $numlines += 3;
        }
 
-      if ($numlines > 35 || ($numlines > 25 && defined($extra[$pn+1]) && $extra[$pn+1] =~ /^[\*\=]/)) {
+      if ($numlines > 37 || ($numlines > 25 && defined($extra[$pn+1]) && $extra[$pn+1] =~ /^[\*\=]/)) {
           printf("\\end{tabular}\n");
           printf("\\newpage\n");
           
