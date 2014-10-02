@@ -106,7 +106,7 @@ for ($pn = 0; $pn < $papnum; $pn++) {
 
     ## DAY
     if ($type eq '*') {
-      print ("<tr><td colspan=2><h4>$content</h4></td></tr>\n");
+      print ("<tr><td colspan=2 style=\"padding-top: 12px;\"><h4>$content</h4></td></tr>\n");
       $day = $content;
     }
 
@@ -116,10 +116,10 @@ for ($pn = 0; $pn < $papnum; $pn++) {
 	if ($content =~ /^([0-9,\.\:]+)(\Q&#8211;\E)([0-9,\.\:]+) (.*)$/) {
 	    my $time = "$1$2$3";
 	    my $description = $4;
-	    print("<tr><td valign=top><b>$time</b></td><td valign=top><b>$description</b></td></tr>\n");
+	    print("<tr><td valign=top style=\"padding-top: 12px;\"><b>$time</b></td><td valign=top style=\"padding-top: 12px;\"><b>$description</b></td></tr>\n");
 	}
 	else {
-	    print ("<tr><td valign=top>&nbsp;</td><td valign=top><b>$content</b></td></tr>\n");
+	    print ("<tr><td valign=top style=\"padding-top: 12px;\">&nbsp;</td><td valign=top style=\"padding-top: 12px;\"><b>$content</b></td></tr>\n");
 	}
     }
 
@@ -129,7 +129,7 @@ for ($pn = 0; $pn < $papnum; $pn++) {
 	print STDERR "format error in extra (+) line: $extra[$pn] || $content\n";
       }
       my ($time,$description) = ($1,$2);
-      print ("<tr><td valign=top><b>$time</b></td><td valign=top><b><em>$description</em></b></td></tr>\n");
+      print ("<tr><td valign=top style=\"padding-top: 12px;\"><b>$time</b></td><td valign=top style=\"padding-top: 12px;\"><b><em>$description</em></b></td></tr>\n");
     }
     ## EXTRA TYPE 2
     elsif ($type eq '!') {
@@ -152,7 +152,13 @@ for ($pn = 0; $pn < $papnum; $pn++) {
 	$rest =~ /[\s ]*([^%]+)[\s ]*/;
 	my $xauthors = $1;
 
-	print "<td valign=top><em>$title</em><br>$xauthors</td></tr>\n";
+	if ($rest =~ /[\s ]*%u[\s ]*([^%]+)/) {
+	    my $url = $1;
+	    print "<td valign=top><em><a href=\"$url\">$title</a></em><br>$xauthors</td></tr>\n";
+	}
+	else {
+	    print "<td valign=top><em>$title</em><br>$xauthors</td></tr>\n";
+	}
     }
 
   } else {
