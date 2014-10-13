@@ -505,7 +505,7 @@ sub create_cd {
 	if (@files) {
 	    my $oldprefix = $pid . '_';
 	    my $newprefix = $abbrev . $papnum_formatted . '_';
-	    mkdir("cdrom/additional") || skip;
+	    mkdir("cdrom/additional") || 0;
 	    foreach my $file (@files) {
 		my $newname = fname($file);
 		$newname =~ s/^$oldprefix/$newprefix/;
