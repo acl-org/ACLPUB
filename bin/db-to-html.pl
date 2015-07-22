@@ -98,7 +98,6 @@ s/î/&icirc;/g;
 s/ì/&igrave;/g; 
 s/ï/&iuml;/g; 
 s/ñ/&ntilde;/g; 
-s/ń/&#324;/g; 
 s/ó/&oacute;/g; 
 s/ô/&ocirc;/g; 
 s/ò/&ograve;/g; 
@@ -121,7 +120,11 @@ s/\\\'{\\i}/&iacute;/g;
 s/\\\'{o}/&oacute;/g;
 s/\\\'{u}/&uacute;/g;
 s/\\\'{y}/&yacute;/g;
-s/\\\'{u}/&#324;/g;
+
+s/\\\'{u}/&#324;/g; # is this wrong????
+s/\\\'{n}/&#324;/g;
+s/ń/&#324;/g; 
+
 
 s/\\\`{a}/&agrave;/g;
 s/\\\`{e}/&egrave;/g;
