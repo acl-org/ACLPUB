@@ -98,6 +98,7 @@ s/î/&icirc;/g;
 s/ì/&igrave;/g; 
 s/ï/&iuml;/g; 
 s/ñ/&ntilde;/g; 
+s/ń/&#324;/g; 
 s/ó/&oacute;/g; 
 s/ô/&ocirc;/g; 
 s/ò/&ograve;/g; 
