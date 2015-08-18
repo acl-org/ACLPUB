@@ -132,17 +132,24 @@ sub print_program {
 	       }
 
                # Get title, presenter, affiliation, url out of title.
-	       $description =~ /([^%]+) %by (.+)$/;
+	       if ($description =~ /([^%]+) %by (.+)$/) {
 
-               my ($title,$rest) = ($1,$2);
+		   my ($title,$rest) = ($1,$2);
 
-	       printf("{\\em %s}\\\\\n",$title);
-	       $rest =~ /[\s ]*([^%]+)[\s ]*/;
-	       my $xauthors = $1;
-	       printf("         & ");
-	       printf("%s\\\\\n",$xauthors);
-	       $numlines += 0.8;
+		   printf("{\\em %s}\\\\\n",$title);
+		   $rest =~ /[\s ]*([^%]+)[\s ]*/;
+		   my $xauthors = $1;
+		   printf("         & ");
+		   printf("%s\\\\\n",$xauthors);
+		   $numlines += 0.8;
+	       }
 
+              # Otherwise description is title
+	       else {
+		   $description =~ s/\Q%\E/\\%/g;
+		   printf("{\\em %s}\\\\\n",$description);
+		   $numlines += 0.6;
+	       }
 
 #              No affiliations/URLs - so much for that idea.
 #
