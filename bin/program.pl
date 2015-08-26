@@ -118,7 +118,7 @@ sub print_program {
            ## EXTRA TYPE 2 - with presenter.
 	   elsif ($type eq '!') {
 	       my $time = $description = ();
-	       if ($content =~ /^(\S+) (.+)$/) {
+	       if ($content =~ /^([0-9,\Q.-:\E]+) (.+)$/) {
 		   ($time,$description) = ($1,$2);
 	       }
 	       else {
