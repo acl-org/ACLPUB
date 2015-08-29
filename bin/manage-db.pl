@@ -269,7 +269,8 @@ sub order {
 #
 #  9 May 2013 - allow duplicates
 # 14 May 2013 - they changed their mind .  No more duplicates.
-	die("duplicate paper id in order: $id") if defined($DUP_CHECK{$id});
+
+#	die("duplicate paper id in order: $id") if defined($DUP_CHECK{$id});
 	push @ORDER,$id;
 	$TIME{$id} = $time if $time && ($time =~ /[0-9]/ || $time eq 'none');
 	$DUP_CHECK{$id}++;
@@ -564,9 +565,9 @@ sub store_in_db {
 #  9 May 2013 - allow duplicates
 # 14 May 2013 - they changed their mind .  No more duplicates.
 
-	if (defined($$DB{$id})) {
-	    die("duplicate paper id in db: $id");
-	}
+#	if (defined($$DB{$id})) {
+#	    die("duplicate paper id in db: $id");
+#	}
 	foreach (keys %{$PAPER}) {
 	    $$DB{$id}{$_} = $$PAPER{$_};
 	}
