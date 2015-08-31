@@ -232,7 +232,11 @@ sub include {
     $addtotoc = "addtotoc={1,chapter,1,{$title},ref:paper_$id}";
 
     if ($option && ($option eq 'draft' || $option eq '2')) {
-        for(my $i=1;$i<=(($option eq '2' && $length>=2)?2:$length);$i++) {
+#        for(my $i=1;$i<=(($option eq '2' && $length>=2)?$length:$length);$i++) {
+#
+#       Include full papers in draft, not just the first two pages.
+#       We have to include a draft frame for each page; hence the loop.
+        for(my $i=1;$i<= $length;$i++) {
             print TEX "\\citeinfo{$pagecount}{".($pagecount+$length-1)."}\n" if $i==1;
             print TEX "\\draftframe[$id]\n";
             print TEX "\\includepdf[pages=$i".(($m ne "")?",$m":"").(($i==1)?",$addtotoc":"")."]{$file}\n";
