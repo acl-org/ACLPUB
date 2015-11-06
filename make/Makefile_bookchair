@@ -453,7 +453,7 @@ endef
 
 define pdflatex
 	@echo quietly running pdflatex $(1) ...
-	@pdflatex --interaction batchmode $(1) || (echo "pdflatex failed on $(1); see $(1:%.tex=%).log for details"; exit 1)
+	@pdflatex --shell-escape --interaction batchmode $(1) || (echo "pdflatex failed on $(1); see $(1:%.tex=%).log for details"; exit 1)
 endef
 
 # In general, throw away a target if only partly built.
