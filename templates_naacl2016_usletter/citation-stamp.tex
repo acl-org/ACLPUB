@@ -1,0 +1,9 @@
+\newcommand{\citeinfo}[2]{
+  \AddToShipoutPicture{%
+    \setlength{\unitlength}{1mm}
+    \put(105,12){\makebox(0,0){\footnotesize {\em Proceedings of NAACL-HLT 2016},
+        \ifthenelse{\equal{#1}{#2}}{page #1}{pages #1--#2}, }
+    }
+    \put(105,8){\makebox(0,0){\footnotesize San Diego, California, June 12-17, 2016. \copyright 2016 Association for Computational Linguistics}}
+  }
+}
