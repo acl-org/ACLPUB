@@ -11,11 +11,7 @@
 $indexfile = shift(@ARGV);
 
 while (<>) {
-   if (/<td.* CD/) {   # nav line
-     $_ = `cat $indexfile | grep "<td.*CD" | head -1`;  # replace with nav line from index.html.  (!!! Error-prone hack ...)
-     die unless defined $_;
-     s{<a href="(?!http:).*?">(.*?)</a>[\s|]*}{}g;  # remove relative links and their anchors \s{<a href="(?!http:).*?">(.*?)</a>[\s|]*}{}g;  # remove relative links and their anchors
-   }
+   s{<a href="(?!http:)[\.\/]*index.*?">(.*?)</a>[\s|]*}{}g;  # remove relative links and their anchors 
 
    s{../(?=\S+.css)}{}g;                     # stylesheet location: remove ../ from the front of ../*.css
    s{<a href="(?!http:).*?">(.*?)</a>}{$1}g; # kill relative links (to papers), keeping anchor text
