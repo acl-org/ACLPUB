@@ -52,6 +52,9 @@ else {
 
 sub create_db {
     open(DB,">db") || die unless $___JUST_COPYRIGHT;
+    if (!(-d "abs")) {
+	system qq{mkdir abstracts};
+    }
     system("chmod u+w copyright-signatures")==0 || die if -e "copyright-signatures";
     open(COPY,">copyright-signatures") || die;
     open(LS,"ls final/ | sort -n |") || die;
@@ -95,6 +98,9 @@ sub create_db {
 #   	                print DB "O: $ORG[$i]\n" if $ORG[$i];
 		    }
 		}
+		open(ABS,">abstracts/$id.abs");
+		print ABS $abstract;
+		close(ABS);
 		my $file = `ls final/$id/*Paper.pdf | head -1`; 
 		die unless defined $file;
 		chop($file);

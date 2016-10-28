@@ -89,6 +89,11 @@ while(<DB>) {
       if defined $title[$pn];
     $title[$pn] = $_;
   }
+  if (s/^P: *//) {
+    warn "double pid for paper $pn: $pid[$pn], $_"
+      if defined $pid[$pn];
+    $pid[$pn] = $_;
+  }
   elsif (s/^A: *//) {
       $_name = $_;
       if ($_name !~ /^(.+), (.+)$/) {
@@ -166,6 +171,14 @@ for ($pn = 0; $pn <= $#title; $pn++) {
     printf FILE "  pages     = {%s},\n",
        $startpage[$pn]==$endpage[$pn] ? $startpage[$pn] : "$startpage[$pn]--$endpage[$pn]";
   }
+  if (-e "abstracts/$pid[$pn].abs") {
+      open(ABS,"<abstracts/$pid[$pn].abs");
+      my @lines = <ABS>;
+      close(ABS);
+      my $abstract = join("",@lines);
+      print FILE "  abstract  = {$abstract},\n";
+  }
+
   printf FILE "  url       = {".&url($urlpattern,$pn)."}\n" if defined $urlpattern;
   print  FILE "}\n\n";
 
