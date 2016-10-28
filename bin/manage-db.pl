@@ -52,7 +52,7 @@ else {
 
 sub create_db {
     open(DB,">db") || die unless $___JUST_COPYRIGHT;
-    if (!(-d "abs")) {
+    if (!(-d "abstracts")) {
 	system qq{mkdir abstracts};
     }
     system("chmod u+w copyright-signatures")==0 || die if -e "copyright-signatures";
