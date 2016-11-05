@@ -396,7 +396,7 @@ all: ../proceedings.tgz
 	@if pwd | grep -vq /proceedings; then \
 		echo "Error: Please rename the current directory to\
 		\"proceedings\" and re-run make."; exit 1; fi
-	cd ..; rm -rf proceedings/abstracts; rm -rf proceedings/final; tar cfz proceedings.tgz proceedings; cd proceedings
+	cd ..; rm -rf proceedings/abstracts; tar -cz --exclude='proceedings/final' -f proceedings.tgz proceedings; cd proceedings
 	@echo "Successfully updated and packaged everything.";
 	@echo "Please recheck the HOWTO webpage to make sure you did\
 		everything you needed."
