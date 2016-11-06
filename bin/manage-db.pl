@@ -416,7 +416,7 @@ sub create_cd {
     foreach (`cat book.tex`) {
 	$skip = 1 if /INCLUDED PAPERS/;
 	$skip = 1 if /{allpapers}/;
-	$skip = 0 if /end{document}/;
+	$skip = 0 if /end\{document}/;
 	$_ .= "\\hypersetup{pdfpagemode=none}\n" if /{hyperref}/;  # don't show bookmarks
 	print TEX $_ unless $skip;
     } 

@@ -113,162 +113,162 @@ s/ü/&uuml;/g;
 s/ý/&yacute;/g; 
 s/ÿ/&yuml;/g; 
 
-s/\\\'{a}/&aacute;/g;
-s/\\\'{e}/&eacute;/g;
-s/\\\'{i}/&iacute;/g;
-s/\\\'{\\i}/&iacute;/g;
-s/\\\'{o}/&oacute;/g;
-s/\\\'{u}/&uacute;/g;
-s/\\\'{y}/&yacute;/g;
+s/\\\'\{a}/&aacute;/g;
+s/\\\'\{e}/&eacute;/g;
+s/\\\'\{i}/&iacute;/g;
+s/\\\'\{\\i}/&iacute;/g;
+s/\\\'\{o}/&oacute;/g;
+s/\\\'\{u}/&uacute;/g;
+s/\\\'\{y}/&yacute;/g;
 
-s/\\\'{u}/&#324;/g; # is this wrong????
-s/\\\'{n}/&#324;/g;
+s/\\\'\{u}/&#324;/g; # is this wrong????
+s/\\\'\{n}/&#324;/g;
 s/ń/&#324;/g; 
 
 
-s/\\\`{a}/&agrave;/g;
-s/\\\`{e}/&egrave;/g;
-s/\\\`{i}/&igrave;/g;
-s/\\\`{\\i}/&igrave;/g;
-s/\\\`{o}/&ograve;/g;
-s/\\\`{u}/&ugrave;/g;
+s/\\\`\{a}/&agrave;/g;
+s/\\\`\{e}/&egrave;/g;
+s/\\\`\{i}/&igrave;/g;
+s/\\\`\{\\i}/&igrave;/g;
+s/\\\`\{o}/&ograve;/g;
+s/\\\`\{u}/&ugrave;/g;
 
-s/\\\^{a}/&acirc;/g;
-s/\\\^{e}/&ecirc;/g;
-s/\\\^{i}/&icirc;/g;
-s/\\\^{\\i}/&icirc;/g;
-s/\\\^{o}/&ocirc;/g;
-s/\\\^{u}/&ucirc;/g;
+s/\\\^\{a}/&acirc;/g;
+s/\\\^\{e}/&ecirc;/g;
+s/\\\^\{i}/&icirc;/g;
+s/\\\^\{\\i}/&icirc;/g;
+s/\\\^\{o}/&ocirc;/g;
+s/\\\^\{u}/&ucirc;/g;
 
-s/\\\"{a}/&auml;/g;
-s/\\\"{e}/&euml;/g;
-s/\\\"{i}/&iuml;/g;
-s/\\\"{\\i}/&iuml;/g;
-s/\\\"{o}/&ouml;/g;
-s/\\\"{u}/&uuml;/g;
+s/\\\"\{a}/&auml;/g;
+s/\\\"\{e}/&euml;/g;
+s/\\\"\{i}/&iuml;/g;
+s/\\\"\{\\i}/&iuml;/g;
+s/\\\"\{o}/&ouml;/g;
+s/\\\"\{u}/&uuml;/g;
 
-s/{\\\"a}/&auml;/g;
-s/{\\\"e}/&euml;/g;
-s/{\\\"i}/&iuml;/g;
-s/{\\\"o}/&ouml;/g;
-s/{\\\"u}/&uuml;/g;
+s/\{\\\"a}/&auml;/g;
+s/\{\\\"e}/&euml;/g;
+s/\{\\\"i}/&iuml;/g;
+s/\{\\\"o}/&ouml;/g;
+s/\{\\\"u}/&uuml;/g;
 
-s/\\\~{a}/&atilde;/g;
-s/\\\~{o}/&otilde;/g;
-s/\\\~{n}/&ntilde;/g;
-s/\\\~{i}/&itilde;/g;
-s/\\\~{u}/&utilde;/g;
-s/\\c{c}/&ccedil;/g;
-s/\\c{s}/&#351;/g;
+s/\\\~\{a}/&atilde;/g;
+s/\\\~\{o}/&otilde;/g;
+s/\\\~\{n}/&ntilde;/g;
+s/\\\~\{i}/&itilde;/g;
+s/\\\~\{u}/&utilde;/g;
+s/\\c\{c}/&ccedil;/g;
+s/\\c\{s}/&#351;/g;
 
-s/\\v{C}/&#268;/g;
-s/\\v{c}/&#269;/g;
-s/\\v{E}/&#282;/g;
-s/\\v{e}/&#283;/g;
-s/\\v{N}/&#327;/g;
-s/\\v{n}/&#328;/g;
-s/\\v{R}/&#344;/g;
-s/\\v{r}/&#345;/g;
-s/\\v{S}/&#352;/g;
-s/\\v{s}/&#353;/g;
-s/\\v{Z}/&#381;/g;
-s/\\v{z}/&#158;/g;
-s/{\\AA}/&Aring;/g;
-s/{\\aa}/&aring;/g;
-s/{\\AE}/&AElig;/g;
-s/{\\ae}/&aelig;/g;
-s/{\\ss}/&szlig;/g;
+s/\\v\{C}/&#268;/g;
+s/\\v\{c}/&#269;/g;
+s/\\v\{E}/&#282;/g;
+s/\\v\{e}/&#283;/g;
+s/\\v\{N}/&#327;/g;
+s/\\v\{n}/&#328;/g;
+s/\\v\{R}/&#344;/g;
+s/\\v\{r}/&#345;/g;
+s/\\v\{S}/&#352;/g;
+s/\\v\{s}/&#353;/g;
+s/\\v\{Z}/&#381;/g;
+s/\\v\{z}/&#158;/g;
+s/\{\\AA}/&Aring;/g;
+s/\{\\aa}/&aring;/g;
+s/\{\\AE}/&AElig;/g;
+s/\{\\ae}/&aelig;/g;
+s/\{\\ss}/&szlig;/g;
 
-s/{?\\\'a}?/&aacute;/g;    
-s/{?\\\'e}?/&eacute;/g;
-s/{?\\\'i}?/&iacute;/g;
-s/{?\\\'\\i}?/&iacute;/g;
-s/{?\\\'o}?/&oacute;/g;
-s/{?\\\'u}?/&uacute;/g;
-s/{?\\\'y}?/&yacute;/g;
+s/\{?\\\'a}?/&aacute;/g;    
+s/\{?\\\'e}?/&eacute;/g;
+s/\{?\\\'i}?/&iacute;/g;
+s/\{?\\\'\\i}?/&iacute;/g;
+s/\{?\\\'o}?/&oacute;/g;
+s/\{?\\\'u}?/&uacute;/g;
+s/\{?\\\'y}?/&yacute;/g;
 
-s/{?\\\`a}?/&agrave;/g;
-s/{?\\\`e}?/&egrave;/g;
-s/{?\\\`i}?/&igrave;/g;
-s/{?\\\`\\i}?/&igrave;/g;
-s/{?\\\`o}?/&ograve;/g;
-s/{?\\\`u}?/&ugrave;/g;
+s/\{?\\\`a}?/&agrave;/g;
+s/\{?\\\`e}?/&egrave;/g;
+s/\{?\\\`i}?/&igrave;/g;
+s/\{?\\\`\\i}?/&igrave;/g;
+s/\{?\\\`o}?/&ograve;/g;
+s/\{?\\\`u}?/&ugrave;/g;
 
-s/{?\\\^a}?/&acirc;/g;
-s/{?\\\^e}?/&ecirc;/g;
-s/{?\\\^i}?/&icirc;/g;
-s/{?\\\^\\i}?/&icirc;/g;
-s/{?\\\^o}?/&ocirc;/g;
-s/{?\\\^u}?/&ucirc;/g;
+s/\{?\\\^a}?/&acirc;/g;
+s/\{?\\\^e}?/&ecirc;/g;
+s/\{?\\\^i}?/&icirc;/g;
+s/\{?\\\^\\i}?/&icirc;/g;
+s/\{?\\\^o}?/&ocirc;/g;
+s/\{?\\\^u}?/&ucirc;/g;
 
-s/{?\\\"a}?/&auml;/g;
-s/{?\\\"e}?/&euml;/g;
-s/{?\\\"i}?/&iuml;/g;
-s/{?\\\"\\i}?/&iuml;/g;
-s/{?\\\"o}?/&ouml;/g;
-s/{?\\\"u}?/&uuml;/g;
+s/\{?\\\"a}?/&auml;/g;
+s/\{?\\\"e}?/&euml;/g;
+s/\{?\\\"i}?/&iuml;/g;
+s/\{?\\\"\\i}?/&iuml;/g;
+s/\{?\\\"o}?/&ouml;/g;
+s/\{?\\\"u}?/&uuml;/g;
 
-s/{?\\\~a}?/&atilde;/g;
-s/{?\\\~o}?/&otilde;/g;
-s/{?\\\~n}?/&ntilde;/g;
+s/\{?\\\~a}?/&atilde;/g;
+s/\{?\\\~o}?/&otilde;/g;
+s/\{?\\\~n}?/&ntilde;/g;
 
-s/\\\'{A}/&Aacute;/g;
-s/\\\'{E}/&Eacute;/g;
-s/\\\'{I}/&Iacute;/g;
-s/\\\'{O}/&Oacute;/g;
-s/\\\'{U}/&Uacute;/g;
-s/\\\'{Y}/&Yacute;/g;
+s/\\\'\{A}/&Aacute;/g;
+s/\\\'\{E}/&Eacute;/g;
+s/\\\'\{I}/&Iacute;/g;
+s/\\\'\{O}/&Oacute;/g;
+s/\\\'\{U}/&Uacute;/g;
+s/\\\'\{Y}/&Yacute;/g;
 
-s/\\\`{A}/&Agrave;/g;
-s/\\\`{E}/&Egrave;/g;
-s/\\\`{I}/&Igrave;/g;
-s/\\\`{O}/&Ograve;/g;
-s/\\\`{U}/&Ugrave;/g;
+s/\\\`\{A}/&Agrave;/g;
+s/\\\`\{E}/&Egrave;/g;
+s/\\\`\{I}/&Igrave;/g;
+s/\\\`\{O}/&Ograve;/g;
+s/\\\`\{U}/&Ugrave;/g;
 
-s/\\\^{A}/&Acirc;/g;
-s/\\\^{E}/&Ecirc;/g;
-s/\\\^{I}/&Icirc;/g;
-s/\\\^{O}/&Ocirc;/g;
-s/\\\^{U}/&Ucirc;/g;
+s/\\\^\{A}/&Acirc;/g;
+s/\\\^\{E}/&Ecirc;/g;
+s/\\\^\{I}/&Icirc;/g;
+s/\\\^\{O}/&Ocirc;/g;
+s/\\\^\{U}/&Ucirc;/g;
 
-s/\\\"{A}/&Auml;/g;
-s/\\\"{E}/&Euml;/g;
-s/\\\"{I}/&Iuml;/g;
-s/\\\"{O}/&Ouml;/g;
-s/\\\"{U}/&Uuml;/g;
+s/\\\"\{A}/&Auml;/g;
+s/\\\"\{E}/&Euml;/g;
+s/\\\"\{I}/&Iuml;/g;
+s/\\\"\{O}/&Ouml;/g;
+s/\\\"\{U}/&Uuml;/g;
 
 s/\{\\o\}/&oslash;/g; 
 s/\{\\O\}/&Oslash;/g;  
 
 s/\\o/&oslash;/g;
 s/\\O/&Oslash;/g;
-s/\\u{g}/&#287;/g;
+s/\\u\{g}/&#287;/g;
 
-s/\\\~{A}/&Atilde;/g;
-s/\\\~{O}/&Otilde;/g;
-s/\\\~{N}/&Ntilde;/g;
-s/\\c{C}/&Ccedil;/g;
-s/\\\'{S}/&#346;/g;
-s/\\\'{C}/&#262;/g;
-s/\\\'{s}/&#347;/g;
-s/\\\'{c}/&#263;/g;
+s/\\\~\{A}/&Atilde;/g;
+s/\\\~\{O}/&Otilde;/g;
+s/\\\~\{N}/&Ntilde;/g;
+s/\\c\{C}/&Ccedil;/g;
+s/\\\'\{S}/&#346;/g;
+s/\\\'\{C}/&#262;/g;
+s/\\\'\{s}/&#347;/g;
+s/\\\'\{c}/&#263;/g;
 
-s/{?\\\'C}?/&#262;/g;
-s/{?\\\'c}?/&#263;/g;
-s/{?\\\'S}?/&#346;/g;
-s/{?\\\'s}?/&#347;/g;
+s/\{?\\\'C}?/&#262;/g;
+s/\{?\\\'c}?/&#263;/g;
+s/\{?\\\'S}?/&#346;/g;
+s/\{?\\\'s}?/&#347;/g;
 
-s/\\\={a}/&#257;/g;
-s/\\\={e}/&#275;/g;
-s/\\\={i}/&#299;/g;
-s/\\\={o}/&#333;/g;
-s/\\\={u}/&#363;/g;
+s/\\\=\{a}/&#257;/g;
+s/\\\=\{e}/&#275;/g;
+s/\\\=\{i}/&#299;/g;
+s/\\\=\{o}/&#333;/g;
+s/\\\=\{u}/&#363;/g;
 
-s/\\\={A}/&#256;/g;
-s/\\\={E}/&#274;/g;
-s/\\\={I}/&#298;/g;
-s/\\\={O}/&#332;/g;
-s/\\\={U}/&#362;/g;
+s/\\\=\{A}/&#256;/g;
+s/\\\=\{E}/&#274;/g;
+s/\\\=\{I}/&#298;/g;
+s/\\\=\{O}/&#332;/g;
+s/\\\=\{U}/&#362;/g;
 
 s/ě/&#283;/g;
 
@@ -276,79 +276,79 @@ s/\{\\L\}/&#0321/g;
 s/\{\\l\}/&#0322/g; 
 
 s/ł/&#322;/g;
-s/{\\l}/&#322;/g;
+s/\{\\l}/&#322;/g;
 
 s/ă/&#259;/g;
-s/\\v{a}/&#259;/g;
+s/\\v\{a}/&#259;/g;
 
 s/ē/&#275;/g;
-s/\\\={e}/&#275;/g;
+s/\\\=\{e}/&#275;/g;
 
 s/ū/&#363;/g;
-s/\\\={u}/&#363;/g;
+s/\\\=\{u}/&#363;/g;
 
 s/ī/&#299;/g;
-s/\\\={\\\i}/&#299;/g;
+s/\\\=\{\\\i}/&#299;/g;
 
 s/ā/&#257;/g;
-s/\\\={a}/&#257;/g;
+s/\\\=\{a}/&#257;/g;
 
 s/š/&#353;/g;
-s/\\v{s}/&#353;/g;
+s/\\v\{s}/&#353;/g;
 
 s/ģ/&#289;/g;
-s/\\v{g}/&#289;/g;
+s/\\v\{g}/&#289;/g;
 
 s/ķ/&#311;/g;
-s/\\c{k}/&#311;/g;
+s/\\c\{k}/&#311;/g;
 
 s/ļ/&#316;/g;
-s/\\c{l}/&#316;/g;
+s/\\c\{l}/&#316;/g;
 
 s/ž/&#158;/g;
-s/\\v{z}/&#158;/g;
+s/\\v\{z}/&#158;/g;
 
 s/č/&#269;/g;
-s/\\v{c}/&#269;/g;
+s/\\v\{c}/&#269;/g;
 
 s/ņ/&#316;/g;
-s/\\c{n}/&#316;/g;
+s/\\c\{n}/&#316;/g;
 
 s/Ē/&#274;/g;
-s/\\\={E}/&#274;/g;
+s/\\\=\{E}/&#274;/g;
 
 s/Ū/&#362;/g;
-s/\\\={U}/&#362;/g;
+s/\\\=\{U}/&#362;/g;
 
 s/Ī/&#298;/g;
-s/\\\={I}/&#298;/g;
+s/\\\=\{I}/&#298;/g;
 
 s/Ā/&#256;/g;
-s/\\\={A}/&#256;/g;
+s/\\\=\{A}/&#256;/g;
 
 s/Š/&#352;/g;
-s/\\v{S}/&#352;/g;
+s/\\v\{S}/&#352;/g;
 
 s/Ģ/&#290;/g;
-s/\\c{G}/&#290;/g;
+s/\\c\{G}/&#290;/g;
 
 s/Ķ/&#310;/g;
-s/\\c{K}/&#310;/g;
+s/\\c\{K}/&#310;/g;
 
 s/Ļ/&#315;/g;
-s/\\c{L}/&#315;/g;
+s/\\c\{L}/&#315;/g;
 
 s/Ž/&#381;/g;
-s/\\v{Z}/&#381;/g;
+s/\\v\{Z}/&#381;/g;
 
 s/Č/&#268;/g;
-s/\\v{C}/&#268;/g;
+s/\\v\{C}/&#268;/g;
 
 s/Ņ/&#325;/g;
-s/\\c{N}/&#325;/g;
+s/\\c\{N}/&#325;/g;
 
 s/Ş/&#350;/g;
-s/\\c{S}/&#350;/g;
+s/\\c\{S}/&#350;/g;
 
 # Latex chars
 s/\\_/_/g;     # Underscore.
@@ -362,15 +362,15 @@ s/\$@\$/&#64;/g;    # AT
 # !!! could also try to fix math, e.g., "$n$-gram"
 
 s/{\\em (.+)}/<i>$1<\/i>/;
-s/\\textit{(.+)}/<i>$1<\/i>/;
-s/\\emph{(.+)}/<i>$1<\/i>/;
+s/\\textit\{(.+)}/<i>$1<\/i>/;
+s/\\emph\{(.+)}/<i>$1<\/i>/;
 
 # boldface
 s/{\\bf (.+)}/<b>$1<\/b>/;
-s/\\textbf{(.+)}/<b>$1<\/b>/;
+s/\\textbf\{(.+)}/<b>$1<\/b>/;
 
 # small caps - just print normally
-s/\\textsc{(.+)}/$1/;
+s/\\textsc\{(.+)}/$1/;
 
 
 # Any remaining backslashed sequences get deleted with a WARNING
