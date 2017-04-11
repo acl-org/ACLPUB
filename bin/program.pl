@@ -186,17 +186,23 @@ sub print_program {
 
       ### PRINT TITLE LINE FOR PROGRAM
 
-	   $line = $titles[$pn];
-	   $line =~ s/[ \t]*\\\\[ \t]*/ \} \\\\ & \{\\em /g;
-	   printf("\\hyperlink{page.$curpage}{");
-	   if ($line =~ /Invited Talk:/ || $line =~ /Panel:/) {
-	       $line =~ s/: /: \{\\em /;
-	       printf("%s}}\\\\\n",$line);
+	   if ($length[$pn] > 0) {
+	       $line = $titles[$pn];
+	       $line =~ s/[ \t]*\\\\[ \t]*/ \} \\\\ & \{\\em /g;
+	       printf("\\hyperlink{page.$curpage}{");
+	       if ($line =~ /Invited Talk:/ || $line =~ /Panel:/) {
+		   $line =~ s/: /: \{\\em /;
+		   printf("%s}}\\\\\n",$line);
+	       }
+	       else {
+		   printf("\\em %s}\\\\\n",$line);
+	       }
+	       $curpage += $length[$pn];
 	   }
-	   else {
-	       printf("\\em %s}\\\\\n",$line);
+	   else {  # no paper present
+	       $line = $titles[$pn];
+	       printf("{\\em %s}\\\\\n",$line);
 	   }
-	   $curpage += $length[$pn];
 
       ### PRINT AUTHORS FOR PROGRAM
 

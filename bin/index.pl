@@ -63,11 +63,13 @@ my ($start,$end);
 $start = 1;
 $end = 0;
 
+$papnum = 0;
+
 open(DB,"$ENV{ACLPUB}/bin/db-to-html.pl $db |") || die;
 while (<DB>) {
   $line = $_;
   chomp $line;
-  if (($line !~ /\S/) && ($author ne "")) {
+  if (($line !~ /\S/) && ($author ne "")) {  # reached the end of record.
     if ($count >0) {
       $start = $end + 1;
     }
@@ -95,7 +97,7 @@ while (<DB>) {
     }
     # print "temp = $new\n";
 
-    my $fn_base = sprintf "%0${digits}d", ++$papnum;
+    my $fn_base = sprintf "%0${digits}d", $papnum;
     $file = "$abbrev$fn_base";
 
     # This for the old-style templates, with 4 column format
@@ -161,14 +163,20 @@ EOD
   }
   if ($line =~ /^L:/) {
     $length = $line;
+    $length =~ s/^L://;
+    if ($length == 0) {  # if there is no paper, then don't put in index.
+	$author = "";
+	$text = "";
+	$author = "";
+	next;
+    }
+    else {
+	$papnum++;
+    }
   }
-
   $title =~ s/^T:|\n|^\s//;
-
-  $length =~ s/^L://;
-
-
 }
+
 close(DB);
 
 my $time = time;

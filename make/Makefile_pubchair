@@ -57,7 +57,6 @@ dbs = $(addsuffix /db,$(bookdirs))
 # remaking, then they won't trigger other updates.
 
 pdfs = $(addsuffix /book.pdf,$(bookdirs))
-spines = $(addsuffix /spine.ps,$(bookdirs))
 cdroms = $(addsuffix /cdrom,$(bookdirs))
 bibs = $(addsuffix /cdrom/bib,$(bookdirs))
 ads = $(addsuffix /advertisement.html,$(bookdirs))
@@ -85,13 +84,12 @@ update:     # update the aclpub software from CVS repository
 # Make a directory print/ of stuff to be sent to the printer.
 # (If you want to zip it up, use make print.zip.)
 
-print:  books $(pdfs) $(spines)
+print:  books $(pdfs)
 	@echo adding PDF and PS files to the $@ directory
 	@mkdir -p $@
 	for path in $(bookdirs); do \
 		dir=$${path##*/}; \
 		ln -sf ../$$path/book.pdf print/$$dir-book.pdf; \
-		ln -sf ../$$path/spine.ps print/$$dir-spine.ps; \
 	done
 ifeq ($(wildcard $(isbnpat)),)
 	@echo Can\'t find any ISBN barcode images named "$(isbnpat)".
@@ -103,8 +101,6 @@ endif
 # Recursive make, using an implicit pattern rule below..
 
 $(pdfs): %: %---shipout---make
-
-$(spines): %: %---spine---make
 
 # Package up the print materials.
 
@@ -137,8 +133,7 @@ cdrom-subdirs: books $(cdroms) $(pdfs)   # using $(pdfs) ensures that we have sh
 		ln -sf ../$$path/cdrom cdrom/$$abbrev; \
 	done
 
-cdrom/index.html: $(TEMPLATES)/mainindex.html.head
-	$(cdrom-dir)
+cdrom/index.html: $(cdrom-dir)
 	@if [ -e cdrom/index.html ]; then mv cdrom/index.html index.html.cdrom$$$$.bak; fi  # !!! temporary, for safety: backup
 	@echo building $@ 
 	cp -f $< $@ # !!! need a real way to generate, preferably using booknum meta field
@@ -252,7 +247,7 @@ $(copyrights): %: %---copyright-signatures---make
 clean:
 	for path in $(bookdirs); do \
 		dir=$${path##*/}; \
-		rm -f print/$$dir-book.pdf print/$$dir-spine.ps; \
+		rm -f print/$$dir-book.pdf; \
 	done
 	-if [ -e print ]; then rmdir print; fi   # only succeeds if dir is empty (maybe user added custom files)
 	rm -f print.zip $(printzip)

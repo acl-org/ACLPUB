@@ -82,13 +82,21 @@ while (<DB>) {
 
   }
 
-  if ($line =~ /^L:/) {
-    $length = $line;
-  }
-
   $title =~ s/^T:|\n|^\s//;
-  $length =~ s/^L://;
 
+  if ($line =~ /^L:/) {
+      $length = $line;
+      $length =~ s/^L://;
+      if ($length == 0) {  # if there is no paper, then don't put in index.
+	  $author = "";
+	  $text = "";
+	  $author = "";
+	  next;
+      }
+      else {
+	  $papnum++;
+      }
+  }
 }
 close(DB);
 

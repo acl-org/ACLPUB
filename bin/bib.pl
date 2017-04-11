@@ -61,65 +61,68 @@ if ($1) {
 
 # READ DB FILE
 
-my $pn=1;       # paper number
+#=c
+
+my $pn=0;       # paper number
 my $curpage=1;
-my $blanks=1;   # pretend file starts with at least one blank line
-                # !!! It would be better to use perl's paragraph mode,
-                # or split, to split the file into papers, then
-                # pull each into a hash table that maps each initial
-                # letter to a list.  Detect double entries, missing
-                # entries, warn about entries of unknown type.  Most of
-                # the scripts should use this mechanism, and it should be 
-                # used for meta, too.
 
 open (DB,$db) || die;
-while(<DB>) {
-  $_ = db_to_bib($_);
-  s/^([A-Z]) /$1: /;   # correct possible typo in db line
-  s/^X:.*//;           # turn header lines into blank lines
+binmode DB;
+my @flat = <DB>;
+close DB;
+my $stringfile = join("",@flat);
+my @entries = split(/^\s+/m, $stringfile); # this should yield records for each paper, etc.
 
-  if (/\S/) {
-    $blanks=0;
-  } else {
-    $pn++ if ++$blanks==1;   # only the first consecutive blank line indicates end of paper
-  }
+foreach my $entry (@entries) {
+    if ($entry =~ /^X:/) { # do not create a bib entry for headers
+	next;
+    }
+    if ($entry !~ /^F:/m) { # do not create bid entries when no file exists.
+	next;
+    }
+    $pn++;
+    my @lines = split(/\n/,$entry);
+    foreach (@lines) {
 
-  if (s/^T: *//) {
-    warn "double title for paper $pn: $title[$pn], $_"
-      if defined $title[$pn];
-    $title[$pn] = $_;
-  }
-  if (s/^P: *//) {
-    warn "double pid for paper $pn: $pid[$pn], $_"
-      if defined $pid[$pn];
-    $pid[$pn] = $_;
-  }
-  elsif (s/^A: *//) {
-      $_name = $_;
-      if ($_name !~ /^(.+), (.+)$/) {
-	  if ($_name =~ /^(.*),/) {
-	      $_name = $1;
-	  }
-	  else {
-	      $_name = 'unknown';
-	  }
-      }
-      push @{$authors[$pn]}, $_name;
-  }
-  elsif (s/^L: *//) {
-    warn "double length for paper $pn: $startpage[$pn], $_"
-      if defined $startpage[$pn];
-    $startpage[$pn] = $curpage;
-    $curpage += $_;     # assume it's numeric
-    $endpage[$pn] = $curpage-1;
-  }
-  elsif (s/^F: *//) {
-      warn "double filename for paper $pn: $file[$pn], $_"
-        if defined $file[$pn];
-      $file[$pn] = $_;
-  }
+	$_ = db_to_bib($_);
+	s/^([A-Z]) /$1: /;   # correct possible typo in db line
+
+	if (s/^T: *//) {
+	    warn "double title for paper $pn: $title[$pn], $_"
+		if defined $title[$pn];
+	    $title[$pn] = $_;
+	}
+	if (s/^P: *//) {
+	    warn "double pid for paper $pn: $pid[$pn], $_"
+		if defined $pid[$pn];
+	    $pid[$pn] = $_;
+	}
+	elsif (s/^A: *//) {
+	    $_name = $_;
+	    if ($_name !~ /^(.+), (.+)$/) {
+		if ($_name =~ /^(.*),/) {
+		    $_name = $1;
+		}
+		else {
+		    $_name = 'unknown';
+		}
+	    }
+	    push @{$authors[$pn]}, $_name;
+	}
+	elsif (s/^L: *//) {
+	    warn "double length for paper $pn: $startpage[$pn], $_"
+		if defined $startpage[$pn];
+	    $startpage[$pn] = $curpage;
+	    $curpage += $_;     # assume it's numeric
+	    $endpage[$pn] = $curpage-1;
+	}
+	elsif (s/^F: *//) {
+	    warn "double filename for paper $pn: $file[$pn], $_"
+		if defined $file[$pn];
+	    $file[$pn] = $_;
+	}
+    }
 }
-close(DB);
 
 
 # FIRST PASS TO FIND BIB KEYS so that we can detect conflicts before printing anything.

@@ -20,13 +20,6 @@ my $day = "No Day Set";
 $urlpattern =~ m/\%0(\d)d/;
 my $digits = $1; # checked in bib.pl
 
-# !!! This old code is buggy since it is sensitive to order of fields
-# in the db, and overly sensitive to blank lines (e.g., blank at end
-# of file affects $papnum, multiple blank lines are significant, etc.)
-# See bib.pl for more comments on this and a partial revision.
-# But it looks like all the scripts use this code, so keep it for
-# now for consistency ...
-
 $curpage = 1;
 $papnum = 0;
 $authornum = 0;
@@ -61,6 +54,9 @@ while(<DB>) {
     $line =~ s/^L:[ ]*//;
     $length[$papnum] = $line;
     $endauthor[$papnum] = $authornum-1;
+    if ($length[$papnum] > 0) {
+	$haspaper[$papnum] = 1;
+    }
   } elsif ($line =~ /^P:/) {
     $line =~ s/^P:[ ]*//;
     $id[$papnum] = $line;
@@ -131,7 +127,7 @@ for ($pn = 0; $pn < $papnum; $pn++) {
       my ($time,$description) = ($1,$2);
       print ("<tr><td valign=top style=\"padding-top: 14px;\"><b>$time</b></td><td valign=top style=\"padding-top: 14px;\"><b><em>$description</em></b></td></tr>\n");
     }
-    ## EXTRA TYPE 2
+    ## EXTRA TYPE 2 - generic speech with special % tags.
     elsif ($type eq '!') {
 	my $time = $description = ();
 	if ($content =~ /^([0-9,\.\:]+)/) {
@@ -177,15 +173,24 @@ for ($pn = 0; $pn < $papnum; $pn++) {
 
     ### PRINT TITLE LINE FOR PROGRAM
 
-    printf("<a href=\"pdf/${abbrev}%0${digits}d.pdf\">",++$pp);
-    $line = $titles[$pn];
-    $line =~ s/[ \t]*\\\\[ \t]*/ \} \\\\ & \{\\em /g;
-    if ($line =~ /Invited Talk:/ || $line =~ /Panel:/) {
-      $line =~ s/: /:<i> /;
-      printf("%s</i></a><br>\n",$line);
-    } else {
-      printf("<i>%s</i></a><br>\n",$line);
+    if ($haspaper[$pn]) {
+	printf("<a href=\"pdf/${abbrev}%0${digits}d.pdf\">",++$pp);
+	$line = $titles[$pn];
+	$line =~ s/[ \t]*\\\\[ \t]*/ \} \\\\ & \{\\em /g;
+	if ($line =~ /Invited Talk:/ || $line =~ /Panel:/) {
+	    $line =~ s/: /:<i> /;
+	    printf("%s</i></a><br>\n",$line);
+	} else {
+	    printf("<i>%s</i></a><br>\n",$line);
+	}
     }
+    else {
+	$line = $titles[$pn];
+	$line =~ s/[ \t]*\\\\[ \t]*/ \} \\\\ & \{\\em /g;
+	printf("<i>%s</i><br>\n",$line);
+    }
+
+
     $curpage += $length[$pn];
 
     ### PRINT AUTHORS FOR PROGRAM

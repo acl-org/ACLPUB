@@ -185,6 +185,7 @@ sub join_papers {
     my ($file,$length,$id,$title,$margins,@AUTHOR) = ("",0,0);
     open(TEX,">allpapers.tex") || die;
     open(DB,"db") || die;
+    $file = "";
     while(<DB>) {
 	chomp;
 	$id = $1 if (/^P: *(.+)$/);
@@ -193,8 +194,12 @@ sub join_papers {
 	$title = $1 if (/^T: (.+)$/);
 	$margins = $1 if (/^M: (.+)$/);
 	push @AUTHOR, $1 if (/^A: (.+)$/);
-	if (/^ *$/ && $file ne "") {
-	    &include($option,$file,$length,$id,$title,$margins,@AUTHOR);
+	if (/^ *$/) {
+            # include paper and in authorindex only if there is a paper for 
+            # this submission.
+	    if ($file) {
+		&include($option,$file,$length,$id,$title,$margins,@AUTHOR);
+	    }
 	    ($file,$length,$id,$margins,@AUTHOR) = ("",0,0);
 	}
     }
@@ -394,18 +399,6 @@ sub create_cd {
     $urlpattern =~ m/\%0(\d)d/;
     my $digits = $1; # checked in bib.pl
 
-    ### Took this out because then we'd keep clobbering
-    ### other stuff that the user might have tried to put
-    ### on the CD-ROM.  (Instead, we now just delete the
-    ### old pdf and ps directories.)  In any case, this
-    ### sort of thing is really for the makefile to decide.
-    #
-    # if (-e "cdrom") {
-    #   print STDERR "moving old cdrom to cdrom.bak...\n";
-    #   `rm -rf cdrom.bak`;
-    #   `mv cdrom cdrom.bak`;
-    # }
-
     print STDERR "linking proceedings volume...\n";   # !!! move into makefile
     system("ln -sf ../book.pdf cdrom/$abbrev-$year.pdf")==0 || die;
 
@@ -425,32 +418,16 @@ sub create_cd {
     my $frontmatter_papnum = sprintf("${abbrev}%0${digits}d.pdf",0);
     system("mv frontmatter.pdf cdrom/pdf/${frontmatter_papnum}")==0 || die;
 
-#    OLD WAY (MANY SEPARATE FRONTMATTER FILES)
-#    print STDERR "creating front matter\n";
-#    `pdflatex just-program.tex`;
-#    `pdflatex just-toc.tex`;
-#    `mkdir -p cdrom/frontmatter`;
-#    `cp -p just-program.pdf cdrom/frontmatter/program.pdf`;
-#    `cp -p just-toc.pdf cdrom/frontmatter/toc.pdf`;
-#    `cp -p titlepage.pdf cdrom/frontmatter/`;
-#    `cp -p preface.pdf cdrom/frontmatter/`;
-#    `cp -p organizers.pdf cdrom/frontmatter/`;
-#    `cp -p book.pdf cdrom`;
-#    `cp -p standard.css cdrom`;
-#    open(PDF,"ls cdrom/frontmatter/*.pdf|") || die;
-#    while(<PDF>) {
-#	chomp;
-#	s/\.pdf$//;
-#	`acroread -toPostScript -size letter < $_.pdf > $_.ps`;
-#    }
-#    close(PDF);
-#    #`acroread -toPostScript -size letter < book.pdf > book.ps`;
-
     print STDERR "creating pdf files stamped with citation info...\n";
     my $papnum = 0;
     open(PAPERMAP, ">id_map.txt") || die;
 
+    # cycle through all the papers, but only generate the ones that
+    # have a pdf Paper file.
     foreach my $id (@{$DB{"paper-order"}}) {
+	if (!$DB{$id}{"L"}[0]) {
+	    next;
+	}
         open(TEXTEMPLATE, "<$ENV{ACLPUB}/templates/cd.tex.head") || die;
         open(TEX,">cd.tex") || die;
 
@@ -493,6 +470,7 @@ sub create_cd {
         system("pdflatex --interaction batchmode cd.tex")==0 || die "pdflatex failed on cd.tex; see cd.log for details\n";
         $papnum++;
         my $papnum_formatted = sprintf("%0${digits}d",$papnum);
+        # cd.txt is the paper.
         system("mv cd.pdf cdrom/pdf/$abbrev$papnum_formatted.pdf")==0 || die;
 
         # Copy additional files (other than paper) into a directory called "additional"
@@ -543,9 +521,9 @@ sub load_db {
 	next if /^X:/;
 	s/[\s\r\n]+$//;
 	if (/^(.):\s*(.+)/) {
-	    push @{$PAPER{"ALL"}}, "$1: $2\n";
-	    push @{$PAPER{$1}}, $2;
-	    $id = $2 if $1 eq 'P';
+	    push @{$PAPER{"ALL"}}, "$1: $2\n"; # Putting labels/values in hash.
+	    push @{$PAPER{$1}}, $2;           
+	    $id = $2 if $1 eq 'P';   # this is the submission ID.
 	}
 	elsif (/^\s*$/) {
 	    if (scalar keys %PAPER) {

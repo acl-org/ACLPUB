@@ -33,20 +33,29 @@ foreach my $db (@ARGV) {
     my $papnum = 0;
 
     open(DB,"$ENV{ACLPUB}/bin/db-to-html.pl $db |") || die;
-    while ($line = <DB>) {
-	chomp $line;
-
-	if($line =~ /^P:/) {
-	    $paper_link = sprintf("%s/pdf/%s%0${digits}d.pdf",$abbrev,$abbrev,++$papnum);
+    binmode DB;
+    my @flat = <DB>;
+    close DB;
+    my $stringfile = join("",@flat);
+    my @entries = split(/^\s+/m, $stringfile); # this should yield records for each paper, etc.
+    foreach my $entry (@entries) {
+	if ($entry =~ /^X:/) { # do not index headers
+	    next;
 	}
-
-	if($line =~ /^A: *(\S.+\S) *$/) {
-	    push @{$author{$1}}, $paper_link;
+	if ($entry !~ /^F:/m) { # do index when no file exists.
+	    next;
+	}
+	my @lines = split(/\n/,$entry);
+	foreach my $line (@lines) {
+	    if($line =~ /^P:/) {
+		$paper_link = sprintf("%s/pdf/%s%0${digits}d.pdf",$abbrev,$abbrev,++$papnum);
+	    }
+	    if($line =~ /^A: *(\S.+\S) *$/) {
+		push @{$author{$1}}, $paper_link;
+	    }
 	}
     }
-    close(DB);
 }
-
 $count = 0;
 print "<tr class=\"$classes[$c++ % 2]\">";
 

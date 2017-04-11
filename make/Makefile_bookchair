@@ -47,7 +47,7 @@ TEMPLATES = $(ACLPUB)/templates
 
 metadata=final $(wildcard final/*.txt) $(wildcard final/*/*.txt)
 papers=final $(wildcard final/*.pdf) $(wildcard final/*/*.pdf)
-templates = book.tex citation-stamp.tex spine.tex \
+templates = book.tex citation-stamp.tex \
 	titlepage.tex copyright.tex preface.tex organizers.tex \
 	just-program.tex just-toc.tex
 
@@ -311,18 +311,6 @@ draftflag.sty:            # start out in draft mode if file doesn't exist
 	echo '\def\draftflag{1}' > draftflag.sty
 
 ####################
-# The spine text (for the binding)
-
-.PHONY: spine
-
-spine: spine.ps
-
-spine.ps: spine.tex
-	latex spine.tex
-	dvips -t landscape -o spine.ps spine.dvi
-
-
-####################
 # This book's contribution to the CD-ROM
 
 cdrom: cdrom/program.html cdrom/authors.html cdrom/bib cdrom/pdf cdrom/index.html
@@ -391,7 +379,7 @@ advertisement.html: $(BIN)/advertisement.pl cdrom/index.html cdrom/program.html
 
 all: ../proceedings.tgz
 
-../proceedings.tgz: shipout copyright-signatures book.pdf spine cdrom advertisement
+../proceedings.tgz: shipout copyright-signatures book.pdf cdrom advertisement
 	@echo "Almost done ... ready to package things up ...";
 	@if pwd | grep -vq /proceedings; then \
 		echo "Error: Please rename the current directory to\

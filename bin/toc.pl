@@ -60,39 +60,40 @@ sub print_table_of_contents {
 
    for ($pn = 0; $pn < $papnum; $pn++) {
 
-      ### PRINT TITLE LINE FOR TABLE OF CONTENTS
+       if ($length[$pn] > 0) {
 
-      $line = $titles[$pn];
-      printf("\\hyperlink{page.$curpage}{");
-     if ($line =~ /Invited Talk:/ || $line =~ /Panel:/) {
-         $line =~ s/: /: {\\em /;
-         printf("%s}}\\samepage \\\\\n",$line);
-      }
-      else {
-         printf("\\em %s}\\samepage \\\\\n",$line);
-      }
+	   ### PRINT TITLE LINE FOR TABLE OF CONTENTS
+	   $line = $titles[$pn];
+	   printf("\\hyperlink{page.$curpage}{");
+	   if ($line =~ /Invited Talk:/ || $line =~ /Panel:/) {
+	       $line =~ s/: /: {\\em /;
+	       printf("%s}}\\samepage \\\\\n",$line);
+	   }
+	   else {
+	       printf("\\em %s}\\samepage \\\\\n",$line);
+	   }
 
-      ### PRINT AUTHORS FOR TABLE OF CONTENTS
+	   ### PRINT AUTHORS FOR TABLE OF CONTENTS
 
-      $num_authors = $endauthor[$pn] - $startauthor[$pn] + 1;
+	   $num_authors = $endauthor[$pn] - $startauthor[$pn] + 1;
 
-      printf("\\hspace*{7mm} ");
-      if ($num_authors == 1) {
-         printf("%s",$authors[$startauthor[$pn]]);
-      }
-      else { 
-         $endauth = $endauthor[$pn];
-         for($i = $startauthor[$pn]; $i < $endauth-1; $i++) {
-            printf("%s, ",$authors[$i]);
-         }
-         printf("%s and %s",$authors[$endauth-1],$authors[$endauth]);
-      }
+	   printf("\\hspace*{7mm} ");
+	   if ($num_authors == 1) {
+	       printf("%s",$authors[$startauthor[$pn]]);
+	   }
+	   else { 
+	       $endauth = $endauthor[$pn];
+	       for($i = $startauthor[$pn]; $i < $endauth-1; $i++) {
+		   printf("%s, ",$authors[$i]);
+	       }
+	       printf("%s and %s",$authors[$endauth-1],$authors[$endauth]);
+	   }
 
-      ### PRINT STARTING PAGE FOR TABLE OF CONTENTS
+	   ### PRINT STARTING PAGE FOR TABLE OF CONTENTS
 
-      $paplength = $length[$pn];
-      printf("\\dotfill \\hyperpage{%s}\n\n",$curpage);
-      $curpage += $paplength; 
-
-  }
+	   $paplength = $length[$pn];
+	   printf("\\dotfill \\hyperpage{%s}\n\n",$curpage);
+	   $curpage += $paplength; 
+       }
+   }
 }
