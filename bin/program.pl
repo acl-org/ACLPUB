@@ -221,7 +221,7 @@ sub print_program {
 	   }
 	   printf(" \\\\\n\\\\\n\n");
 	   
-	   $numlines += 3;
+	   $numlines += 3.25;
        }
 
       if ($numlines > 37 || ($numlines > 25 && defined($extra[$pn+1]) && $extra[$pn+1] =~ /^[\*\=]/)) {
