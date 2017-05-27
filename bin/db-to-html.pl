@@ -59,8 +59,8 @@ s/Ã/&Atilde;/g;
 s/Ä/&Auml;/g; 
 s/Ç/&Ccedil;/g; 
 s/Ð/&ETH;/g; 
-s/Ś/&#346;/g
-s/ś/&#347;/g
+s/Ś/&#346;/g;
+s/ś/&#347;/g;
 s/É/&Eacute;/g; 
 s/Ê/&Ecirc;/g; 
 s/È/&Egrave;/g; 
