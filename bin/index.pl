@@ -120,7 +120,7 @@ EOD
         my $listoflinks = qq{[<a href="pdf/$file.pdf">pdf</a>] [<a href="bib/$file.bib">bib</a>]};
 
         # Other possibilities.
-        $possibleFinalAttachments = 'datasets|notes|software|optional';
+        $possibleFinalAttachments = 'datasets|notes|software|optional|supplementary';
 
         # Find if this submission has any additional files.
         my @files = glob("cdrom/additional/$file*");
