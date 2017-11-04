@@ -35,8 +35,8 @@ if (!$publisher) {
                  "address   = {$location}",
                  "publisher = {$publisher}");
 
-# changed  15-5-2011 because premise is not clear - what should be a
-# valid URL for ACL Anthology?
+# NOTE: This limits URLS to be of the form "http://..../..%03d" or
+# "http://..../..%02d" and so on.
 #
 my $digits = 0;
 $urlpattern =~ m/\%0(\d)d/;
@@ -45,23 +45,8 @@ if ($1) {
     $digits = $1;
 }
 
-# 15-5-2011  Commented this part out until we are told to put it back in.
-#
-
-#if (($digits != 2) && ($digits != 3)) {
-#    warn "\n$0:\n";
-#    warn "bib_url in \"meta\" file appears to have an incorrect format.\n";
-#    warn "  Should end in either \"%02d\" or \"%03d\":\n";
-#    warn "  $urlpattern\n";
-#    warn "If you really do want a URL filename with this format,\n";
-#    warn "  then comment this message and the accompanying \"exit\" out, and try again.\n";
-#
-#    exit 1;
-#}
-
 # READ DB FILE
 
-#=c
 
 my $pn=0;       # paper number
 my $curpage=1;
@@ -77,7 +62,7 @@ foreach my $entry (@entries) {
     if ($entry =~ /^X:/) { # do not create a bib entry for headers
 	next;
     }
-    if ($entry !~ /^F:/m) { # do not create bid entries when no file exists.
+    if ($entry !~ /^F:/m) { # do not create bib entries when no file exists.
 	next;
     }
     $pn++;
@@ -209,32 +194,9 @@ sub url {
     my $fn = sprintf $urlpattern, $pn;
     $fn =~ m/\/([^\/]+)$/;
     my $fn_base = $1;
-    if (length($fn_base)!=8) {
-        # the error will be printed for the first suspicious URL;
-        #   then we'll abort
-        warn "\n$0:\n";
-        warn "We think you must have gotten bib_url wrong in your \"meta\" file,\n";
-        warn "  since the filename for paper $pn came out like this: $fn_base\n";
-        if (length($fn) > length(sprintf $urlpattern, 0)) {
-            warn "This appears to be because your volume has more papers than expected.\n";
-        }
-        warn "Please request a new bib_url if necessary to fix the problem.\n";
-        warn "Or if you really do want a URL filename of other than 8 characters,\n";
-        warn "  then comment out this message and the accompanying \"exit\", and try again.\n";
-        exit 1;
-    }
-
     return $fn;
 
   } else {
-
-# WARNING!  This worked for me in 2008, in lieu of the much more complex
-# code below (which did not work for me).  I am not sure what's going on
-# here, but since I got the desired effect, I am leaving this in for now,
-# to figure out later.  -- Noah Smith, 5/18/08 10:24pm
-#    return $urlpattern;
-# END Noah's change
-# (And it was taken out because it messed up the CD.  Oy. --NAS)
 
     # For the book as a whole ($pn==0), create a copy of $urlpattern
     # with no number in it at all.  Unfortunately, we can't just sprintf
