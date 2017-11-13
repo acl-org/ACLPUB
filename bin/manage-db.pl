@@ -467,10 +467,26 @@ sub create_cd {
         print TEX "\\end{document}\n";
         close(TEX);
         close(TEXTEMPLATE);
+
+
+        # For RANLP: They use DOIcounter as the counter for the papers.  So we adjust
+        # the DOIcounter to make it the one before the current paper num for the DOI.
+        open(TEX,"<cd.tex");
+	binmode TEX;
+        $content = join("",<TEX>);
+	close TEX;
+        $content =~ s/(\\newcounter\{DOIcounter\})/$1\n\\setcounter{DOIcounter}{$papnum}/;
+        open(TEX,">cd.tex");
+	print TEX $content;
+	close TEX;
+
+
+        # cd.txt is the paper.
+
         system("pdflatex --interaction batchmode cd.tex")==0 || die "pdflatex failed on cd.tex; see cd.log for details\n";
         $papnum++;
         my $papnum_formatted = sprintf("%0${digits}d",$papnum);
-        # cd.txt is the paper.
+
         system("mv cd.pdf cdrom/pdf/$abbrev$papnum_formatted.pdf")==0 || die;
 
         # Copy additional files (other than paper) into a directory called "additional"
