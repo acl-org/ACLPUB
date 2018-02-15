@@ -447,6 +447,25 @@ sub create_cd {
         }
         my $pdf_authors = join(" ; ", @authors);
         my $pdf_subject = "$abbrev $year";
+
+
+        # This substitutes for most of db-to-pdfmeta.pl
+        # The konwert or iconv programs can covert utf8 to ascii 
+        my $konwert_present = qx{which konwert};
+	$konwert_present =~ s/\s*//g;
+	if ($konwert_present !~ /^no/) {
+	    $convertprog = "konwert UTF8-ascii";
+	}
+	else {
+	    $convertprog = "iconv -f UTF-8 -t US-ASCII//TRANSLIT";
+	    print STDERR "Using iconv to convert UTF to ascii.\n";
+	    print STDERR "  Try installing the superior konwert program.\n";
+	}
+
+	$pdf_authors = qx{printf "$pdf_authors" | $convertprog};
+	$pdf_title = qx{printf "$pdf_title" | $convertprog};
+
+
         while (<TEXTEMPLATE>) {
             s/__PDFTITLE__/$pdf_title_tex/;
             s/__PDFAUTHOR__/$pdf_authors/;
