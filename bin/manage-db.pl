@@ -95,7 +95,6 @@ sub create_db {
 		for(my $i=1;$i<=$#LAST;$i++) {
 		    if ($LAST[$i] || $FIRST[$i]) {
 			print DB "A: $LAST[$i], $FIRST[$i]\n";
-#   	                print DB "O: $ORG[$i]\n" if $ORG[$i];
 		    }
 		}
 		open(ABS,">abstracts/$id.abs");
@@ -120,8 +119,6 @@ sub create_db {
 		print DB "\n";
             }
 
-	    # !!! this form's contents shouldn't be hardcoded; rather, use a template file
-	    # (and instruct proceedings chair to make sure START matches it)
 	    print COPY "Submission # $id:
 Title: $title
 Authors:\n";
@@ -198,13 +195,17 @@ sub join_papers {
             # include paper and in authorindex only if there is a paper for 
             # this submission.
 	    if ($file) {
-		&include($option,$file,$length,$id,$title,$margins,@AUTHOR);
+		my $out = &include($option,$file,$length,$id,$title,$margins,@AUTHOR);
+		print TEX $out;
 	    }
 	    ($file,$length,$id,$margins,@AUTHOR) = ("",0,0);
 	}
     }
     close(DB);
-    &include($option,$file,$length,$id,$title,$margins,@AUTHOR) if $file ne "";
+    if ($file ne "") {
+	my $out = &include($option,$file,$length,$id,$title,$margins,@AUTHOR);
+	print TEX $out;
+    }
     close(TEX);
 }
 
@@ -220,6 +221,8 @@ sub include {
 	    die("buggy margin definition '$margins' for paper $id\n");
 	}
     }
+
+    my $retval = "";
 
     foreach my $author (@AUTHORS) {
         if ($author =~ /\\/) {
@@ -238,31 +241,31 @@ sub include {
 		$_name = 'unknown';
 	    }
 	}
-	print TEX "\\index{$_name}\n" unless $option eq 'cd';
+	$retval .=  "\\index{$_name}\n" unless $option eq 'cd';
     }
     $addtotoc = "addtotoc={1,chapter,1,{$title},ref:paper_$id}";
 
     if ($option && ($option eq 'draft' || $option eq '2')) {
-#        for(my $i=1;$i<=(($option eq '2' && $length>=2)?$length:$length);$i++) {
-#
+
 #       Include full papers in draft, not just the first two pages.
 #       We have to include a draft frame for each page; hence the loop.
         for(my $i=1;$i<= $length;$i++) {
-            print TEX "\\citeinfo{$pagecount}{".($pagecount+$length-1)."}\n" if $i==1;
-            print TEX "\\draftframe[$id]\n";
-            print TEX "\\includepdf[pages=$i".(($m ne "")?",$m":"").(($i==1)?",$addtotoc":"")."]{$file}\n";
-            print TEX "\\ClearShipoutPicture\n";
+            $retval .=  "\\citeinfo{$pagecount}{".($pagecount+$length-1)."}\n" if $i==1;
+            $retval .=  "\\draftframe[$id]\n";
+            $retval .=  "\\includepdf[pages=$i".(($m ne "")?",$m":"").(($i==1)?",$addtotoc":"")."]{$file}\n";
+            $retval .=  "\\ClearShipoutPicture\n";
         }
     }
     else {
-        print TEX "\\citeinfo{$pagecount}{".($pagecount+$length-1)."}\n";
-        print TEX "\\includepdf[pages=1,".(($m ne "")?"$m,":"").(($option ne 'cd')?$addtotoc:"")."]{$file}\n";
-		print TEX "\\ClearShipoutPicture\n";
+        $retval .=  "\\citeinfo{$pagecount}{".($pagecount+$length-1)."}\n";
+        $retval .=  "\\includepdf[pages=1,".(($m ne "")?"$m,":"").(($option ne 'cd')?$addtotoc:"")."]{$file}\n";
+		$retval .=  "\\ClearShipoutPicture\n";
 		if ($length>1) {
-		    print TEX "\\includepdf[pages=2-".(($m ne "")?",$m":"")."]{$file}\n";
+		    $retval .=  "\\includepdf[pages=2-".(($m ne "")?",$m":"")."]{$file}\n";
 		}
     }
     $pagecount += $length;
+    return $retval;
 } 
 
 sub order {
@@ -405,7 +408,7 @@ sub create_cd {
     system("rm -rf cdrom/pdf; mkdir -p cdrom/pdf")==0 || die;
 
     print STDERR "producing front matter...\n";   
-    open(TEX,">frontmatter.tex") || die;   # stripped-down version of book.tex; note dependency for makefile (!!! move into makefile?)
+    open(TEX,">frontmatter.tex") || die;   # stripped-down version of book.tex; note dependency for makefile
     foreach (`cat book.tex`) {
 	$skip = 1 if /INCLUDED PAPERS/;
 	$skip = 1 if /{allpapers}/;
@@ -428,15 +431,11 @@ sub create_cd {
 	if (!$DB{$id}{"L"}[0]) {
 	    next;
 	}
-        open(TEXTEMPLATE, "<$ENV{ACLPUB}/templates/cd.tex.head") || die;
-        open(TEX,">cd.tex") || die;
-
         my $pdf_title = $DB{$id}{"T"}[0];
 
-	# to handle titles with hashes
+	# to handle titles with accents and so on
         my $pdf_title_tex = $DBTEX{$id}{"T"}[0];
 
-        #my $pdf_authors = join("; ", @{$DB{$id}{"A"}});
         my @authors;
         foreach my $author (@{$DB{$id}{"A"}}) {
             $author =~ m/\s*([^,]*)\s*,\s*(.*)\s*/;
@@ -448,57 +447,55 @@ sub create_cd {
         my $pdf_authors = join(" ; ", @authors);
         my $pdf_subject = "$abbrev $year";
 
+        
+        open(TEXTEMPLATE, "<$ENV{ACLPUB}/templates/cd.tex.head") || die;
+	my $textemplate = join("",<TEXTEMPLATE>);
+	close TEXTEMPLATE;
 
-        # This substitutes for most of db-to-pdfmeta.pl
-        # The konwert or iconv programs can covert utf8 to ascii 
-        my $konwert_present = qx{which konwert};
-	$konwert_present =~ s/\s*//g;
-	if ($konwert_present !~ /^no/) {
-	    $convertprog = "konwert UTF8-ascii";
+        # Need to ensure that hyperref definition is correct, if we are using old
+        # templates.
+
+	my $substring = q{\hypersetup{
+            plainpages=false,
+            pdfpagemode=none,
+            colorlinks=true,
+            unicode=true,
+            pdftitle={__PDFTITLE__},
+            pdfauthor={__PDFAUTHOR__},
+            pdfsubject={__PDFSUBJECT__}
+            }
+        };
+
+	$textemplate =~ s/\\usepackage\[[^\]]+\]\s*\{hyperref\}/\\usepackage{hyperref}/;
+	$textemplate =~ /(hypersetup((.|\n)+))/;
+	if ($1 !~ /PDFTITLE/) {
+	    $textemplate =~ s{\\hypersetup\{[^\}]+\}}{$substring}x;
 	}
-	else {
-	    $convertprog = "iconv -f UTF-8 -t US-ASCII//TRANSLIT";
-	    print STDERR "Using iconv to convert UTF to ascii.\n";
-	    print STDERR "  Try installing the superior konwert program.\n";
-	}
 
-	$pdf_authors = qx{printf "$pdf_authors" | $convertprog};
-	$pdf_title = qx{printf "$pdf_title" | $convertprog};
+	$textemplate =~ s/__PDFTITLE__/$pdf_title_tex/;
+	$textemplate =~ s/__PDFAUTHOR__/$pdf_authors/;
+        $textemplate =~ s/__PDFSUBJECT__/$pdf_subject/;
 
-
-        while (<TEXTEMPLATE>) {
-            s/__PDFTITLE__/$pdf_title_tex/;
-            s/__PDFAUTHOR__/$pdf_authors/;
-            s/__PDFSUBJECT__/$pdf_subject/;
-            print TEX;
-        }
         print STDERR "PDF meta-data:\n";
-        print STDERR "  title: $pdf_title\n";
+        print STDERR "  title: $pdf_title_tex\n";
         print STDERR "  author(s): $pdf_authors\n";
         print STDERR "  subject (venue): $pdf_subject\n\n";
-        print TEX "\\setcounter{page}{$pagecount}\n";
-        &include('cd',$DB{$id}{"F"}[0],
-                 $DB{$id}{"L"}[0],
-                 $DB{$id}{"P"}[0],
-                 $DB{$id}{"T"}[0],
-                 $DB{$id}{"M"}[0],
-                 @{$DB{$id}{"A"}});
-        print TEX "\\end{document}\n";
-        close(TEX);
-        close(TEXTEMPLATE);
-
+	$textemplate .= "\\setcounter{page}{$pagecount}\n";
+        $textemplate .= include('cd',$DB{$id}{"F"}[0],
+				$DB{$id}{"L"}[0],
+				$DB{$id}{"P"}[0],
+				$DB{$id}{"T"}[0],
+				$DB{$id}{"M"}[0],
+				@{$DB{$id}{"A"}});
+        $textemplate .= "\\end{document}\n";
 
         # For RANLP: They use DOIcounter as the counter for the papers.  So we adjust
         # the DOIcounter to make it the one before the current paper num for the DOI.
-        open(TEX,"<cd.tex");
-	binmode TEX;
-        $content = join("",<TEX>);
-	close TEX;
-        $content =~ s/(\\newcounter\{DOIcounter\})/$1\n\\setcounter{DOIcounter}{$papnum}/;
-        open(TEX,">cd.tex");
-	print TEX $content;
-	close TEX;
+	$textemplate =~ s/(\\newcounter\{DOIcounter\})/$1\n\\setcounter{DOIcounter}{$papnum}/;
 
+        open(TEX1,">cd.tex");
+	print TEX1 $textemplate;
+	close TEX1;
 
         # cd.txt is the paper.
 

@@ -1,11 +1,7 @@
 #!/usr/bin/perl -p
 
 # Filters a DB (or meta) file so that its entries are friendly for inclusion
-#   in PDF metadata
-# The result is still a DB (or meta) file.
-#
-# !!! Isn't there a Perl module that could handle this?
-#
+# in PDF metadata.
 
 next if /^url/;    # don't mess with url or bib_url lines (e.g., don't delete ~)
 

@@ -3,13 +3,14 @@
 # Filters a DB (or meta) file so that its entries are more HTML-friendly.
 # The result is still a DB (or meta) file.
 #
-# !!! Isn't there a Perl module that could handle this?
 # This file gets most common cases but is still slightly incomplete.
 # Also, the HTML specification does get extended from time to time.
+#
+# Doubtful that the diacritics need to be translated anymore, since HTML
+# is unicode friendly.  However, the latex versions of the diacritics will
+# need to be translated, if any were present in the metadata.
 
 next if /^url/;    # don't mess with url or bib_url lines (e.g., don't delete ~)
-
-s/\015//g;       # kill CR from DOS format files
 
 s/\r//g;         # kill CR from DOS format files
 

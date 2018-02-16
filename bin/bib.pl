@@ -164,6 +164,7 @@ for ($pn = 0; $pn <= $#title; $pn++) {
       my @lines = <ABS>;
       close(ABS);
       my $abstract = join("",@lines);
+      $abstract =~ s/\s+/ /g;  # no linefeeds in bib entry.
       print FILE "  abstract  = {$abstract},\n";
   }
 

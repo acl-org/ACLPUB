@@ -2,6 +2,29 @@
 
 # Creates an HTML table of contents.  Prints it to stdout.
 
+# if there are multiple attachments, we cannot use the columned header for the index.
+my $single = q{<table cellspacing="0" cellpadding="5" border="1">
+  <tr class="bg1">
+    <td valign="top"><a href="pdf/<XXX ABBREV>000.pdf">pdf</a></td>
+    <td valign="top"><a href="bib/<XXX ABBREV>000.bib">bib</a></td>
+    <td valign="top"><a href="pdf/<XXX ABBREV>000.pdf"><b>Front matter<b></a></td>
+    <td valign="top">pages</td>
+  </tr>};
+
+$single =~ s/\s/(\\s)/g;
+
+my $multiple = q{<table cellspacing="0" cellpadding="5" border="1">
+  <tr class="bg1">
+    <td valign="top"><a href="pdf/<XXX ABBREV>000.pdf"><b>Front matter<b></a>
+      [<a href="pdf/<XXX ABBREV>000.pdf">pdf</a>] [<a href="bib/<XXX ABBREV>000.bib">bib</a>]
+    </td>
+    <td valign="top">pages</td>
+  </tr>
+};
+
+
+
+
 my($db, $meta) = @ARGV;
 
 my($title,$url,$abbrev,$year,$chairs,$urlpattern);
@@ -29,29 +52,28 @@ $fmzeros = sprintf "%0${digits}d", 0;
 #    linktype = old: Original layout with 4 columns.
 #    linktype = new; New layout with brackets for links, to accommodate unlimited number of attachments.
 #
-$linktype = 'old';
 
 #add header information
 open(HEADER, "$ENV{ACLPUB}/templates/index.html.head") || die;
-while (<HEADER>) {
-  s/<XXX TITLE>/$title/g;
-  s/<XXX TYPE>/$type/g;
-  s/<XXX ABBREV>/$abbrev/g;
-  s/<XXX YEAR>/$year/g;
-  s/<XXX BOOKTITLE>/$booktitle/g;
-  s/<XXX URL>/$url/g;
-  s/<XXX CHAIRS>/$chairs/g;
-  s/000/$fmzeros/g;
-  print;
-   
-  # Determine if the template is old-style or new.  New style has
-  # hyperlinks in brackets.
-  if (/bib\<\/a\>\]/) {
-    $linktype = 'new';
-  }
-
-}
+my $out = join("",<HEADER>);
 close HEADER;
+$out =~ s/<XXX TITLE>/$title/g;
+$out =~ s/<XXX TYPE>/$type/g;
+$out =~ s/<XXX ABBREV>/$abbrev/g;
+$out =~ s/<XXX YEAR>/$year/g;
+$out =~ s/<XXX BOOKTITLE>/$booktitle/g;
+$out =~ s/<XXX URL>/$url/g;
+$out =~ s/<XXX CHAIRS>/$chairs/g;
+$out =~ s/000/$fmzeros/g;
+
+$linktype = ($out =~ /$single/x) ? 'old' : 'new';
+
+if (($linktype eq 'old') && (glob("cdrom/additional/*"))) {
+    if ($out =~ /$single/x) {
+	$out =~ s/$single/$multiple/;
+    }
+    $linktype = 'new';
+}
 
 my $text;
 my @classes;
@@ -108,13 +130,13 @@ while (<DB>) {
 			<td valign="top"><a href="pdf/$file.pdf">pdf</a></td>
 			<td valign="top"><a href="bib/$file.bib">bib</a></td>
 			<td valign="top" align="left"><a href="pdf/$file.pdf"><i>$title</i></a><br>$new</td>
-			<td valign="top" align="left"><a name="$start">pp.&nbsp;$start&#8211;$end</a></td>
+			<td valign="top" align="left"><a name="$start">pp.&nbsp;$start&#8209;$end</a></td>
 		</tr>\n
 EOD
 
     }
 
-    # For the new-style templates with 2 columns
+    # For the new-style templates with 2 columns, to accommodate additional file attachments
     else {
         # Initially the minimal links.
         my $listoflinks = qq{[<a href="pdf/$file.pdf">pdf</a>] [<a href="bib/$file.bib">bib</a>]};
@@ -141,13 +163,13 @@ EOD
 	    <td valign="top" align="left"><a href="pdf/$file.pdf"><i>$title</i></a><br>$new<br>
 	    $listoflinks
 	    </td>
-	    <td valign="top" align="left"><a name="$start">pp.&nbsp;$start&#8211;$end</a></td>
+	    <td valign="top" align="left"><a name="$start">pp.&nbsp;$start&#8209;$end</a></td>
 	    </tr>\n
 EOD
 
     }
 
-    print $text;   # !!! should deal with special case of a 1-page paper, as we do elsewhere
+    $out .= $text;   # !!! should deal with special case of a 1-page paper, as we do elsewhere
     $text = "";
     $author = "";
     $count++;
@@ -181,12 +203,14 @@ close(DB);
 
 my $time = time;
 my %date = read_timestamp($time);
-print "</table><p>
+$out .= "</table><p>
 Last modified on $date{mdy}, $date{time}<p>&nbsp;
 </center>
 </body>
 </html>
 ";
+
+print $out;
 
 ##############################################################################################################
 sub read_timestamp { 
