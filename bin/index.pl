@@ -9,7 +9,8 @@ my $single = q{<table cellspacing="0" cellpadding="5" border="1">
     <td valign="top"><a href="bib/<XXX ABBREV>000.bib">bib</a></td>
     <td valign="top"><a href="pdf/<XXX ABBREV>000.pdf"><b>Front matter<b></a></td>
     <td valign="top">pages</td>
-  </tr>};
+  </tr>
+};
 
 $single =~ s/\s/(\\s)/g;
 
@@ -57,6 +58,18 @@ $fmzeros = sprintf "%0${digits}d", 0;
 open(HEADER, "$ENV{ACLPUB}/templates/index.html.head") || die;
 my $out = join("",<HEADER>);
 close HEADER;
+
+$out =~ s/(\<br\>\<\/br\>)((.|[\n\s])*)/<br><\/br>/;
+
+if (glob("cdrom/additional/*")) {
+    $linktype = 'new';
+    $out .= $multiple;
+}
+else {
+    $linktype = 'old';
+    $out .= $single;
+}
+
 $out =~ s/<XXX TITLE>/$title/g;
 $out =~ s/<XXX TYPE>/$type/g;
 $out =~ s/<XXX ABBREV>/$abbrev/g;
@@ -65,15 +78,6 @@ $out =~ s/<XXX BOOKTITLE>/$booktitle/g;
 $out =~ s/<XXX URL>/$url/g;
 $out =~ s/<XXX CHAIRS>/$chairs/g;
 $out =~ s/000/$fmzeros/g;
-
-$linktype = ($out =~ /$single/x) ? 'old' : 'new';
-
-if (($linktype eq 'old') && (glob("cdrom/additional/*"))) {
-    if ($out =~ /$single/x) {
-	$out =~ s/$single/$multiple/;
-    }
-    $linktype = 'new';
-}
 
 my $text;
 my @classes;
