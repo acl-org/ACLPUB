@@ -12,7 +12,6 @@ my $single = q{<table cellspacing="0" cellpadding="5" border="1">
   </tr>
 };
 
-$single =~ s/\s/(\\s)/g;
 
 my $multiple = q{<table cellspacing="0" cellpadding="5" border="1">
   <tr class="bg1">
@@ -59,7 +58,7 @@ open(HEADER, "$ENV{ACLPUB}/templates/index.html.head") || die;
 my $out = join("",<HEADER>);
 close HEADER;
 
-$out =~ s/(\<br\>\<\/br\>)((.|[\n\s])*)/<br><\/br>/;
+$out =~ s/(\<br\>\<\/br\>)((.|[\n\s])*)/$1/;
 
 if (glob("cdrom/additional/*")) {
     $linktype = 'new';
