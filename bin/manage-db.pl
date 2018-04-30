@@ -294,8 +294,13 @@ sub order {
 	$DUP_CHECK{$id}++;
     }
     foreach my $id (keys %DB) {
-	die("missing paper in order: $id") if ! defined($DUP_CHECK{$id});
-	$DB{$id}{"H"}[0] = $TIME{$id} if defined($TIME{$id});
+#     There are cases where we will want to have an incomplete order
+#     file, despite the metadata in the final directories.  So we should not
+#     just die if the order file is incomplete, as we were doing below.
+#	die("missing paper in order: $id") if ! defined($DUP_CHECK{$id});
+	if (defined($DUP_CHECK{$id})) {
+	    $DB{$id}{"H"}[0] = $TIME{$id} if defined($TIME{$id});
+	}
     }
     open(DB,">db") || die;
     foreach my $id (@SCHEDULE) {
