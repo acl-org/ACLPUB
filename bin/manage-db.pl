@@ -1,12 +1,5 @@
 #!/usr/bin/perl -w
 
-# Database Management Script for Generating Proceedings
-# written by Philipp Koehn
-
-use Text::PDF::File;
-use Text::PDF::SFont;
-use Text::PDF::Utils;
-
 my $pagecount = 1;
 my $___JUST_COPYRIGHT = 0;
 
@@ -486,12 +479,16 @@ sub create_cd {
         print STDERR "  author(s): $pdf_authors\n";
         print STDERR "  subject (venue): $pdf_subject\n\n";
 	$textemplate .= "\\setcounter{page}{$pagecount}\n";
-        $textemplate .= include('cd',$DB{$id}{"F"}[0],
-				$DB{$id}{"L"}[0],
-				$DB{$id}{"P"}[0],
-				$DB{$id}{"T"}[0],
-				$DB{$id}{"M"}[0],
-				@{$DB{$id}{"A"}});
+
+ 	my $length = $DB{$id}{"L"}[0];
+ 	my $file = $DB{$id}{"F"}[0];
+ 	$textemplate .= "\\citeinfo{$pagecount}{".($pagecount+$length-1)."}\n";
+        $textemplate .= "~\\newpage\n";	# create page with citation stamp
+        $textemplate .= "\\ClearShipoutPicture\n";
+ 	for $i (2..$length) {
+ 	    $textemplate .= "~\\newpage"; # create pages with nothing but page number
+ 	}
+
         $textemplate .= "\\end{document}\n";
 
         # For RANLP: They use DOIcounter as the counter for the papers.  So we adjust
@@ -502,13 +499,12 @@ sub create_cd {
 	print TEX1 $textemplate;
 	close TEX1;
 
-        # cd.txt is the paper.
-
-        system("pdflatex --interaction batchmode cd.tex")==0 || die "pdflatex failed on cd.tex; see cd.log for details\n";
+        # This will print just an overlay with page numbers and citation at bottom.
+	system("pdflatex --interaction batchmode cd.tex")==0 || die "pdflatex failed on cd.tex; see cd.log for details\n";
         $papnum++;
         my $papnum_formatted = sprintf("%0${digits}d",$papnum);
 
-        system("mv cd.pdf cdrom/pdf/$abbrev$papnum_formatted.pdf")==0 || die;
+	system("$ENV{ACLPUB}/bin/pdfunderneath.py $file ./cd.pdf -o cdrom/pdf/$abbrev$papnum_formatted.pdf")==0 || die;
 
         # Copy additional files (other than paper) into a directory called "additional"
         # Rename the files to conform to the paper numbering/codes for the pdfs and bib files.
@@ -587,9 +583,7 @@ sub store_in_db {
     }
     else {
 
-#  9 May 2013 - allow duplicates
-# 14 May 2013 - they changed their mind .  No more duplicates.
-
+#       Don't allow duplicates
 #	if (defined($$DB{$id})) {
 #	    die("duplicate paper id in db: $id");
 #	}

@@ -1,6 +1,7 @@
 #!/usr/bin/perl
-
-# Usage: anthologize.pl cdrom anthology
+# Last Updated 15.May.2018 by slukin
+#
+# Usage: anthologize.pl cdrom anthology volume_id volume_no
 #
 #    where cdrom is the directory containing the entire CD-ROM and
 #    anthology is the directory (which will be created if necessary)
@@ -16,21 +17,25 @@
 # bib file at the top level of the CD-ROM.
 
 ##### 
-# Getting Text::BibTeX (see http://search.cpan.org/~gward/Text-BibTeX-0.34):
+#print STDOUT "Getting Text::BibTeX (see http://search.cpan.org/~gward/Text-BibTeX-0.34)"
 #   wget http://search.cpan.org/CPAN/authors/id/G/GW/GWARD/Text-BibTeX-0.34.tar.gz
 #   tar xvf Text-BibTeX-0.34
 #   cd Text-BibTeX-0.34
 #   perl Makefile.PL
 #   make
-#   sudo make install
+#   make install
 
 use strict 'vars';
 
 use File::Spec;
 use Text::BibTeX;
 
-my ($cdrom,$anthology) = @ARGV;
+my ($cdrom,$anthology,$volume_id,$volume_no,) = @ARGV;
 my $tempfile = "/tmp/anthologize.$$";
+
+# check ACLPUB path
+die "Need to export ACLPUB=/path/to/acl-pub/assets/files/create_book"
+  unless(-d $ENV{ACLPUB});
 
 #### Should leave this to the makefile if we really want to do it
 #
@@ -44,36 +49,51 @@ my $tempfile = "/tmp/anthologize.$$";
 #   `mv $anthology $anthology.bak`;
 # }
 
-system("rm -rf $anthology")==0 || die;   # remove old version
+#system("rm -rf $anthology")==0 || die;   # if existing "anthology" outdir exists, remove it and start clean
 
+# iterate through directories in ${unzipped_tar_dir}/{acronym}/proceedings
 for my $dir (glob("$cdrom/*")) {
   next unless -d "$dir/bib";
   print STDERR "Anthologizing $dir ...\n";
 
-  my $urlprefix;   # initially undefined
+  my $urlprefix; # initially undefined
 
+  # iterate through the bib files
   for my $bib (glob("$dir/bib/*.bib")) {   # bib entry files in numerically sorted order
     chomp($bib);
+
+    # grab the corresponding pdf file in the pdf/ directory
     my $pdf = $bib;
-    $pdf =~ s{/bib/([^/]*)\.bib$}{/pdf/$1.pdf};     # the corresponding pdf file
+    $pdf =~ s{/bib/([^/]*)\.bib$}{/pdf/$1.pdf};     
 
     # Parse the bib entry.
-
     open(BIB,$bib) || die;
     my $bibentry = new Text::BibTeX::Entry;
     $bibentry->parse($bib, \*BIB) && $bibentry->parse_ok || die "Trouble parsing a BibTeX entry from $bib";
 
     # Extract URL from bib file; translate it to anthology base filename
-
     warn "Warning: No URL given in $bib (skipping)\n", next unless $bibentry->exists('url');
     my $url = $bibentry->get('url');
-    die "Aborting: $url in $bib is not a valid ACL Anthology URL"
-	unless $url =~ m{^http://www.aclweb.org/anthology/([A-Z])/(\1\d\d)/(\2-(\d{1,4}))$};
-    my $volume = $2;     # anthology terminology
-    my $paper_id = $4;   # anthology terminology
-    my $anthdir = "$anthology/$1/$2";
-    my $anthfile = $3;
-    my $anth = "$anthdir/$anthfile";
+    die "Aborting: $url in $bib is not a valid ACL Anthology URL\n"
+        unless $url =~ m{^http://www.aclweb.org/anthology/([A-Z])(\d{2})-(\d{0,2})*};
+
+    # anthdir is the new location, e.g., anthology/N/N18
+    my $anthdir = join("","$anthology/",substr($volume_id, 0, 1),"/$volume_id");
+
+    # anth is the full location with the final characters as the file id, e.g., anthology/N/N18/N18-1001
+    # extract the final 4 characters of the url
+    my $paper_id=substr $url, -4;
+    # test for front matter
+    if ($paper_id =~ m/-/) {
+      # this will become anthology/N/N18/N18-1000
+      $paper_id = $volume_no;
+    }
+ 
+    my $anth_top = "$anthdir/$volume_id"; # for xml naming
+    my $anth = "$anthdir/$volume_id-$paper_id";
+    my $anthfile = "$volume_id-$volume_no";
+
+    next $bib if $paper_id eq "";
 
     if (!defined $urlprefix) {
 
@@ -82,33 +102,42 @@ for my $dir (glob("$cdrom/*")) {
       # a special, shorter URL in this case, such as .../P05-1.
 
       $urlprefix = $url;    # remember for later
-      die "Although $bib is first listed file in its dir, it is not numbered 0"
-	unless $dir =~ m{/[^/]+$} && $bib =~ m{\Q$&\E0+\.bib$};   # e.g., in ACL directory, we'd expect bib/ACL00.bib or something
+      ## die "Although $bib is first listed file in its dir, it is not numbered 0"
+      ##	unless $dir =~ m{/[^/]+$} && $bib =~ m{[A-Z]{3}\d{2}\.bib$};   # e.g., in ACL directory, we'd expect bib/ACL00.bib or something
 
       # First, create if necessary the anthology directory where all
       # these files will go.
 
       system("mkdir -p $anthdir")==0 || die;
 
-      # Now create the volume-level files in this directory,
-      # i.e., $anth.bib for a bib database of all papers in the volume,
-      # and $anth.pdf for the entire volume.
+
+      ###################################
+      # Create the volume-level files in this directory,
+      # i.e., $anth.bib for a bib database of all papers in the volume (N18-1.bib)
+      # and $anth.pdf for the entire volume (N18-1.pdf)
 
       my @bibs = glob("$dir/*.bib");
       die "Aborting: No master .bib file exists in $dir\n" if @bibs < 1;
       die "Aborting: Multiple .bib files exist in $dir\n" if @bibs > 1;
-      symlink(File::Spec->abs2rel($bibs[0],$anthdir), "$anth.bib") || die;
+      symlink(File::Spec->abs2rel($bibs[0],$anthdir), "$anth.bib") || die "No bib or multiple bibs exist.";
 
       my @pdfs = glob("$dir/*.pdf");
       die "Aborting: No master .bib file exists in $dir\n" if @bibs < 1;
       die "Aborting: Multiple .bib files exist in $dir\n" if @bibs > 1;
       symlink(File::Spec->abs2rel($pdfs[0],$anthdir), "$anth.pdf") || die;
 
-      my $xml = "$anth.xml";
-      open(XML,">$xml") || die;
+
+      # initialize the .xml file to the top volume
+      my $xml = "$anth_top.xml";
+      open(XML,">>$xml") || die;
       print XML '<?xml version="1.0" encoding="UTF-8" ?>',"\n";
-      print XML " <volume id=\"$volume\">\n";
+      print XML " <volume id=\"$volume_id\">\n";
       # XML to be continued
+
+      ###################################
+      # Create the paper-level files in this directory
+      # i.e., $anth.bib for a bib database of each individual paper in the volume (N18-1000.bib)
+      # and $anth.pdf for the individual paper (e.g., N18-1000.pdf)
 
       # Now pad $anthfile out with zeroes until it has length 8,
       # e.g., from P05-1 to P05-1000.  The padded version
@@ -129,13 +158,14 @@ for my $dir (glob("$cdrom/*")) {
 
     # Link the current .bib file and its corresponding .pdf file into
     # the anthology.
-
     die "Aborting: $url in $bib is not an extension of the prefix $urlprefix from the first bib entry"
       unless substr($url,0,length($urlprefix)) eq $urlprefix;
     die "Aborting: $url in $bib does not have an 8-char filename" unless $url =~ m{/[^/]{8}$};
 
     symlink(File::Spec->abs2rel($bib,$anthdir), "$anth.bib");
     symlink(File::Spec->abs2rel($pdf,$anthdir), "$anth.pdf");
+
+    ##############################################################################
 
     # Convert the current .bib file into XML.
 
@@ -149,13 +179,14 @@ for my $dir (glob("$cdrom/*")) {
                	       ? map { &formatname($_) } $bibentry->names($field)
 		       : $bibentry->get($field);
       for my $val (@values) {
-
 	# pass $val through our db-to-html filter.
 	# There must be a nicer way to do this, but $htmlval = `echo "$val" | db-to-html.pl`
         # doesn't work because the shell may clobber special chars in $val, such as ``.
 	open (TEMP, ">$tempfile") || die;
 	print TEMP $val;
 	close TEMP;
+
+
 	my $htmlval = `$ENV{ACLPUB}/bin/db-to-html.pl $tempfile`;
 	die unless defined $htmlval;  # check for command error
 	chomp($htmlval);
