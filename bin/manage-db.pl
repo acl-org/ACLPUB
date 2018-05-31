@@ -504,7 +504,7 @@ sub create_cd {
         $papnum++;
         my $papnum_formatted = sprintf("%0${digits}d",$papnum);
 
-	system("$ENV{ACLPUB}/bin/pdfunderneath.py $file ./cd.pdf -o cdrom/pdf/$abbrev$papnum_formatted.pdf")==0 || die;
+	system("export PYTHONPATH $ENV{PYTHONPATH}; $ENV{ACLPUB}/bin/pdfunderneath.py $file ./cd.pdf -o cdrom/pdf/$abbrev$papnum_formatted.pdf")==0 || die;
 
         # Copy additional files (other than paper) into a directory called "additional"
         # Rename the files to conform to the paper numbering/codes for the pdfs and bib files.
