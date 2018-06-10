@@ -37,29 +37,27 @@ if (!$publisher) {
 
 #
 my $digits = 0;
+
 $urlpattern =~ m/\%0(\d)d/;
 
 if ($1) {
     $digits = $1;
 }
+else {
+    if ($urlpattern =~ /\/W/) {
+	# Workshop
+	$urlpattern .= '%02d';
+	$digits = 2;
+    }
+    else {
+	# Conference
+	$urlpattern .= '%03d';
+	$digits = 3;
+    }
+}
 
-# 15-5-2011  Commented this part out until we are told to put it back in.
-#
-
-#if (($digits != 2) && ($digits != 3)) {
-#    warn "\n$0:\n";
-#    warn "bib_url in \"meta\" file appears to have an incorrect format.\n";
-#    warn "  Should end in either \"%02d\" or \"%03d\":\n";
-#    warn "  $urlpattern\n";
-#    warn "If you really do want a URL filename with this format,\n";
-#    warn "  then comment this message and the accompanying \"exit\" out, and try again.\n";
-#
-#    exit 1;
-#}
 
 # READ DB FILE
-
-#=c
 
 my $pn=0;       # paper number
 my $curpage=1;
@@ -168,15 +166,18 @@ for ($pn = 0; $pn <= $#title; $pn++) {
   foreach (@constfields) {
     print  FILE "  $_,\n" unless $pn==0 && /booktitle/;
   }
+
   if (defined $startpage[$pn]) {
     printf FILE "  pages     = {%s},\n",
        $startpage[$pn]==$endpage[$pn] ? $startpage[$pn] : "$startpage[$pn]--$endpage[$pn]";
   }
+
   if (-e "abstracts/$pid[$pn].abs") {
       open(ABS,"<abstracts/$pid[$pn].abs");
       my @lines = <ABS>;
       close(ABS);
       my $abstract = join("",@lines);
+      $abstract =~ s/\s+/ /g;  # no linefeeds in bib entry.
       print FILE "  abstract  = {$abstract},\n";
   }
 
@@ -207,6 +208,7 @@ sub url {
     my $fn = sprintf $urlpattern, $pn;
     $fn =~ m/\/([^\/]+)$/;
     my $fn_base = $1;
+
     if (length($fn_base)!=8) {
         # the error will be printed for the first suspicious URL;
         #   then we'll abort
@@ -220,7 +222,6 @@ sub url {
         warn "Or if you really do want a URL filename of other than 8 characters,\n";
         warn "  then comment out this message and the accompanying \"exit\", and try again.\n";
     }
-
     return $fn;
 
   } else {
@@ -239,9 +240,6 @@ sub url {
 
     my $url1 = sprintf $urlpattern, 12345678;  # will fill up any initial spaces (not that we should see any in a URL)
     my $url2 = sprintf $urlpattern, -1;        # will start with - or fff... or 377...
-
-#    Too damn picky - don't die if the URL is wrong.
-#    die "Unexpected error" if $url1 eq $url2;
 
     # Now extract longest common prefix and longest common suffix.
     my $prefix=0; $prefix++ while substr($url1,0,$prefix+1) eq substr($url2,0,$prefix+1);
