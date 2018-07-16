@@ -499,6 +499,8 @@ sub create_cd {
 	print TEX1 $textemplate;
 	close TEX1;
 
+	$pagecount += $length;
+
         # This will print just an overlay with page numbers and citation at bottom.
 	system("pdflatex --interaction batchmode cd.tex")==0 || die "pdflatex failed on cd.tex; see cd.log for details\n";
         $papnum++;
@@ -534,6 +536,7 @@ sub create_cd {
 		system "cp $file cdrom/additional/$newname";
 	    }
 	}
+
     }
     close(PAPERMAP);
 }
