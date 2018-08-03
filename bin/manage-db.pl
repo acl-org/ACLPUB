@@ -63,11 +63,6 @@ sub create_db {
 	    while(<METADATA>) {
 		s/[\n\r]+//g;
 		my ($field,$value) = split(/\#\=\%?\=\#/);
-		if ($organization ne "" && ! $value && $field && $field !~ /^\=+$/ && $abstract eq "") {
-		    $organization .= "\n\t".$field;
-		} elsif ($abstract ne "" && !$value && $field && $field !~ /^\=+$/) {
-                    $abstract .= "\n\t".$field;
-                }
 		next unless $value;
 		$id = $value         if $field eq 'SubmissionNumber';
 		$title = $value      if $field eq 'FinalPaperTitle';
