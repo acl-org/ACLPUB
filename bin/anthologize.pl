@@ -223,7 +223,7 @@ for my $dir (glob("$cdrom/*")) {
 sub formatname {
   my($name) = @_;
   my $out = "";
-  for my $part ('first','von','last','jr') {
+  for my $part ('first','last') {
     my @tokens = $name->part($part);
     if (@tokens) {   # nonempty
       unshift(@tokens,",") if $part eq 'jr';   # the jr part starts with a comma
