@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+use utf8;
+use open qw(:std :utf8);
+
 my ($db,$meta) = @ARGV;
 
 my ($title,$booktitle, $urlpattern);

@@ -1,50 +1,59 @@
-#!/usr/bin/perl -p
+#!/usr/bin/perl
 
 # Filters a DB (or meta) file so that its entries are friendly for inclusion
 # in PDF metadata.
 
-next if /^url/;    # don't mess with url or bib_url lines (e.g., don't delete ~)
+use utf8;
+use open qw(:std :utf8);
 
-s/\r//g;         # kill CR from DOS format files
+while (<>) {
 
-# latex cruft
-s/\\@//g;          # kill latex \@, sometimes used after periods
-s/\\,//g;          # kill latex \, sometimes used to widen titles in TOC
-s/\\\\|\\newline\b//g;    # kill latex newlines
-s/\\ / /g;         # latex hard space: convert to ordinary space
-s/(?<!\\)~/ /g;    # latex hard space ~ unless preceded by backslash: convert to ordinary space
-s/\\&/&/g;         # latex \&
+    next if /^url/;    # don't mess with url or bib_url lines (e.g., don't delete ~)
 
-# common latex glyphs
-s/---/-/g;         # emdash
-s/--/-/g;          # endash
-s/(?<!\\)\`\`/"/g;  # smart quotes (also single apostrophe), unless preceded by backslash
-s/(?<!\\)\'\'/"/g;
-s/(?<!\\)\`/'/g;
-s/(?<!\\)\'/'/g;
+    s/\r//g;         # kill CR from DOS format files
 
-# collapse whitespace
-s/[ \t]+/ /g;
-s/^ //;
-s/ $//;
+    # latex cruft
+    s/\\@//g;          # kill latex \@, sometimes used after periods
+    s/\\,//g;          # kill latex \, sometimes used to widen titles in TOC
+    s/\\\\|\\newline\b//g;    # kill latex newlines
+    s/\\ / /g;         # latex hard space: convert to ordinary space
+    s/(?<!\\)~/ /g;    # latex hard space ~ unless preceded by backslash: convert to ordinary space
+    s/\\&/&/g;         # latex \&
 
-#Latex chars
-s/\\_/_/g;      # Underscore
-                # Ampersand done above.
-s/\Q\^{}\E/^/g; # Caret
-s/\Q\#\E/#/g;   # Pound
-s/\$@\$/@/g;    # AT
+    # common latex glyphs
+    s/---/-/g;         # emdash
+    s/--/-/g;          # endash
+    s/(?<!\\)\`\`/"/g;  # smart quotes (also single apostrophe), unless preceded by backslash
+    s/(?<!\\)\'\'/"/g;
+    s/(?<!\\)\`/'/g;
+    s/(?<!\\)\'/'/g;
 
-# italicization (not too careful about nested {}).
+    # collapse whitespace
+    s/[ \t]+/ /g;
+    s/^ //;
+    s/ $//;
 
-s/{\\em (.+)}/$1/;
-s/\\textit\{(.+)}/$1/;
-s/\$(.+)\$/$1/;
+    #Latex chars
+    s/\\_/_/g;      # Underscore
+                    # Ampersand done above.
+    s/\Q\^{}\E/^/g; # Caret
+    s/\Q\#\E/#/g;   # Pound
+    s/\$@\$/@/g;    # AT
 
-# Any remaining backslashed sequences get deleted with a WARNING
-warn "Don't know how to translate $& to PDF metadata; deleting it" while s/\\[A-Za-z]+//;
+    # italicization (not too careful about nested {}).
 
-# eliminate any remaining curly braces (usually used to protect capitalization in bibtex).
-# Unless preceded by backslash.
-s/(?<!\\)[{}]//g;
+    s/{\\em (.+)}/$1/;
+    s/\\textit\{(.+)}/$1/;
+    s/\$(.+)\$/$1/;
+
+    # Any remaining backslashed sequences get deleted with a WARNING
+    warn "Don't know how to translate $& to PDF metadata; deleting it" while s/\\[A-Za-z]+//;
+
+    # eliminate any remaining curly braces (usually used to protect capitalization in bibtex).
+    # Unless preceded by backslash.
+    s/(?<!\\)[{}]//g;
+
+    print;
+
+}
 

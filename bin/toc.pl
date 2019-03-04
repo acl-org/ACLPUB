@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+use utf8;
+use open qw(:std :utf8);
+
 $curpage = 1;
 $papnum = 0;
 $authornum = 0;

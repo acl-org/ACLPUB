@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+use utf8;
+use open qw(:std :utf8);
+
 # Expands variables according to a "meta" file, which
 # contains GNU make variable assignments.  Ordinarily,
 # values are single-line strings, but a multi-line string

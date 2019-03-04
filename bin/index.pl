@@ -2,6 +2,9 @@
 
 # Creates an HTML table of contents.  Prints it to stdout.
 
+use utf8;
+use open qw(:std :utf8);
+
 # if there are multiple attachments, we cannot use the columned header for the index.
 my $single = q{<table cellspacing="0" cellpadding="5" border="1">
   <tr class="bg1">

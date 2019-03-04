@@ -2,6 +2,12 @@
 
 # Creates an HTML author index.  Prints it to stdout.
 
+use utf8;
+use open qw(:std :utf8);
+
+use Unicode::Collate;
+$Collator = Unicode::Collate->new();
+
 my($db, $meta) = @ARGV;
 
 my($title,$url,$abbrev,$chairs);
@@ -41,7 +47,7 @@ my (%authors,@authors);
 
 open(DB,"$ENV{ACLPUB}/bin/db-to-html.pl $db |") || die;
 while (<DB>) {
-  $line = $_; 
+  $line = $_;
   chomp $line;
   if (($line !~ /\S/) && ($author ne "")) {
     if ($count >0) {
@@ -102,8 +108,8 @@ close(DB);
 
 $count = 0;
 my $text = "<tr class=\"$temp\">";
-foreach my $key (sort {my_alpha($a) cmp my_alpha($b) } keys %authors) {
-  print STDERR my_alpha($key), "\n" if(my_alpha($key) =~ m/\&/);
+foreach my $key (sort { $Collator->cmp($a,$b) } keys %authors) {
+  #print STDERR $key, "\n" if($key =~ m/\&/);
   my $temp = $classes[$count % 2];
   #print "count = $count, mod = " .$count % 3 . "\n";
   if (($count % 3) == 0) {
@@ -140,40 +146,3 @@ print "</tr>
 </body>
 </html>
 ";
-
-
-sub my_alpha {
-# this function is used to clean up author names for the purposes of
-# alphabetizing them in the author index.  basically it's undoing
-# much of the work of db-to-html.pl, but is lossy - it removes
-# diacritics.  because I did this at the last minute before the
-# ACL 2008 publishing deadline, only characters that show up in the
-# ACL 2008 (and associated) author list are corrected here.
-# Noah Smith, 5/18/08
-# NOTE:  similar function in unified-authors.pl
-
-  my $t = shift;
-  $t =~ s/\&\#352;/S/g;
-  $t =~ s/\&\#353;/s/g;
-  $t =~ s/\&\#351;/s/g;
-  $t =~ s/\&\#345;/r/g;
-  $t =~ s/\&\#263;/c/g;
-  $t =~ s/\&\#332;/O/g;
-  $t =~ s/\&\#269;/c/g;
-  $t =~ s/\&\#142;/Z/g;
-  $t =~ s/\&\#158;/z/g;
-  $t =~ s/\&\#282;/E/g;
-  $t =~ s/\&\#283;/e/g;
-  $t =~ s/\&(.)acute;/\1/g;
-  $t =~ s/\&(.)uml;/\1/g;
-  $t =~ s/\&(..)lig;/\1/g;
-  $t =~ s/\&(.)grave;/\1/g;
-  $t =~ s/\&(.)cedil;/\1/g;
-  $t =~ s/\&(.)tilde;/\1/g;
-  $t =~ s/\&rsquo/\'/g;
-  $t =~ s/\&lsquo/\`/g;
-#  $t =~ s/\\[a-z]//g;
-#  $t =~ s/[^a-zA-Z ]//g;
-  $t =~ y/A-Z/a-z]/;
-  return $t;
-}

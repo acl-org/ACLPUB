@@ -1,5 +1,8 @@
 #!/usr/bin/perl -w
 
+use utf8;
+use open qw(:std :utf8);
+
 my $pagecount = 1;
 my $___JUST_COPYRIGHT = 0;
 
