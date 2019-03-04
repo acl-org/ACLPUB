@@ -360,22 +360,22 @@ s/\Q\^{}\E/&#94;/g; # Caret
 s/\Q\#\E/&#35;/g;   # Pound
 s/\$@\$/&#64;/g;    # AT
 
-
-# italicization (not too careful about nested {}).
-# !!! could also try to fix math, e.g., "$n$-gram"
-
-s/{\\em (.+)}/<i>$1<\/i>/;
-s/\\textit\{(.+)}/<i>$1<\/i>/;
-s/\\emph\{(.+)}/<i>$1<\/i>/;
-
-# boldface
-s/{\\bf (.+)}/<b>$1<\/b>/;
-s/\\textbf\{(.+)}/<b>$1<\/b>/;
-
-# small caps - just print normally
-s/\\textsc\{(.+)}/$1/;
-
-
+do {
+    $in = $_;		# process innermost tags until none left
+    # italicization
+    # !!! could also try to fix math, e.g., "$n$-gram"
+    s/{\\em ([^\{\}]+)}/$1/g;
+    s/\\textit\{([^\{\}]+)}/$1/g;
+    s/\\emph\{([^\{\}]+)}/$1/g;
+    
+    # boldface
+    s/{\\bf ([^\{\}]+)}/$1/g;
+    s/\\textbf\{([^\{\}]+)}/$1/g;
+    
+    # small caps - just print normally
+    s/\\textsc\{([^\{\}]+)}/$1/g;
+} until ($in eq $_);
+    
 # Any remaining backslashed sequences get deleted with a WARNING
 warn "Don't know how to translate $& to HTML; deleting it" while s/\\[A-Za-z]+//;
 
