@@ -260,7 +260,7 @@ sub include {
 } 
 
 sub order {
-    my %DB = load_db(0,0);
+    my %DB = load_db(0);
     my (@ORDER,@SCHEDULE,%TIME,%DUP_CHECK);
     while(<STDIN>) {
 	chomp;
@@ -370,10 +370,7 @@ sub fname {
 }
 
 sub create_cd {
-    my %DB = load_db(1,1);
-
-    # with content not latex-stripped, for the cd.tex
-    my %DBTEX = load_db(1,0);
+    my %DB = load_db(1);
 
     my($abbrev,$year,$title,$url,$urlpattern);
     while(<STDIN>) {
@@ -429,9 +426,6 @@ sub create_cd {
 	}
         my $pdf_title = $DB{$id}{"T"}[0];
 
-	# to handle titles with accents and so on
-        my $pdf_title_tex = $DBTEX{$id}{"T"}[0];
-
         my @authors;
         foreach my $author (@{$DB{$id}{"A"}}) {
             $author =~ m/\s*([^,]*)\s*,\s*(.*)\s*/;
@@ -442,7 +436,6 @@ sub create_cd {
         }
         my $pdf_authors = join(" ; ", @authors);
         my $pdf_subject = "$abbrev $year";
-
         
         open(TEXTEMPLATE, "<$ENV{ACLPUB}/templates/cd.tex.head") || die;
 	my $textemplate = join("",<TEXTEMPLATE>);
@@ -468,12 +461,12 @@ sub create_cd {
 	    $textemplate =~ s{\\hypersetup\{[^\}]+\}}{$substring}x;
 	}
 
-	$textemplate =~ s/__PDFTITLE__/$pdf_title_tex/;
+	$textemplate =~ s/__PDFTITLE__/$pdf_title/;
 	$textemplate =~ s/__PDFAUTHOR__/$pdf_authors/;
         $textemplate =~ s/__PDFSUBJECT__/$pdf_subject/;
 
         print STDERR "PDF meta-data:\n";
-        print STDERR "  title: $pdf_title_tex\n";
+        print STDERR "  title: $pdf_title\n";
         print STDERR "  author(s): $pdf_authors\n";
         print STDERR "  subject (venue): $pdf_subject\n\n";
 	$textemplate .= "\\setcounter{page}{$pagecount}\n";
@@ -483,7 +476,7 @@ sub create_cd {
  	$textemplate .= "\\citeinfo{$pagecount}{".($pagecount+$length-1)."}\n";
         $textemplate .= "~\\newpage\n";	# create page with citation stamp
         $textemplate .= "\\ClearShipoutPicture\n";
- 	for $i (2..$length) {
+ 	foreach (2..$length) {
  	    $textemplate .= "~\\newpage"; # create pages with nothing but page number
  	}
 
@@ -539,16 +532,9 @@ sub create_cd {
     close(PAPERMAP);
 }
 
-
-
 sub load_db {
-    my ($ordered, $strip_latex) = @_;
-    my $input;
-    if ($strip_latex) {
-        $input = "$ENV{ACLPUB}/bin/db-to-pdfmetadata.pl db |";
-    } else {
-        $input = "db";
-    }
+    my ($ordered) = @_;
+    my $input = "db";
     open(DB,$input) || die;
     my (%PAPER,%DB,$id);
     while(<DB>) {
