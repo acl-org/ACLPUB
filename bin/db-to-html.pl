@@ -16,8 +16,11 @@ use open qw(:std :utf8);
 use HTML::Entities;
 
 while (<>) {
-
-    next if /^url/;    # don't mess with url or bib_url lines (e.g., don't delete ~)
+    if (/^(url|bib_url) /) {
+        # don't mess with url or bib_url lines in meta (e.g., don't delete ~)
+        print;
+        next;
+    }
 
     s/\r//g;         # kill CR from DOS format files
 
