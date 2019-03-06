@@ -63,21 +63,33 @@ sub create_db {
 	else {
 	    open(METADATA,"$ENV{ACLPUB}/bin/ascii-to-db.pl $metadata |") || die;
 	    my ($id,$title,$shorttitle,$copyright,$organization,$jobtitle,$abstract,$pagecount,@FIRST,@LAST,@ORG) = (0,"","","","","","",0);
+            my $field = "";
 	    while(<METADATA>) {
 		s/[\n\r]+//g;
-		my ($field,$value) = split(/\#\=\%?\=\#/);
-		next unless $value;
-		$id = $value         if $field eq 'SubmissionNumber';
-		$title = $value      if $field eq 'FinalPaperTitle';
-		$shorttitle = $value if $field eq 'ShortPaperTitle';
-		$FIRST[$1] = $value  if $field =~ /Author\{(\d+)\}\{Firstname\}/;
-		$LAST[$1]  = $value  if $field =~ /Author\{(\d+)\}\{Lastname\}/;
-		$ORG[$1]  = $value   if $field =~ /Author\{(\d+)\}\{Affiliation\}/;
-		$copyright = $value  if $field eq 'CopyrightSigned';
-		$pagecount = $value  if $field eq 'NumberOfPages';
-		$organization = $value  if $field eq 'Organization';
-		$jobtitle = $value   if $field eq 'JobTitle';
-                $abstract = $value   if $field eq 'Abstract';
+                if (/(.*)#=%?=#(.*)/) {
+                    $field = $1;
+                    my $value = $2;
+                    next if $value =~ /^\s*$/;
+                    $id = $value         if $field eq 'SubmissionNumber';
+                    $title = $value      if $field eq 'FinalPaperTitle';
+                    $shorttitle = $value if $field eq 'ShortPaperTitle';
+                    $FIRST[$1] = $value  if $field =~ /Author\{(\d+)\}\{Firstname\}/;
+                    $LAST[$1]  = $value  if $field =~ /Author\{(\d+)\}\{Lastname\}/;
+                    $ORG[$1]  = $value   if $field =~ /Author\{(\d+)\}\{Affiliation\}/;
+                    $copyright = $value  if $field eq 'CopyrightSigned';
+                    $pagecount = $value  if $field eq 'NumberOfPages';
+                    $organization = $value  if $field eq 'Organization';
+                    $jobtitle = $value   if $field eq 'JobTitle';
+                    $abstract = $value   if $field eq 'Abstract';
+                } elsif (m/^\=+$/) {
+                    # End marker
+                } elsif ($field eq 'Organization') {
+                    $organization .= "\n\t".$_;
+                } elsif ($field eq 'Abstract') {
+                    $abstract .= "\n\t".$_;
+                } elsif (!m/^\s*$/) {
+                    print STDERR "warning: $metadata: discarding stray line: $_\n";
+                }
 	    }
             if (! $___JUST_COPYRIGHT) {
 		print DB "P: $id\n";
