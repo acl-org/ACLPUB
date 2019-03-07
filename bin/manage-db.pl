@@ -61,35 +61,52 @@ sub create_db {
 	    print STDERR "Paper $_: No metadata file $metadata\n";
 	}
 	else {
+            my %meta;
 	    open(METADATA,"$ENV{ACLPUB}/bin/ascii-to-db.pl $metadata |") || die;
-	    my ($id,$title,$shorttitle,$copyright,$organization,$jobtitle,$abstract,$pagecount,@FIRST,@LAST,@ORG) = (0,"","","","","","",0);
             my $field = "";
-	    while(<METADATA>) {
-		s/[\n\r]+//g;
-                if (/(.*)#=%?=#(.*)/) {
+            my $value;
+            while (<METADATA>) {
+                chomp;
+                
+                # End marker
+                if ($_ eq "==========") { 
+                    last;
+                    
+                # Field/value pair
+                } elsif (/(.*?)#=%?=#(.*)/) { 
                     $field = $1;
-                    my $value = $2;
-                    next if $value =~ /^\s*$/;
-                    $id = $value         if $field eq 'SubmissionNumber';
-                    $title = $value      if $field eq 'FinalPaperTitle';
-                    $shorttitle = $value if $field eq 'ShortPaperTitle';
-                    $FIRST[$1] = $value  if $field =~ /Author\{(\d+)\}\{Firstname\}/;
-                    $LAST[$1]  = $value  if $field =~ /Author\{(\d+)\}\{Lastname\}/;
-                    $ORG[$1]  = $value   if $field =~ /Author\{(\d+)\}\{Affiliation\}/;
-                    $copyright = $value  if $field eq 'CopyrightSigned';
-                    $pagecount = $value  if $field eq 'NumberOfPages';
-                    $organization = $value  if $field eq 'Organization';
-                    $jobtitle = $value   if $field eq 'JobTitle';
-                    $abstract = $value   if $field eq 'Abstract';
-                } elsif (m/^\=+$/) {
-                    # End marker
-                } elsif ($field eq 'Organization') {
-                    $organization .= "\n\t".$_;
-                } elsif ($field eq 'Abstract') {
-                    $abstract .= "\n\t".$_;
-                } elsif (!m/^\s*$/) {
-                    print STDERR "warning: $metadata: discarding stray line: $_\n";
+                    $value = $2;
+                    $meta{$field} = $value;
+                    
+                # Continuation of previous field
+                } else { 
+                    $meta{$field} .= "\n\t".$_;
                 }
+            }
+
+	    my ($id,$title,$shorttitle,$copyright,$organization,$jobtitle,$abstract,$pagecount,@FIRST,@LAST,@ORG) = (0,"","","","","","",0);
+
+            while (($field, $value) = each %meta) {
+                next if $value =~ /^\s*$/;
+
+                if (!($field eq 'Abstract' || $field eq 'Organization')) {
+                    # Fields destined for the db file should not have newlines
+                    $value =~ s/\s+/ /g;
+                    $value =~ s/^\s*//;
+                    $value =~ s/\s*$//;
+                }
+                
+                $id = $value         if $field eq 'SubmissionNumber';
+                $title = $value      if $field eq 'FinalPaperTitle';
+                $shorttitle = $value if $field eq 'ShortPaperTitle';
+                $FIRST[$1] = $value  if $field =~ /Author\{(\d+)\}\{Firstname\}/;
+                $LAST[$1]  = $value  if $field =~ /Author\{(\d+)\}\{Lastname\}/;
+                $ORG[$1]  = $value   if $field =~ /Author\{(\d+)\}\{Affiliation\}/;
+                $copyright = $value  if $field eq 'CopyrightSigned';
+                $pagecount = $value  if $field eq 'NumberOfPages';
+                $organization = $value  if $field eq 'Organization';
+                $jobtitle = $value   if $field eq 'JobTitle';
+                $abstract = $value   if $field eq 'Abstract';
 	    }
             if (! $___JUST_COPYRIGHT) {
 		print DB "P: $id\n";
