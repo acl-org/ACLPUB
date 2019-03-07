@@ -8,6 +8,9 @@
 # modified version of the one from index.html, and correct the directory
 # in the stylesheet location.
 
+use utf8;
+use open qw(:std :utf8);
+
 $indexfile = shift(@ARGV);
 
 while (<>) {

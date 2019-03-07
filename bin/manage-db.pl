@@ -1,5 +1,8 @@
 #!/usr/bin/perl -w
 
+use utf8;
+use open qw(:std :utf8);
+
 my $pagecount = 1;
 my $___JUST_COPYRIGHT = 0;
 
@@ -58,22 +61,51 @@ sub create_db {
 	    print STDERR "Paper $_: No metadata file $metadata\n";
 	}
 	else {
+            my %meta;
 	    open(METADATA,"$ENV{ACLPUB}/bin/ascii-to-db.pl $metadata |") || die;
+            my $field = "";
+            my $value;
+            while (<METADATA>) {
+                chomp;
+                
+                # End marker
+                if ($_ eq "==========") { 
+                    last;
+                    
+                # Field/value pair
+                } elsif (/(.*?)#=%?=#(.*)/) { 
+                    $field = $1;
+                    $value = $2;
+                    $meta{$field} = $value;
+                    
+                # Continuation of previous field
+                } else { 
+                    $meta{$field} .= "\n\t".$_;
+                }
+            }
+
 	    my ($id,$title,$shorttitle,$copyright,$organization,$jobtitle,$abstract,$pagecount,@FIRST,@LAST,@ORG) = (0,"","","","","","",0);
-	    while(<METADATA>) {
-		s/[\n\r]+//g;
-		my ($field,$value) = split(/\#\=\%?\=\#/);
-		next unless $value;
-		$id = $value         if $field eq 'SubmissionNumber';
-		$title = $value      if $field eq 'FinalPaperTitle';
-		$shorttitle = $value if $field eq 'ShortPaperTitle';
-		$FIRST[$1] = $value  if $field =~ /Author\{(\d+)\}\{Firstname\}/;
-		$LAST[$1]  = $value  if $field =~ /Author\{(\d+)\}\{Lastname\}/;
-		$ORG[$1]  = $value   if $field =~ /Author\{(\d+)\}\{Affiliation\}/;
-		$copyright = $value  if $field eq 'CopyrightSigned';
-		$pagecount = $value  if $field eq 'NumberOfPages';
-		$organization = $value  if $field eq 'Organization';
-		$jobtitle = $value   if $field eq 'JobTitle';
+
+            while (($field, $value) = each %meta) {
+                next if $value =~ /^\s*$/;
+
+                if (!($field eq 'Abstract' || $field eq 'Organization')) {
+                    # Fields destined for the db file should not have newlines
+                    $value =~ s/\s+/ /g;
+                    $value =~ s/^\s*//;
+                    $value =~ s/\s*$//;
+                }
+                
+                $id = $value         if $field eq 'SubmissionNumber';
+                $title = $value      if $field eq 'FinalPaperTitle';
+                $shorttitle = $value if $field eq 'ShortPaperTitle';
+                $FIRST[$1] = $value  if $field =~ /Author\{(\d+)\}\{Firstname\}/;
+                $LAST[$1]  = $value  if $field =~ /Author\{(\d+)\}\{Lastname\}/;
+                $ORG[$1]  = $value   if $field =~ /Author\{(\d+)\}\{Affiliation\}/;
+                $copyright = $value  if $field eq 'CopyrightSigned';
+                $pagecount = $value  if $field eq 'NumberOfPages';
+                $organization = $value  if $field eq 'Organization';
+                $jobtitle = $value   if $field eq 'JobTitle';
                 $abstract = $value   if $field eq 'Abstract';
 	    }
             if (! $___JUST_COPYRIGHT) {
@@ -257,7 +289,7 @@ sub include {
 } 
 
 sub order {
-    my %DB = load_db(0,0);
+    my %DB = load_db(0);
     my (@ORDER,@SCHEDULE,%TIME,%DUP_CHECK);
     while(<STDIN>) {
 	chomp;
@@ -367,10 +399,7 @@ sub fname {
 }
 
 sub create_cd {
-    my %DB = load_db(1,1);
-
-    # with content not latex-stripped, for the cd.tex
-    my %DBTEX = load_db(1,0);
+    my %DB = load_db(1);
 
     my($abbrev,$year,$title,$url,$urlpattern);
     while(<STDIN>) {
@@ -426,9 +455,6 @@ sub create_cd {
 	}
         my $pdf_title = $DB{$id}{"T"}[0];
 
-	# to handle titles with accents and so on
-        my $pdf_title_tex = $DBTEX{$id}{"T"}[0];
-
         my @authors;
         foreach my $author (@{$DB{$id}{"A"}}) {
             $author =~ m/\s*([^,]*)\s*,\s*(.*)\s*/;
@@ -439,7 +465,6 @@ sub create_cd {
         }
         my $pdf_authors = join(" ; ", @authors);
         my $pdf_subject = "$abbrev $year";
-
         
         open(TEXTEMPLATE, "<$ENV{ACLPUB}/templates/cd.tex.head") || die;
 	my $textemplate = join("",<TEXTEMPLATE>);
@@ -465,12 +490,12 @@ sub create_cd {
 	    $textemplate =~ s{\\hypersetup\{[^\}]+\}}{$substring}x;
 	}
 
-	$textemplate =~ s/__PDFTITLE__/$pdf_title_tex/;
+	$textemplate =~ s/__PDFTITLE__/$pdf_title/;
 	$textemplate =~ s/__PDFAUTHOR__/$pdf_authors/;
         $textemplate =~ s/__PDFSUBJECT__/$pdf_subject/;
 
         print STDERR "PDF meta-data:\n";
-        print STDERR "  title: $pdf_title_tex\n";
+        print STDERR "  title: $pdf_title\n";
         print STDERR "  author(s): $pdf_authors\n";
         print STDERR "  subject (venue): $pdf_subject\n\n";
 	$textemplate .= "\\setcounter{page}{$pagecount}\n";
@@ -480,7 +505,7 @@ sub create_cd {
  	$textemplate .= "\\citeinfo{$pagecount}{".($pagecount+$length-1)."}\n";
         $textemplate .= "~\\newpage\n";	# create page with citation stamp
         $textemplate .= "\\ClearShipoutPicture\n";
- 	for $i (2..$length) {
+ 	foreach (2..$length) {
  	    $textemplate .= "~\\newpage"; # create pages with nothing but page number
  	}
 
@@ -536,16 +561,9 @@ sub create_cd {
     close(PAPERMAP);
 }
 
-
-
 sub load_db {
-    my ($ordered, $strip_latex) = @_;
-    my $input;
-    if ($strip_latex) {
-        $input = "$ENV{ACLPUB}/bin/db-to-pdfmetadata.pl db |";
-    } else {
-        $input = "db";
-    }
+    my ($ordered) = @_;
+    my $input = "db";
     open(DB,$input) || die;
     my (%PAPER,%DB,$id);
     while(<DB>) {

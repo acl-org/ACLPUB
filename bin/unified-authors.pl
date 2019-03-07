@@ -4,6 +4,12 @@
 # Generates unified author index from these.
 # Prints it to stdout.
 
+use utf8;
+use open qw(:std :utf8);
+
+use Unicode::Collate;
+$Collator = Unicode::Collate->new();
+
 system("cat $ENV{ACLPUB}/templates/unified-authors.html.head")==0 || die;
 
 my $text;
@@ -33,7 +39,6 @@ foreach my $db (@ARGV) {
     my $papnum = 0;
 
     open(DB,"$ENV{ACLPUB}/bin/db-to-html.pl $db |") || die;
-    binmode DB;
     my @flat = <DB>;
     close DB;
     my $stringfile = join("",@flat);
@@ -59,7 +64,7 @@ foreach my $db (@ARGV) {
 $count = 0;
 print "<tr class=\"$classes[$c++ % 2]\">";
 
-foreach my $author (sort { my_alpha($a) cmp my_alpha($b) } keys %author) {
+foreach my $author (sort { $Collator->cmp($a,$b) } keys %author) {
     if($count>0 && (($count % 3) == 0)) {
 	print "</tr>\n<tr class=\"$classes[$c++ % 2]\">\n";
     }
@@ -77,35 +82,3 @@ foreach my $author (sort { my_alpha($a) cmp my_alpha($b) } keys %author) {
     $count++;
 }
 print "</table></body><P>&nbsp;</html>\n";
-
-sub my_alpha {
-# this function is used to clean up author names for the purposes of
-# alphabetizing them in the author index.  basically it's undoing
-# much of the work of db-to-html.pl, but is lossy - it removes
-# diacritics.  because I did this at the last minute before the
-# ACL 2008 publishing deadline, only characters that show up in the
-# ACL 2008 (and associated) author list are corrected here.
-# Noah Smith, 5/18/08
-# NOTE:  similar function in authors.pl
-
-  my $t = shift;
-  $t =~ s/\&\#352;/S/g;
-  $t =~ s/\&\#353;/s/g;
-  $t =~ s/\&\#351;/s/g;
-  $t =~ s/\&\#345;/r/g;
-  $t =~ s/\&\#263;/c/g;
-  $t =~ s/\&\#332;/O/g;
-  $t =~ s/\&\#269;/c/g;
-  $t =~ s/\&(.)acute;/\1/g;
-  $t =~ s/\&(.)uml;/\1/g;
-  $t =~ s/\&(..)lig;/\1/g;
-  $t =~ s/\&(.)grave;/\1/g;
-  $t =~ s/\&(.)cedil;/\1/g;
-  $t =~ s/\&(.)tilde;/\1/g;
-  $t =~ s/\&rsquo/\'/g;
-  $t =~ s/\&lsquo/\`/g;
-#  $t =~ s/\\[a-z]//g;
-#  $t =~ s/[^a-zA-Z ]//g;
-  $t =~ y/A-Z/a-z]/;
-  return $t;
-}
