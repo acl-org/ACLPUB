@@ -1,12 +1,24 @@
 # Generating proceedings for the ACL Anthology
 
 ## 0a. Clone this repository
+
 ```
 git clone https://github.com/acl-org/ACLPUB
 ```
+
 The scripts you will be using are in the subdirectory
 `ACLPUB/anthologize`. Below, we assume that you have this directory in
 your `PATH`; if not, you'll need to provide full pathnames to scripts.
+
+## 0b. Install dependencies
+
+You'll need the Python packages `latexcodec` and `pybtex`; these can
+usually be installed by running:
+
+```
+cd ACLPUB/anthologize
+pip install -r requirements.txt
+```
 
 ## 1. Create `acronyms_list`
 
