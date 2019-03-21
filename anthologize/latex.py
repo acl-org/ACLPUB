@@ -5,26 +5,27 @@ import logging
 import collections, copy
 import re
 import latexcodec, codecs, unicodedata
-import lxml.etree as etree, html
+import xml.etree.ElementTree as etree
+import html
 import bibtex
 
-Entry = collections.namedtuple('Entry', ['open', 'close', 'tag', 'type', 'verbatim'], defaults=[False])
-table = [Entry('{', '}', None, 'bracket'),
+Entry = collections.namedtuple('Entry', ['open', 'close', 'tag', 'type', 'verbatim'])
+table = [Entry('{', '}', None, 'bracket', False),
          Entry('$', '$', 'tex-math', 'bracket', True),
          Entry(r'\(', r'\)', 'tex-math', 'bracket', True),
-         Entry(r'\emph', None, 'i', 'unary'),
-         Entry(r'\em', None, 'i', 'setter'),
-         Entry(r'\textit', None, 'i', 'unary'),
-         Entry(r'\it', None, 'i', 'setter'),
-         Entry(r'\textsl', None, 'i', 'unary'),
-         Entry(r'\sl', None, 'i', 'setter'),
-         Entry(r'\textbf', None, 'b', 'unary'),
-         Entry(r'\bf', None, 'b', 'setter'),
-         #Entry(r'\textsc', None, 'sc', 'unary'),
-         #Entry(r'\sc', None, 'sc', 'setter'),
+         Entry(r'\emph', None, 'i', 'unary', False),
+         Entry(r'\em', None, 'i', 'setter', False),
+         Entry(r'\textit', None, 'i', 'unary', False),
+         Entry(r'\it', None, 'i', 'setter', False),
+         Entry(r'\textsl', None, 'i', 'unary', False),
+         Entry(r'\sl', None, 'i', 'setter', False),
+         Entry(r'\textbf', None, 'b', 'unary', False),
+         Entry(r'\bf', None, 'b', 'setter', False),
+         #Entry(r'\textsc', None, 'sc', 'unary', False),
+         #Entry(r'\sc', None, 'sc', 'setter', False),
          Entry(r'\url', None, 'url', 'unary', True),
-         Entry(r'\fixedcase', None, 'fixed-case', 'unary'), # for our internal use
-         Entry(r'', None, None, 'trivial'),
+         Entry(r'\fixedcase', None, 'fixed-case', 'unary', False), # for our internal use
+         Entry(r'', None, None, 'trivial', False),
 ]
 openers = {e.open:e for e in table}
 closers = {e.close:e for e in table if e.type == 'bracket'}

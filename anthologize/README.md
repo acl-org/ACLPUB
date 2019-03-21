@@ -12,8 +12,8 @@ your `PATH`; if not, you'll need to provide full pathnames to scripts.
 
 ## 0b. Install dependencies
 
-You'll need the Python packages `latexcodec` and `pybtex`; these can
-usually be installed by running:
+You'll need Python >=3.5 and the Python packages `latexcodec` and
+`pybtex`; these can usually be installed by running:
 
 ```
 cd ACLPUB/anthologize

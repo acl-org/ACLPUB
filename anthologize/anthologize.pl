@@ -17,8 +17,7 @@
 use strict 'vars';
 
 use File::Spec;
-use File::Basename;
-use File::Path;
+use File::Path qw(make_path);
 
 die "usage: anthologize.pl <proceedings> <anthology>"
     unless (@ARGV == 2);
@@ -49,7 +48,7 @@ my $dir = File::Spec->catdir($proceedings, "cdrom");
 
 # anth_dir is the new location, e.g., anthology/N/N18
 my $anth_dir = File::Spec->catdir($anthology, $venue, $volume_id);
-File::Path->make_path($anth_dir);
+make_path($anth_dir);
 
 ###################################
 # Create the volume-level files in this directory,

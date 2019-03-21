@@ -6,7 +6,7 @@ import logging
 import re
 import collections
 import os, os.path
-import lxml.etree as etree
+import xml.etree.ElementTree as etree
 import latex
 import bibtex
 
@@ -105,6 +105,10 @@ def slugify(s):
 if __name__ == "__main__":
     import sys
     import argparse
+
+    if sys.version_info < (3,5):
+        sys.stderr.write("Python >=3.5 required.\n")
+        sys.exit(1)
 
     # Set up logging
     logging.basicConfig(format='%(levelname)s:%(location)s %(message)s', level=logging.WARNING)
