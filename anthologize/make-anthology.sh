@@ -16,5 +16,5 @@ done
 for DIR in anthology/*/*; do 
   [[ -d $DIR ]] || continue
   echo "Creating Anthology XML for $DIR"
-  python3 $BINDIR/anthology_xml.py $DIR -o anthology/$(basename $DIR).xml
+  python3 $BINDIR/anthology_xml.py $DIR -o $DIR/$(basename $DIR).xml
 done    

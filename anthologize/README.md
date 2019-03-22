@@ -55,15 +55,19 @@ data/
   naacl2018-longpapers/
     proceedings/
       meta
+      cdrom/
   naacl2018-shortpapers/
     proceedings/
       meta
+      cdrom/
   SemEval-2018/
     proceedings/
       meta
+      cdrom/
   starsem18/
     proceedings/
       meta
+      cdrom/
 ```
 
 Each `meta` file is just a collection of key/value pairs, one per
@@ -171,8 +175,9 @@ most general one looks like
 looking at the attachment filename.
 
 If you need to run this step manually, the usage is `anthology_xml.py
-anthology/<x>/<x><yy>`, where `<x>` is the one-letter code of the
-conference (e.g., `N` for NAACL) and `<yy>` is the two-digit year.
+anthology/<x>/<x><yy> -o anthology/<x>/<x><yy>/<x><yy>.xml`, where
+`<x>` is the one-letter code of the conference (e.g., `N` for NAACL)
+and `<yy>` is the two-digit year.
 
 ## 4. Package and send the Anthology directory
 

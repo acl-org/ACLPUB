@@ -26,7 +26,7 @@ def parse_paperid(s):
 # Standard ordering for fields
 fields = ['title', 'author', 'editor', 'booktitle',
           'month', 'year', 'address', 'publisher',
-          'pages', 'url', 'doi', 'abstract',
+          'pages', 'abstract', 'url', 'doi',
           'bibtype', 'bibkey']
 
 def process(bibfilename, paperid):
@@ -141,8 +141,16 @@ if __name__ == "__main__":
             logging.warning("unrecognized filename: {}".format(filename))
 
     volume = etree.Element('volume')
-
+    
     for paperid in sorted(bibs):
+        v, _, _ = parse_paperid(paperid)
+        if 'id' in volume.attrib:
+            if v != volume.attrib['id']:
+                logging.error('inconsistent volume id')
+                sys.exit(1)
+        else:
+            volume.attrib['id'] = v
+        
         location = paperid
         if paperid not in pdfs: logging.error("missing pdf")
         papernode = process(bibs[paperid], paperid)
