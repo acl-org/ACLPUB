@@ -1,0 +1,3 @@
+pybtex>=0.22.0
+latexcodec>=1.0.5
+
