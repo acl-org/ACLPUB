@@ -112,10 +112,20 @@ sub create_db {
 		print DB "P: $id\n";
 		print DB "T: $title\n";
 		print DB "S: $shorttitle\n" if -e $shorttitle;
-		for(my $i=1;$i<=$#LAST;$i++) {
-		    if ($LAST[$i] || $FIRST[$i]) {
+		my $numauths = ($#LAST > $#FIRST) ?  $#LAST : $#FIRST;
+		for(my $i=1;$i<=$numauths;$i++) {
+		    if ($LAST[$i] && $FIRST[$i]) {
 			print DB "A: $LAST[$i], $FIRST[$i]\n";
 		    }
+                    # May be mononym
+		    elsif ($LAST[$i]) {
+			print DB "A: $LAST[$i]\n";
+		    }
+                    # May be mononym
+		    elsif ($FIRST[$i]) {
+			print DB "A: $FIRST[$i]\n";
+		    }
+			
 		}
 		open(ABS,">abstracts/$id.abs");
 		print ABS $abstract;
@@ -142,7 +152,8 @@ sub create_db {
 	    print COPY "Submission # $id:
 Title: $title
 Authors:\n";
-	    for(my $i=1;$i<=$#LAST;$i++) {
+	    my $numauths = ($#LAST > $#FIRST) ?  $#LAST : $#FIRST;
+	    for(my $i=1;$i<=$numauths;$i++) {
 		$ORG[$i] = "" unless $ORG[$i];
 		print COPY "\t$FIRST[$i] $LAST[$i] ($ORG[$i])\n";
 	    }

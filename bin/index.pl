@@ -103,16 +103,15 @@ while (<DB>) {
     }
     $end = $end + $length;
     my $temp = $classes[$count % 2];
-    #print "author = $author\n";
+
     $author =~ s/and$|and $//;
 
     my (@words,$new,$and_counter);
     $and_counter = 0;
     $new = $author;
-    #$temp =~ s/and /<>/g;
+
     @words = split(" ",$new);
     foreach my $word (@words) {
-      # print "word = $word\n";
       if ($word eq "and") {
 	$and_counter++
       }
@@ -123,7 +122,6 @@ while (<DB>) {
       $new =~ s/ and /, /g;
       $new =~ s/(.*), (.*)$/$1 and $2/;
     }
-    # print "temp = $new\n";
 
     my $fn_base = sprintf "%0${digits}d", $papnum;
     $file = "$abbrev$fn_base";
@@ -186,8 +184,13 @@ EOD
   }
   if ($line =~ /^A:/) {
     $line =~ s/^A://g;
-    $line =~ /(.*),(.*)/;
-    $author .= "$2 $1 and ";
+    if ($line =~ /(.*),(.*)/) {
+	$author .= "$2 $1 and ";
+    }
+    else {
+	$author .= "$line and ";
+    }
+
   }
   if ($line =~ /^L:/) {
     $length = $line;

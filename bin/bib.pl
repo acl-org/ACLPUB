@@ -98,7 +98,7 @@ foreach my $entry (@entries) {
 	elsif (s/^A: *//) {
 	    $_name = $_;
 	    if ($_name !~ /^(.+), (.+)$/) {
-		if ($_name =~ /^(.*),/) {
+		if ($_name =~ /^(.*)/) {
 		    $_name = $1;
 		}
 		else {

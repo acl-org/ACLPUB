@@ -77,13 +77,6 @@ while (<DB>) {
   if ($line =~ /^A:/) {
 
     $line =~ s/^A://g;
-    ## uncomment following to alphabetize on first capital in surname:
-    ## "von der X, Y" gets listed under X as "X, von der, Y"
-    ## "Von Der X, Y" gets listed under V as "Von Der X, Y"
-    #if ($line =~ /^\s*[a-z]/) {
-    #    $line =~ s/^(\s*)(.*?)\s+([A-Z].*?),/$1$3, $2,/g;
-    #}
-    #$line =~ /(.*),(.*)/;
     $author .= "$line and ";
 
   }
