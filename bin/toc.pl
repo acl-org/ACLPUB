@@ -29,12 +29,12 @@ while(<STDIN>) {
    }
    elsif ($line =~ /^A:/) {
        $line =~ s/^A:[ ]*//;
-       # test for only last name
+       # test for both names
        if ($line =~ /^(.+), (.+)$/) {
 	   $ln = $1; $fns = $2;
 	   $_name = $fns . " " . $ln;
        }
-       elsif ($line =~ /^(.*),/) {
+       elsif ($line =~ /^(.*)/) {
 	   $_name = $1;
        }
        else {
