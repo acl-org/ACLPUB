@@ -247,6 +247,17 @@ sub include {
     my $retval = "";
 
     foreach my $author (@AUTHORS) {
+	if ($author !~ /^(.+), (.+)$/) {
+	    if ($author =~ /^(.*),\s*$/) {
+		$author = $1;
+            } elsif ($author =~ /^, (.*)$/) {
+		$author = $1;
+	    } else {
+                print STDERR "warning: unparseable author name \"$author\"\n";
+		$author = 'unknown';
+	    }
+	}
+        
         # remove accents, which screw up alphabetization
         
         my $author_clean = $author;
@@ -269,19 +280,11 @@ sub include {
         $author_clean =~ s/\s*$//g;
 
         if ($author_clean ne $author) {
-            print STDERR "$author -> $author_clean\n";
+            print STDERR "Indexing \"$author\" as \"$author_clean\@$author\"\n";
             $author = "$author_clean\@$author";
         }
-	my $_name = $author;
-	if ($_name !~ /^(.+), (.+)$/) {
-	    if ($_name =~ /^(.*),/) {
-		$_name = $1;
-	    }
-	    else {
-		$_name = 'unknown';
-	    }
-	}
-	$retval .=  "\\index{$_name}\n" unless $option eq 'cd';
+
+	$retval .=  "\\index{$author}\n" unless $option eq 'cd';
     }
     $addtotoc = "addtotoc={1,chapter,1,{$title},ref:paper_$id}";
 

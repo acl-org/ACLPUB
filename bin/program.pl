@@ -29,17 +29,21 @@ while(<STDIN>) {
    elsif ($line =~ /^A:/) {
        $line =~ s/^A:[ ]*//;
        # test for only last name
-       if ($line =~ /^(.+), (.+)$/) {
-	   $ln = $1; $fns = $2;
-	   $_name = $fns . " " . $ln;
+       my $author = $line;
+       if ($author =~ /^(.+), (.+)$/) {
+           $ln = $1; $fns = $2;
+           $author = $fns . " " . $ln;           
+       } else {
+           if ($author =~ /^(.*),\s*$/) {
+               $author = $1;
+           } elsif ($author =~ /^, (.*)$/) {
+               $author = $1;
+           } else {
+               print STDERR "warning: unparseable author name \"$author\"\n";
+               $author = 'unknown';
+           }
        }
-       elsif ($line =~ /^(.*),/) {
-	   $_name = $1;
-       }
-       else {
-	   $_name = 'unknown';
-       }
-       $authors[$authornum++] = $_name;
+       $authors[$authornum++] = $author;
    }
    elsif ($line =~ /^L:/) {
       $line =~ s/^L:[ ]*//;

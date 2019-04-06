@@ -96,16 +96,18 @@ foreach my $entry (@entries) {
 	    $pid[$pn] = $_;
 	}
 	elsif (s/^A: *//) {
-	    $_name = $_;
-	    if ($_name !~ /^(.+), (.+)$/) {
-		if ($_name =~ /^(.*),/) {
-		    $_name = $1;
-		}
-		else {
-		    $_name = 'unknown';
-		}
-	    }
-	    push @{$authors[$pn]}, $_name;
+            my $author = $_;
+            if ($author !~ /^(.+), (.+)$/) {
+                if ($author =~ /^(.*),\s*$/) {
+                    $author = $1;
+                } elsif ($author =~ /^, (.*)$/) {
+                    $author = $1;
+                } else {
+                    print STDERR "warning: unparseable author name \"$author\"\n";
+                    $author = 'unknown';
+                }
+            }
+	    push @{$authors[$pn]}, $author;
 	}
 	elsif (s/^L: *//) {
 	    warn "double length for paper $pn: $startpage[$pn], $_"
