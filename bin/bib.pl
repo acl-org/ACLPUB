@@ -101,9 +101,6 @@ foreach my $entry (@entries) {
 		if ($_name =~ /^(.*)/) {
 		    $_name = $1;
 		}
-		else {
-		    $_name = 'unknown';
-		}
 	    }
 	    push @{$authors[$pn]}, $_name;
 	}

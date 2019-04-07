@@ -285,11 +285,8 @@ sub include {
         }
 	my $_name = $author;
 	if ($_name !~ /^(.+), (.+)$/) {
-	    if ($_name =~ /^(.*),/) {
+	    if ($_name =~ /^(.*)/) {
 		$_name = $1;
-	    }
-	    else {
-		$_name = 'unknown';
 	    }
 	}
 	$retval .=  "\\index{$_name}\n" unless $option eq 'cd';

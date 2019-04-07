@@ -45,11 +45,8 @@ while(<DB>) {
 	$ln = $1; $fns = $2;
 	$_name = $fns . " " . $ln;
     }
-    elsif ($line =~ /^(.*)/) {
-	$_name = $1;
-    }
     else {
-	$_name = 'unknown';
+	$_name = $line;
     }
     $authors[$authornum++] = $_name;
   }
