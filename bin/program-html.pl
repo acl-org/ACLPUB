@@ -45,7 +45,7 @@ while(<DB>) {
 	$ln = $1; $fns = $2;
 	$_name = $fns . " " . $ln;
     }
-    elsif ($line =~ /^(.*),/) {
+    elsif ($line =~ /^(.*)/) {
 	$_name = $1;
     }
     else {
