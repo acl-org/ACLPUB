@@ -3,6 +3,8 @@
 use utf8;
 use open qw(:std :utf8);
 
+use Unicode::Normalize;
+
 my $pagecount = 1;
 my $___JUST_COPYRIGHT = 0;
 
@@ -256,11 +258,29 @@ sub include {
     my $retval = "";
 
     foreach my $author (@AUTHORS) {
-        if ($author =~ /\\/) {
-            # remove accents, which screw up alphabetization
-            my $author_clean = $author;
-            $author_clean =~ s/[\{\}]//g;
-            $author_clean =~ s/\\.//g;
+        # remove accents, which screw up alphabetization
+        
+        my $author_clean = $author;
+        
+        # decompose Unicode accents (to be removed later)
+        $author_clean = NFKD($author_clean);
+        
+        # remove TeX accents
+        # this is similar to what BibTeX does
+        # http://tug.ctan.org/info/bibtex/tamethebeast/ttb_en.pdf, page 22, 34
+        $author_clean =~ s/\\(i|j|oe|OE|ae|AE|aa|AA|o|O|l|L|ss)(?![A-Za-z])\s*/$1/g;
+        $author_clean =~ s/[\t~-]/ /g;
+        # there are some cases where a control character won't eat spaces,
+        # but I think they are unlikely in an author name
+        $author_clean =~ s/\\([A-Za-z]+|.)\s*//g;
+        $author_clean =~ s/[^A-Za-z0-9, ]//g;
+        
+        $author_clean =~ s/\s+/ /g;
+        $author_clean =~ s/^\s*//g;
+        $author_clean =~ s/\s*$//g;
+
+        if ($author_clean ne $author) {
+            print STDERR "$author -> $author_clean\n";
             $author = "$author_clean\@$author";
         }
 	my $_name = $author;
