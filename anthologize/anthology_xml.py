@@ -48,15 +48,24 @@ def process(bibfilename, paperid):
         if field in ['author', 'editor']:
             if field in bibentry.persons:
                 for person in bibentry.persons[field]:
-                    node = etree.Element(field)
-                    first = etree.Element('first')
-                    first.text = latex.latex_to_unicode(' '.join(person.bibtex_first_names))
-                    node.append(first)
-                    last = etree.Element('last')
-                    last.text = latex.latex_to_unicode(' '.join(person.prelast_names +
+                    first_text = latex.latex_to_unicode(' '.join(person.bibtex_first_names))
+                    last_text = latex.latex_to_unicode(' '.join(person.prelast_names +
                                                                 person.last_names))
                     if person.lineage_names:
-                        last.text += ', ' + ' '.join(person.lineage_names)
+                        last_text += ', ' + ' '.join(person.lineage_names)
+
+                    # Don't distinguish between authors that have only a first name
+                    # vs. authors that have only a last name; always make it a last name.
+                    if last_text.strip() in ['', '-']: # Some START users have '-' for null
+                        last_text = first_text
+                        first_text = ''
+                        
+                    node = etree.Element(field)
+                    first = etree.Element('first')
+                    first.text = first_text
+                    node.append(first)
+                    last = etree.Element('last')
+                    last.text = last_text
                     node.append(last)
                     paper.append(node)
         else:

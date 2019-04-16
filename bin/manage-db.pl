@@ -265,6 +265,15 @@ sub include {
         # decompose Unicode accents (to be removed later)
         $author_clean = NFKD($author_clean);
         
+        # decompose a few that NFKD doesn't get
+        # http://zderadicka.eu/removing-diacritics-marks-from-strings/
+        $author_clean =~ tr/ĐđĦħıȷŁłØøŦŧ/DdHhijLlOoTt/;
+        $author_clean =~ s/Æ/AE/g; $author_clean =~ s/æ/ae/g;
+        $author_clean =~ s/Œ/OE/g; $author_clean =~ s/œ/oe/g;
+        $author_clean =~ s/ẞ/SS/g; $author_clean =~ s/ß/ss/g;
+        $author_clean =~ s/Þ/Th/g; $author_clean =~ s/þ/th/g;
+        $author_clean =~ s/Ŋ/Ng/g; $author_clean =~ s/ŋ/ng/g;
+        
         # remove TeX accents
         # this is similar to what BibTeX does
         # http://tug.ctan.org/info/bibtex/tamethebeast/ttb_en.pdf, page 22, 34
@@ -273,7 +282,8 @@ sub include {
         # there are some cases where a control character won't eat spaces,
         # but I think they are unlikely in an author name
         $author_clean =~ s/\\([A-Za-z]+|.)\s*//g;
-        $author_clean =~ s/[^A-Za-z0-9, ]//g;
+        # BibTeX keeps only ASCII alphanumerics; keep all Unicode alphanumerics
+        $author_clean =~ s/[^\pL\d, ]//gu;
         
         $author_clean =~ s/\s+/ /g;
         $author_clean =~ s/^\s*//g;
