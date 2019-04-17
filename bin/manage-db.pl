@@ -283,7 +283,7 @@ sub include {
         # but I think they are unlikely in an author name
         $author_clean =~ s/\\([A-Za-z]+|.)\s*//g;
         # BibTeX keeps only ASCII alphanumerics; keep all Unicode alphanumerics
-        $author_clean =~ s/[^\pL\d, ]//gu;
+        $author_clean =~ s/[^\pL\d, ]//g;
         
         $author_clean =~ s/\s+/ /g;
         $author_clean =~ s/^\s*//g;
