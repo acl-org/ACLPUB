@@ -10,6 +10,7 @@ use utf8;
 use open qw(:std :utf8);
 
 use Unicode::Normalize;
+use charnames ":full";
 use HTML::Entities;
 
 while (<>) {
