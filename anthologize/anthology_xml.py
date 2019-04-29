@@ -71,9 +71,9 @@ def process(bibfilename, paperid):
         else:
             if field == 'url':
                 if bibentry.type in ['book', 'proceedings']:
-                    value = 'http://www.aclweb.org/anthology/{}-{}'.format(volume_id, volume_no)
+                    value = 'https://www.aclweb.org/anthology/{}-{}'.format(volume_id, volume_no)
                 else:
-                    value = 'http://www.aclweb.org/anthology/{}'.format(paperid)
+                    value = 'https://www.aclweb.org/anthology/{}'.format(paperid)
                 if 'url' in bibentry.fields and bibentry.fields['url'] != value:
                     logging.warning("rewriting url {} -> {}".format(bibentry.fields['url'], value))
             elif field in bibentry.fields:
