@@ -21,11 +21,15 @@ You'll need Python >=3.5 and the Python packages `latexcodec` and `pybtex`; thes
     cd ACLPUB/anthologize
     pip install -r requirements.txt
 
+## Importing from Easychair
+
+If you are using Easychair, please see the README and instructions in the [easy2acl](https://github.com/acl-org/easy2acl) repository.
+The documentation there describes how to assemble the Easychair output and run the `easy2acl.py` script in order to generate a layout similar to what START exports.
+From there, you can continue from Step 3 below, "Generate the Anthology Format".
+
 ## Importing from START
 
 ACLPUB is written primarily with Softconf's STARTv2 system in mind.
-If you are using Easychair, please see the README and instructions in the [easy2acl](https://github.com/acl-org/easy2acl) repository.
-After running this script, you'll have a layout similar to what START exports, and you can continue from Step 3 below.
 
 ### 1. Create `acronyms_list`
 
