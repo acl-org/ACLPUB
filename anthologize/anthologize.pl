@@ -35,7 +35,7 @@ while (<META>) {
 }
 close(META);
 
-$bib_url =~ m{^http://www.aclweb.org/anthology/([A-Z])(\d\d)-(\d+)%0(\d+)d} ||
+$bib_url =~ m{^https?://www.aclweb.org/anthology/([A-Z])(\d\d)-(\d+)%0(\d+)d} ||
     die "couldn't extract volume id and number from bib_url: $bib_url";
 my $venue = $1;
 my $yr = $2;
