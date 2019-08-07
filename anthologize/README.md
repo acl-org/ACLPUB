@@ -192,6 +192,8 @@ If you are the book chair, please contact the Anthology Director.
 
     tar czhvf <conference>_anthology.tgz anthology
 
+**Important** Please ensure you add the "-h" flag here, which tells tar to bundle up the target of symlinks, instead of the symlinks themselves.
+
 ## Notes on supported formats
 
 If there are supplemental attachments, software or datasets, you'll need to
