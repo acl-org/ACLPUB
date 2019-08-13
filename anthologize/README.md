@@ -5,7 +5,7 @@ This README describes documents this layout so that you can produce it from any 
 Much of the documentation assumes that you are exporting from the START v2 system.
 If you are using Easychair, you must first convert to the START format using [the easy2acl scripts](https://github.com/acl-org/easy2acl).
 
-## Installation and setup
+## 1. Installation and setup
 
 First, clone the official repository:
 
@@ -21,24 +21,22 @@ You'll need Python >=3.5 and the Python packages `latexcodec` and `pybtex`; thes
     cd ACLPUB/anthologize
     pip install -r requirements.txt
 
-## Importing from Easychair
-
-If you are using Easychair, please see the README and instructions in the [easy2acl](https://github.com/acl-org/easy2acl) repository.
-The documentation there describes how to assemble the Easychair output and run the `easy2acl.py` script in order to generate a layout similar to what START exports.
-From there, you can continue from Step 3 below, "Generate the Anthology Format".
-
-## Importing from START
+## 2. Assembling the data
 
 ACLPUB is written primarily with Softconf's STARTv2 system in mind.
+If you are using Easychair, please see the [instructions in the easy2acl repository](https://github.com/acl-org/easy2acl/blob/master/README.md).
+The documentation there describes how to assemble the Easychair output and run the `easy2acl.py` script in order to generate a layout similar to what START exports.
+From there, you can continue from [Step 3 below](#generate-the-anthology-format).
 
-### 1. Create `acronyms_list`
+If you are using STARTv2, proceed.
+
+### 2a. Create the list of acronyms
 
 Create a file that contains a list of the START names of all
 tracks/workshops associated with the conference, one per line. You can
 call this file whatever you want, but below, we assume that it is
 called `acronyms_list`. For example, the `acronyms_list` for NAACL
 2018 included:
-
 
     naacl2018-longpapers
     naacl2018-shortpapers
@@ -48,8 +46,7 @@ called `acronyms_list`. For example, the `acronyms_list` for NAACL
 (Note to users of previous versions: You no longer need to include the volume id and number.
 You can, but they will be ignored.)
 
-### 2. Download all proceedings from START
-
+### 2b. Download all proceedings from START
 
     download-proceedings.sh <conference> acronyms_list
 
@@ -125,7 +122,7 @@ from both its START name (`SemEval-2018`) and its Anthology ID
 Do not edit any of the fields except for `bib_url`.
 You _can_ edit `bib_url` (for example, if an Anthology ID changed or is incorrect).
 
-### 3. Generate the Anthology format
+## 3. Generate the Anthology format
 
 From the START format, you can create all the files needed by the Anthology in one step:
 Just run:
@@ -138,7 +135,7 @@ Just run:
 This script does two jobs: first, it runs `anthologize.pl` to generate a particular file layout.
 Second, it runs `anthology_xml.py`, which converts this layout to an XML format that can be directly ingested by the Anthology.
 
-#### 3a. Create and populate Anthology directories
+### 3a. Create and populate Anthology directories
 
 `anthologize.pl` takes the STARTv2 format and reorganizes it in the following manner, consolidating all files under the their ACL IDs:
 
@@ -163,7 +160,7 @@ anthology/
 
 If you need to run this step manually, the usage is `anthologize.pl data/<name>/proceedings anthology`, where `<name>` is the START name of the track/workshop to process.
 
-#### 3b. Generate the Anthology XML file and layout
+### 3b. Generate the Anthology XML file and layout
 
 Next, `make-anthology.sh` runs `anthology_xml.py` to generate the XML files that the Anthology uses to store all metadata and pointers to papers and their attachments.
 One is generated for each venue+year; in our example, there would be
@@ -194,7 +191,7 @@ If you are the book chair, please contact the Anthology Director.
 
 **Important** Please ensure you add the "-h" flag here, which tells tar to bundle up the target of symlinks, instead of the symlinks themselves.
 
-## Notes on supported formats
+## Notes on supported attachment formats
 
 If there are supplemental attachments, software or datasets, you'll need to
 provide a zipfile or other filetype (of a three letter extension only) of each

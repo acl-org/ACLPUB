@@ -5,7 +5,9 @@ This is the official ACLPUB package for *ACL conferences.
 Its primary role is to package up the PDF files, BibTeX files, and optional extra files into a format that can be ingested by the [ACL Anthology](https://www.aclweb.org/anthology/).
 The latest version can be found at https://github.com/acl-org/ACLPUB.
 
-For the most up-to-date technical documentation on how to produce data for the Anthology, please see `anthologize/README.md`.
+Instructions
+------------
+For the most up-to-date technical documentation on how to produce data for the Anthology, please see [the file anthologize/README.md](https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md).
 Other directories contain scattered outdated information that should probably be removed.
 
 Branch Convention
