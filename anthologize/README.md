@@ -1,6 +1,6 @@
 # Generating proceedings for the ACL Anthology
 
-The ACL Anthology requires a particular layout in order to ingest material (described in Step 3b below).
+The ACL Anthology requires a particular layout in order to ingest material (described in Step 3(b) below).
 This README describes documents this layout so that you can produce it from any input setting.
 Much of the documentation assumes that you are exporting from the START v2 system.
 If you are using Easychair, you must first convert to the START format using [the easy2acl scripts](https://github.com/acl-org/easy2acl).
@@ -17,44 +17,52 @@ Below, we assume that you have this directory in your `PATH`; if not, you'll nee
 Next, install dependencies.
 You'll need Python >=3.5 and the Python packages `latexcodec` and `pybtex`; these can usually be installed by running:
 
-
     cd ACLPUB/anthologize
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
 
 ## 2. Assembling the data
 
 ACLPUB is written primarily with Softconf's STARTv2 system in mind.
-If you are using Easychair, please see the [instructions in the easy2acl repository](https://github.com/acl-org/easy2acl/blob/master/README.md).
-The documentation there describes how to assemble the Easychair output and run the `easy2acl.py` script in order to generate a layout similar to what START exports.
-From there, you can continue from [Step 3 below](#generate-the-anthology-format).
 
-If you are using STARTv2, proceed.
+### 2a. Instructions for users of Softconf's STARTv2
 
-### 2a. Create the list of acronyms
+Create a file that contains a list of the START names of all tracks/workshops associated with the conference, one per line.
+You can call this file whatever you want, but below, we assume that it is called `acronyms_list`.
+For example, the `acronyms_list` for NAACL 2015 included:
 
-Create a file that contains a list of the START names of all
-tracks/workshops associated with the conference, one per line. You can
-call this file whatever you want, but below, we assume that it is
-called `acronyms_list`. For example, the `acronyms_list` for NAACL
-2018 included:
+> papers
+> shortpapers
+> srw
+> tutorials
+> demos
+> WMT14
+> BioNLP
+> BEA9
+> ...
 
-    naacl2018-longpapers
-    naacl2018-shortpapers
-    SemEval-2018
-    starsem18
-
-(Note to users of previous versions: You no longer need to include the volume id and number.
-You can, but they will be ignored.)
-
-### 2b. Download all proceedings from START
+Each of these is accessed via START at a URL, such as `softconf.com/naacl2015/papers`.
+Next, download all the tarballs.
+You can use the provided script:
 
     download-proceedings.sh <conference> acronyms_list
 
-where `<conference>` is replaced by the START name of the conference
-(found in the URL of its START page).
+where `<conference>` is replaced by the START name of the conference, found in the URL of its START page (e.g., "naacl2015").
+Note that this automatic downloading is provided as a convenience; you could also do it manually (and may need to do so, if there are workshops that assemble their proceedings outside of START).
 
 This downloads each track/workshop's proceedings.
-The result should include the following directories and files (using the above subset of NAACL 2018 as an example):
+The result should be something like the file structure in Step 2(c).
+
+
+### 2b. Instructions for users of EasyChair
+
+If you are using Easychair, please see the [instructions in the easy2acl repository](https://github.com/acl-org/easy2acl/blob/master/README.md).
+The documentation there describes how to assemble the Easychair output and run the `easy2acl.py` script in order to generate a layout similar to what START exports.
+That code helps you produce a file format similar to Step 2(c).
+
+### 2c. The file format
+
+The ACLPUB scripts work from a conference organized in the following file format.
+
 
 ```
 data/
@@ -80,7 +88,7 @@ data/
         ...
 ```
 
-Looking within one of these proceedings directories, we see the following format, which is the START v2 export format:
+Looking within each of these proceedings directories, we see the following format, which is the START v2 export format for a single volume:
 
 ```
 proceedings/
@@ -110,17 +118,16 @@ The lines of interest are (using starsem as an example):
 ```
 abbrev starsem
 year 2018
+sig siglex
 bib_url http://www.aclweb.org/anthology/S18-1%03d
 ```
 
-These have all been set by publications and book chairs in START
-(Publication Console -> ACLPUB -> CDROM). (The abbreviation has
-deliberately been altered to make it clear that it may be different
-from both its START name (`SemEval-2018`) and its Anthology ID
-(`S18-1`).)
+These have all been set by publications and book chairs in START (Publication Console -> ACLPUB -> CDROM).
+(The abbreviation has deliberately been altered to make it clear that it may be different from both its START name (`SemEval-2018`) and its Anthology ID (`S18-1`).)
 
 Do not edit any of the fields except for `bib_url`.
-You _can_ edit `bib_url` (for example, if an Anthology ID changed or is incorrect).
+The information in this field will have been given to you by the Anthology director; if you have forgotten it, you can find it [here in the Anthology Ingestion Prefix spreadsheet](https://docs.google.com/spreadsheets/d/166W-eIJX2rzCACbjpQYOaruJda7bTZrY7MBw_oa7B2E/edit?usp=sharing).
+(Take the prefix, e.g., W19-80, and append %02d if there are two digits after the hyphen, and %03d if there is just one).
 
 ## 3. Generate the Anthology format
 
@@ -129,13 +136,10 @@ Just run:
 
     make-anthology.sh
 
-(Note to users of previous versions: You no longer need to provide the
-`acronyms_list`; you can, but it will be ignored.)
-
 This script does two jobs: first, it runs `anthologize.pl` to generate a particular file layout.
 Second, it runs `anthology_xml.py`, which converts this layout to an XML format that can be directly ingested by the Anthology.
 
-### 3a. Create and populate Anthology directories
+### 3a. Creating and populating Anthology directories (`anthologize.pl`)
 
 `anthologize.pl` takes the STARTv2 format and reorganizes it in the following manner, consolidating all files under the their ACL IDs:
 
@@ -160,7 +164,7 @@ anthology/
 
 If you need to run this step manually, the usage is `anthologize.pl data/<name>/proceedings anthology`, where `<name>` is the START name of the track/workshop to process.
 
-### 3b. Generate the Anthology XML file and layout
+### 3b. Generating the Anthology XML file and layout (`anthology_xml.py`)
 
 Next, `make-anthology.sh` runs `anthology_xml.py` to generate the XML files that the Anthology uses to store all metadata and pointers to papers and their attachments.
 One is generated for each venue+year; in our example, there would be
@@ -219,16 +223,3 @@ Anthology directly, but understand that some materials cannot fit within
 this size. Attachments do not need to be author-anonymized (although during
 the review process, program chairs may ask for this -- authors should try to
 include provenance information with their attachments).
-
-The Anthology software uses a transformation script to revise the
-distributed `.bib` files into the appropriate XML metadata used by the
-Anthology. We typically run this on the full volume `.bib` file, provided at
-the `cdrom/` directory that is distributed by START. We primarily use three
-sources of information that is just renamed from those sources:
-
-+ the bib files under `cdrom/bib`
-+ the pdf files under `cdrom/pdf`
-+ the whole volume `bib/pdf`
-+ files under `cdrom`
-
-We also use the cdrom/attachments when they are provided (optional).
