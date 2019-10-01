@@ -29,13 +29,15 @@ my ($abbrev, $year, $bib_url);
 open(META, "$proceedings/meta") || die "couldn't read meta file";
 while (<META>) {
     chomp;
+    # clean up after windows users
+    $_ =~ s/\R//g;
     $abbrev = $1 if (/^abbrev\s+(.*)/);
     $year = $1 if (/^year\s+(.*)/);
     $bib_url = $1 if (/^bib_url\s+(.*)/);
 }
 close(META);
 
-$bib_url =~ m{^http://www.aclweb.org/anthology/([A-Z])(\d\d)-(\d+)%0(\d+)d} ||
+$bib_url =~ m{^https?://www.aclweb.org/anthology/([A-Z])(\d\d)-(\d+)%0(\d+)d} ||
     die "couldn't extract volume id and number from bib_url: $bib_url";
 my $venue = $1;
 my $yr = $2;
@@ -56,7 +58,7 @@ make_path($anth_dir);
 #       N18-1.pdf for the entire volume
 
 my $bib = "$dir/$abbrev-$year.bib";
--f $bib || die "couldn't find $bib";
+-f $bib || die "couldn't find $bib\n";
 my $bibdst = "$anth_dir/$volume_idno.bib";
 symlink(File::Spec->abs2rel($bib, $anth_dir), $bibdst) || die "couldn't link $bibdst -> $bib";
 print STDERR "$bibdst -> $bib\n" if $verbose;
