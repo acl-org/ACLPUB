@@ -2,7 +2,6 @@ import copy
 import re
 import logging
 import pybtex, pybtex.database.input.bibtex
-import latex
 
 def fake_parse(s):
     """Regexp-based parsing of possibly malformed BibTeX."""
@@ -102,47 +101,3 @@ def read_bibtex(bibfilename):
         return pybtex.database.BibliographyData(dict())
 
     return bibdata
-
-def find_fixed_case(node, conservative=False):
-    def visit(cur, prev):
-        if isinstance(cur, str):
-            return cur
-
-        if cur[0] == '{':
-            if (isinstance(cur[1], str) and cur[1].startswith('\\') or
-                isinstance(cur[1], list) and cur[1][0].startswith('\\')):
-                # {\...} does *not* protect case
-                return # and don't recurse
-            elif conservative and isinstance(prev, str) and prev.startswith('\\'):
-                # \cmd{...} does protect case, but in practice,
-                # this never seems to be the intent.
-                pass
-            elif conservative and len(cur) == 3 and isinstance(cur[1], list) and cur[1][0] in ['$', r'\)']:
-                # Don't mark {$...$}
-                pass
-            else:
-                cur[:] = [r'\fixedcase', cur[:], '']
-            
-        elif cur[0] in ['$', r'\)']:
-            return # Don't recurse into math
-
-        prev = cur[0]
-        for child in cur[1:-1]:
-            visit(child, prev)
-            prev = child
-
-    if conservative:
-        # Check if whole field is surrounded with braces
-        braces = 0
-        text = False
-        for child in node[1:-1]:
-            if isinstance(child, str) and not child.isspace():
-                text = True
-            if isinstance(child, list) and child[0] == '{':
-                braces += 1
-        if not text and braces == 1:
-            return node
-
-    node = copy.deepcopy(node)
-    visit(node, None)
-    return node
