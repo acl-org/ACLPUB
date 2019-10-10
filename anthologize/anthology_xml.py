@@ -137,7 +137,7 @@ if __name__ == "__main__":
             logging.warning("unrecognized filename: {}".format(filename))
 
     volume = etree.Element('volume')
-    
+
     for paperid in sorted(bibs):
         v, _, _ = parse_paperid(paperid)
         if 'id' in volume.attrib:
@@ -146,19 +146,14 @@ if __name__ == "__main__":
                 sys.exit(1)
         else:
             volume.attrib['id'] = v
-        
+
         location = paperid
         if paperid not in pdfs: logging.error("missing pdf")
         papernode = process(bibs[paperid], paperid)
         if papernode is None: continue
         for atype, aname in attachments[paperid]:
-            # Two types of attachments have their own XML tag;
-            # maybe this will change in the future
-            if atype in ['software', 'dataset']:
-                node = etree.Element(atype)
-            else:
-                node = etree.Element('attachment')
-                node.attrib['type'] = atype
+            node = etree.Element('attachment')
+            node.attrib['type'] = atype
             node.text = aname
             papernode.append(node)
         volume.append(papernode)
