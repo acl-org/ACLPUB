@@ -7,7 +7,6 @@ import re
 import collections
 import os, os.path
 import xml.etree.ElementTree as etree
-import latex
 import bibtex
 
 def parse_paperid(s):
@@ -48,9 +47,9 @@ def process(bibfilename, paperid):
         if field in ['author', 'editor']:
             if field in bibentry.persons:
                 for person in bibentry.persons[field]:
-                    first_text = latex.latex_to_unicode(' '.join(person.bibtex_first_names))
-                    last_text = latex.latex_to_unicode(' '.join(person.prelast_names +
-                                                                person.last_names))
+                    first_text = ' '.join(person.bibtex_first_names)
+                    last_text = ' '.join(person.prelast_names +
+                                         person.last_names)
                     if person.lineage_names:
                         last_text += ', ' + ' '.join(person.lineage_names)
 
@@ -86,19 +85,7 @@ def process(bibfilename, paperid):
                 continue
 
             node = etree.Element(field)
-            if field in ['title', 'booktitle']:
-                newnode = latex.latex_to_xml(value, fixed_case=True, trivial_math=True)
-                node.text = newnode.text
-                node.extend(newnode)
-            elif field == 'abstract':
-                newnode = latex.latex_to_xml(value, trivial_math=True)
-                node.text = newnode.text
-                node.extend(newnode)
-            elif field in ['author', 'editor', 'month', 'year', 'address', 'publisher', 'pages']:
-                node.text = latex.latex_to_unicode(value)
-            else:
-                node.text = value
-
+            node.text = value
             paper.append(node)
 
     return paper
@@ -150,7 +137,7 @@ if __name__ == "__main__":
             logging.warning("unrecognized filename: {}".format(filename))
 
     volume = etree.Element('volume')
-    
+
     for paperid in sorted(bibs):
         v, _, _ = parse_paperid(paperid)
         if 'id' in volume.attrib:
@@ -159,19 +146,14 @@ if __name__ == "__main__":
                 sys.exit(1)
         else:
             volume.attrib['id'] = v
-        
+
         location = paperid
         if paperid not in pdfs: logging.error("missing pdf")
         papernode = process(bibs[paperid], paperid)
         if papernode is None: continue
         for atype, aname in attachments[paperid]:
-            # Two types of attachments have their own XML tag;
-            # maybe this will change in the future
-            if atype in ['software', 'dataset']:
-                node = etree.Element(atype)
-            else:
-                node = etree.Element('attachment')
-                node.attrib['type'] = atype
+            node = etree.Element('attachment')
+            node.attrib['type'] = atype
             node.text = aname
             papernode.append(node)
         volume.append(papernode)

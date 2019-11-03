@@ -19,7 +19,7 @@ NOTE 1: This program assumes that all pages
 import sys
 import os
 
-from pdfrw import PdfReader, PdfWriter, PageMerge
+from pdfrw import PdfReader, PdfWriter, PageMerge, IndirectPdfDict
 
 argv = sys.argv[1:]
 
@@ -36,6 +36,9 @@ trailer = PdfReader(inpfn)
 for page,upage in zip(trailer.pages,under.pages):
     PageMerge(page).add(upage, prepend=1).render()
 
+if trailer.Info is None:
+    trailer.Info = IndirectPdfDict({})
+    
 # meta data comes from underneath.pdf
 trailer.Info.Title = under.Info.Title
 trailer.Info.Author = under.Info.Author
