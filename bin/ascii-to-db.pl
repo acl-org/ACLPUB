@@ -23,7 +23,14 @@ sub convert {
     $s =~ s/(\p{Halfwidth_and_Fullwidth_Forms}|\p{Alphabetic Presentation Forms})/NFKD($1)/ge;
     $s = NFC($s);
 
+    # Remove characters that cause problems; this is not an exhaustive list.
+    $s =~ s/\x{200E}//g;
+
     ### Handle characters that have a special meaning in TeX.
+
+    # Bug: \\# will not be escaped, even though it should become \\\#.
+    # The fix would be to temporarily replace \\ with something else,
+    # so that a backslash always introduces a control sequence.
 
     # Hide URLs to prevent them from being modified.
     $s =~ s/\\url\s*\{(.*?)\}/'\\url{'.unpack("H*",$1).'}'/ge;
