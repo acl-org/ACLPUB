@@ -191,9 +191,7 @@ where `<x>` is the one-letter code of the conference (e.g., `N` for NAACL) and `
 Package up the anthology directory and send it to your book chair.
 If you are the book chair, please contact the Anthology Director.
 
-    tar czhvf <conference>_anthology.tgz anthology
-
-**Important** Please ensure you add the "-h" flag here, which tells tar to bundle up the target of symlinks, instead of the symlinks themselves.
+    tar czvf <conference>_anthology.tgz anthology
 
 ## Notes on supported attachment formats
 

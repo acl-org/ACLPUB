@@ -7,7 +7,7 @@
 # - <anthology> is the output directory (which will be created if
 #   necessary)
 #
-# This script creates symbolic links in the output directory for all
+# This script creates copies in the output directory for all
 # content that will be exported to the ACL Anthology.
 #
 # Everything is built entirely from meta and cdrom/, using no other
@@ -17,6 +17,7 @@
 use strict 'vars';
 
 use File::Spec;
+use File::Copy;
 use File::Path qw(make_path);
 
 die "usage: anthologize.pl <proceedings> <anthology>"
@@ -60,14 +61,14 @@ make_path($anth_dir);
 my $bib = "$dir/$abbrev-$year.bib";
 -f $bib || die "couldn't find $bib\n";
 my $bibdst = "$anth_dir/$volume_idno.bib";
-symlink(File::Spec->abs2rel($bib, $anth_dir), $bibdst) || die "couldn't link $bibdst -> $bib";
-print STDERR "$bibdst -> $bib\n" if $verbose;
+copy($bib, $bibdst) || die "couldn't copy $bib to $bibdst";
+print STDERR "cp $bib $bibdst\n" if $verbose;
 
 my $pdf = "$dir/$abbrev-$year.pdf";
 -f $bib || die "couldn't find $pdf";
 my $pdfdst = "$anth_dir/$volume_idno.pdf";
-symlink(File::Spec->abs2rel($pdf, $anth_dir), $pdfdst) || die "couldn't link $pdfdst -> $pdf";
-print STDERR "$pdfdst -> $pdf\n" if $verbose;
+copy($pdf, $pdfdst) || die "couldn't copy $pdf to $pdfdst";
+print STDERR "cp $pdf $pdfdst\n" if $verbose;
 
 # iterate through the bib files
 for my $bib (glob("$dir/bib/*.bib")) {   # bib entry files in numerically sorted order
@@ -84,23 +85,23 @@ for my $bib (glob("$dir/bib/*.bib")) {   # bib entry files in numerically sorted
     # i.e., ${anth_prefix}${paper_no}.bib for a bib database of each individual paper in the volume (N18-1000.bib)
     #       ${anth_prefix}${paper_no}.pdf for the individual paper (e.g., N18-1000.pdf)
 
-    # Link the current .bib file and its corresponding .pdf file into
+    # Copy the current .bib file and its corresponding .pdf file into
     # the anthology.
 
     $bibdst = "$anth_dir/$dst_id.bib";
-    symlink(File::Spec->abs2rel($bib, $anth_dir), $bibdst) || die "couldn't link $bibdst -> $bib";
-    print STDERR "  $bibdst -> $bib\n" if $verbose;
+    copy($bib, $bibdst) || die "couldn't copy $bib to $bibdst";
+    print STDERR "  cp $bib $bibdst\n" if $verbose;
     
     my $pdf = "$dir/pdf/$src_id.pdf";
     $pdfdst = "$anth_dir/$dst_id.pdf";
-    symlink(File::Spec->abs2rel($pdf, $anth_dir), $pdfdst) || die "couldn't link $pdfdst -> $pdf";
-    print STDERR "  $pdfdst -> $pdf\n" if $verbose;
+    copy($pdf, $pdfdst) || die "couldn't copy $pdf to $pdfdst";
+    print STDERR "  cp $pdf $pdfdst\n" if $verbose;
 
     for my $att (glob("$dir/additional/${abbrev}${paper_no}_*")) {
         $att =~ m{.*/${abbrev}${paper_no}_(.*)\.(.*)};
         my ($type, $ext) = ($1, $2);
         my $attdst = "$anth_dir/$dst_id.$type.$ext";
-        symlink(File::Spec->abs2rel($att, $anth_dir), $attdst) || die "couldn't link $attdst -> $att";
-        print STDERR "  $attdst -> $att\n" if $verbose;
+        copy($att, $attdst) || die "couldn't copy $att to $attdst";
+        print STDERR "  cp $att $attdst\n" if $verbose;
     }
 }
