@@ -24,7 +24,7 @@ If you are using:
 
 - STARTv2: follow the instructions in Step 2(a), then 2(c).
 - EasyChair: follow the instructions in Step 2(b), then 2(a) and 2(c).
-- Another system: you will need to manually arrange your files into the layout described in Step 2(c).
+- Another system: you will need to manually arrange your files into the layout described in Step 2(c) or 3.
 
 ### 2a. Instructions for users of Softconf's STARTv2
 
@@ -194,7 +194,7 @@ Package up the anthology directory:
 
     tar czvf <conference>_anthology.tgz anthology
 
-Send the resulting file (`<conference>_anthology.tgz`), or a link to it, by email to the Anthology Director.
+Upload the resulting file (`<conference>_anthology.tgz`) to a file server or cloud storage (e.g. Google Drive) and email the link to it to the Anthology Director. Please do not send the file as an email attachment.
 
 ## Notes on supported attachment formats
 
@@ -224,7 +224,3 @@ within this size.  Hyperlinks may lead either to the actual attachment
 or to a valid containing "home page" for the resource. They should be
 maintained in perpetuity, but reasonably maintained for at least 5
 years.
-
-Attachments do not need to be author-anonymized (although during
-the review process, program chairs may ask for this -- authors should try to
-include provenance information with their attachments).
