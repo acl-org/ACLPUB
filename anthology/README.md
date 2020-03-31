@@ -22,7 +22,7 @@ If you are using:
 
 ### 2a. Instructions for users of Softconf's STARTv2
 
-Create a file called `acronyms_list` that contains a list of the START names of all tracks/workshops associated with the conference, one per line.
+Create a file called `acronyms_list.txt` that contains a list of the START names of all tracks/workshops associated with the conference, one per line, and case-sensitive.
 For example, the `acronyms_list` for NAACL 2015 included:
 
     papers
@@ -39,7 +39,7 @@ Each of these corresponds to a URL in START. For example, the `papers` track cor
 Next, download all the tarballs.
 You can use the provided script:
 
-    download-proceedings.sh <conference> acronyms_list
+    download-proceedings.sh <conference> acronyms_list.txt
 
 where `<conference>` is replaced by the START name of the conference, found in the URL of its START page (e.g., `naacl2015`).
 This automatic downloading is provided as a convenience; you could also do it manually (and may need to do so, if there are workshops that assemble their proceedings outside of START).
