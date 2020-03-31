@@ -111,22 +111,24 @@ proceedings/
 Each `meta` file is just a collection of key/value pairs, one per line, with the key and value separated by whitespace.
 The lines of interest are (using `SemEval` as an example):
 
-- **abbrev semeval**
-- **volume_name 1**
-- title 12th International Workshop on Semantic Evaluation
-- **booktitle Proceedings of the 12th International Workshop on Semantic Evaluation**
-- **short_booktitle Proceedings of SemEval**
-- month January
-- year 2018
-- sig siglex
-- chair Marianna Apidianaki
-- chair Mohammad, Saif M.
-- chair Jonathan May
-- chair Ekaterina Shutova
-- chair Steven Bethard
-- chair Marine Carpuat
-- location Berlin, Germany
-- publisher Association for Computational Lingustics
+```
+**abbrev semeval**
+**volume_name 1**
+title 12th International Workshop on Semantic Evaluation
+**booktitle Proceedings of the 12th International Workshop on Semantic Evaluation**
+**short_booktitle Proceedings of SemEval**
+month January
+year 2018
+sig siglex
+chair Marianna Apidianaki
+chair Mohammad, Saif M.
+chair Jonathan May
+chair Ekaterina Shutova
+chair Steven Bethard
+chair Marine Carpuat
+location Berlin, Germany
+publisher Association for Computational Lingustics
+```
 
 **Bolded field** are of special importance:
 
