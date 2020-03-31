@@ -127,7 +127,6 @@ The lines of interest are (using `SemEval` as an example):
 > chair Marine Carpuat
 > location Berlin, Germany
 > publisher Association for Computational Lingustics
-```
 
 **Bolded field** are of special importance:
 
