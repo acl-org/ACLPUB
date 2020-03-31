@@ -111,22 +111,22 @@ proceedings/
 Each `meta` file is just a collection of key/value pairs, one per line, with the key and value separated by whitespace.
 The lines of interest are (using `SemEval` as an example):
 
-> **abbrev semeval**
-> **volume_name 1**
-> title 12th International Workshop on Semantic Evaluation
-> **booktitle Proceedings of the 12th International Workshop on Semantic Evaluation**
-> **short_booktitle Proceedings of SemEval**
-> month January
-> year 2018
-> sig siglex
-> chair Marianna Apidianaki
-> chair Mohammad, Saif M.
-> chair Jonathan May
-> chair Ekaterina Shutova
-> chair Steven Bethard
-> chair Marine Carpuat
-> location Berlin, Germany
-> publisher Association for Computational Lingustics
+- **abbrev semeval**
+- **volume_name 1**
+- title 12th International Workshop on Semantic Evaluation
+- **booktitle Proceedings of the 12th International Workshop on Semantic Evaluation**
+- **short_booktitle Proceedings of SemEval**
+- month January
+- year 2018
+- sig siglex
+- chair Marianna Apidianaki
+- chair Mohammad, Saif M.
+- chair Jonathan May
+- chair Ekaterina Shutova
+- chair Steven Bethard
+- chair Marine Carpuat
+- location Berlin, Germany
+- publisher Association for Computational Lingustics
 
 **Bolded field** are of special importance:
 
@@ -151,7 +151,7 @@ Package up the anthology directory:
 
     tar czvf <conference>_data.tgz data
 
-Upload the resulting file (`<conference>_data.tgz`) to a file server or cloud storage (e.g. Google Drive) and email the link to it to the Anthology Director. 
+Upload the resulting file (`<conference>_data.tgz`) to a file server or cloud storage (e.g. Google Drive) and email the link to it to the Anthology Director.
 Please do not send the file as an email attachment.
 
 ## Notes on supported attachment formats
