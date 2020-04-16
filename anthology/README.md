@@ -112,11 +112,11 @@ Each `meta` file is just a collection of key/value pairs, one per line, with the
 The lines of interest are (using `SemEval` as an example):
 
 ```
-**abbrev semeval**
-**volume_name 1**
+abbrev semeval
+volume 1
 title 12th International Workshop on Semantic Evaluation
-**booktitle Proceedings of the 12th International Workshop on Semantic Evaluation**
-**short_booktitle Proceedings of SemEval**
+booktitle Proceedings of the 12th International Workshop on Semantic Evaluation
+shortbooktitle Proceedings of SemEval
 month January
 year 2018
 sig siglex
@@ -130,13 +130,13 @@ location Berlin, Germany
 publisher Association for Computational Lingustics
 ```
 
-**Bolded field** are of special importance:
+The following fields are of special importance:
 
-- **abbrev** and **year* are used to determine your collection ID (e.g., `2020.starsem`) in the [Anthology](https://www.aclweb.org/anthology/).
-  This is used to form the start of the [Anthology ID](https://www.aclweb.org/anthology/info/ids/) for the papers in your volumes, and their file names.
-- **volume_name** is the name of the volume.
+- **abbrev**, **year**, and **volume** are used to assemble the [Anthology ID](https://www.aclweb.org/anthology/info/ids/) in the [ACL Anthology](https://www.aclweb.org/anthology/), which is prefixed to each paper number (e.g., `2020.semeval-1.42`) 
+- **abbrev** is
+- **volume** is the name of the volume.
   This is concatenated with consecutive paper IDs to form the complete IDs (e.g., `2020.starsem-1.1`)
-  Most workshops have just a single volume, in which case you can just number it.
+  Most workshops have just a single volume, in which case you can just use "1".
   For larger conferences with multiple volumes, you may wish to choose short, informative names (e.g., "short" for short papers, "long" for long papers, "srw" for papers in a Student Research Workshop, etc.)
 
 For those using START, these should have been set by publications and book chairs (Publication Console -> ACLPUB -> CDROM).
