@@ -396,7 +396,7 @@ all: ../proceedings.tgz
 # safer NOT to run this (to avoid problems where latex
 # has to be run multiple times to regenerate everything properly).
 
-.PHONY: clean cleanmostly
+.PHONY: clean mostlyclean
 
 # intermediate and backup files only
 mostlyclean:
@@ -415,7 +415,7 @@ clean: mostlyclean
 	rm -f book.pdf spine.ps 
 	rm -f copyright-signatures 
 	rm -f *.css
-	if [ -e cdrom ]; then cd cdrom; rm -rf index.html program.html bib authors.html pdf *.bib *.pdf; fi   # !!! should only delete abbrev-year.bib, abbrev-year.pdf
+	if [ -e cdrom ]; then cd cdrom; rm -rf index.html program.html bib authors.html pdf additional *.bib *.pdf; fi   # !!! should only delete abbrev-year.bib, abbrev-year.pdf
 	-if [ -e cdrom ]; then rmdir cdrom; fi   # only succeeds if dir is empty (maybe user added custom files)
 	rm -f advertisement.html
 
