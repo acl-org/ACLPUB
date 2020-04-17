@@ -88,22 +88,22 @@ Looking within each of these `proceedings` directories, we see the following for
 
 ```
 proceedings/
-  meta                         Information about the conference
+  meta                               Information about the conference
   cdrom/
-    semeval-2018.bib           BibTeX file containing entries for all papers
-    semeval-2018.pdf           PDF of whole proceedings
+    semeval-2018.bib                 BibTeX file containing entries for all papers
+    semeval-2018.pdf                 PDF of whole proceedings
     additional/
-      semeval001_Software.tgz  Software attached to paper 1001
-      semeval003_Dataset.zip   Dataset attached to paper 1003
-      semeval003_Note.pdf      Note attached to paper 1003
+      2018.semeval-1.1_Software.tgz  Software attached to paper 1
+      2018.semeval-1.3_Dataset.zip   Dataset attached to paper 3
+      2018.semeval-1.3_Note.pdf      Note attached to paper 1003
     bib/
-      semeval000.bib           BibTeX entry for the whole proceedings volume
-      semeval001.bib           BibTeX entry for paper 1
-      semeval002.bib           etc.
+      2018.semeval-1.0.bib           BibTeX entry for the whole proceedings volume
+      2018.semeval-1.1.bib           BibTeX entry for paper 1
+      2018.semeval-1.2.bib           etc.
     pdf/
-      semeval000.pdf           PDF of frontmatter
-      semeval001.pdf           PDF for paper 1
-      semeval002.pdf           etc.
+      2018.semeval-1.0.pdf           PDF of frontmatter
+      2018.semeval-1.1.pdf           PDF for paper 1
+      2018.semeval-1.2.pdf           etc.
 ```
 
 ### The "meta" file
@@ -112,7 +112,7 @@ Each `meta` file is just a collection of key/value pairs, one per line, with the
 The lines of interest are (using `SemEval` as an example):
 
 ```
-abbrev semeval
+abbrev SemEval
 volume 1
 title 12th International Workshop on Semantic Evaluation
 booktitle Proceedings of the 12th International Workshop on Semantic Evaluation
@@ -132,14 +132,19 @@ publisher Association for Computational Lingustics
 
 The following fields are of special importance:
 
-- **abbrev**, **year**, and **volume** are used to assemble the [Anthology ID](https://www.aclweb.org/anthology/info/ids/) in the [ACL Anthology](https://www.aclweb.org/anthology/), which is prefixed to each paper number (e.g., `2020.semeval-1.42`) 
-- **abbrev** is
+- **abbrev**, **year**, and **volume** are used to assemble the [Anthology ID](https://www.aclweb.org/anthology/info/ids/) in the [ACL Anthology](https://www.aclweb.org/anthology/).
+  These three constitute the volume ID (e.g., `2018.semeval-1`), which is prefixed to the paper ID to form the complete paper identifiers (e.g., `2018.semeval-1.19` for the 19th paper).
+- **abbrev** will be lowercased when forming file names.
+  It can only contain ASCII letters and numbers ([A-Za-z0-9]+).
+- **year** is the four-digit year.
 - **volume** is the name of the volume.
-  This is concatenated with consecutive paper IDs to form the complete IDs (e.g., `2020.starsem-1.1`)
   Most workshops have just a single volume, in which case you can just use "1".
   For larger conferences with multiple volumes, you may wish to choose short, informative names (e.g., "short" for short papers, "long" for long papers, "srw" for papers in a Student Research Workshop, etc.)
 
 For those using START, these should have been set by publications and book chairs (Publication Console -> ACLPUB -> CDROM).
+
+**NOTE**: If you are wondering what happened to the `bib_url` field, it is no longer used.
+  If it's present in START, you can ignore it.
 
 ## 3. Sanity check
 
