@@ -30,7 +30,7 @@ my $multiple = q{<table cellspacing="0" cellpadding="5" border="1">
 
 my($db, $meta) = @ARGV;
 
-my($title,$url,$abbrev,$year,$chairs,$urlpattern);
+my($title,$url,$abbrev,$year,$volume,$chairs);
 open(META, "$ENV{ACLPUB}/bin/db-to-html.pl $meta |") || die;
 while (<META>) {
   chomp;
@@ -38,16 +38,19 @@ while (<META>) {
   $value =~ s/\s+$//;
   $abbrev = $value if $key eq 'abbrev';
   $type = $value if $key eq 'type';
+  $volume = $value if $key eq "volume";
+  if (!$volume) {$volume=1;}
   $year = $value if $key eq 'year';
   $title = $value if $key eq 'title';
   $booktitle = $value if $key eq 'booktitle';
   $url = $value if $key eq 'url';
   $chairs .= $value."<BR>\n" if $key eq 'chairs';
-  $urlpattern = $value if $key eq 'bib_url';
 }
 close(META);
 
-$urlpattern =~ m/\%0(\d)d/;
+my $urlpattern = "https://www.aclweb.org/anthology/%s";
+my $venue = lc $abbrev;
+
 my $digits = $1; # checked in bib.pl
 $fmzeros = sprintf "%0${digits}d", 0;
 
@@ -123,8 +126,7 @@ while (<DB>) {
       $new =~ s/(.*), (.*)$/$1 and $2/;
     }
 
-    my $fn_base = sprintf "%0${digits}d", $papnum;
-    $file = "$abbrev$fn_base";
+    $file = "$year.$venue-$volume.$papnum";
 
     # This for the old-style templates, with 4 column format
     if ($linktype eq 'old') {

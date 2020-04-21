@@ -69,17 +69,17 @@ sub create_db {
             my $value;
             while (<METADATA>) {
                 chomp;
-                
+
                 # End marker
                 if ($_ eq "==========") { 
                     last;
-                    
+
                 # Field/value pair
                 } elsif (/(.*?)#=%?=#(.*)/) { 
                     $field = $1;
                     $value = $2;
                     $meta{$field} = $value;
-                    
+
                 # Continuation of previous field
                 } else { 
                     $meta{$field} .= "\n\t".$_;
@@ -97,7 +97,7 @@ sub create_db {
                     $value =~ s/^\s*//;
                     $value =~ s/\s*$//;
                 }
-                
+
                 $id = $value         if $field eq 'SubmissionNumber';
                 $title = $value      if $field eq 'FinalPaperTitle';
                 $shorttitle = $value if $field eq 'ShortPaperTitle';
@@ -439,31 +439,31 @@ sub fname {
 sub create_cd {
     my %DB = load_db(1);
 
-    my($abbrev,$year,$title,$url,$urlpattern);
+    my($abbrev,$volume,$year,$title,$url);
     while(<STDIN>) {
 	my $meta .= $_;
 	chomp;
 	my ($key,$value) = split(/\s+/,$_,2);
 	$value =~ s/\s+$//;
 	$abbrev = $value if $key eq 'abbrev';
+	$volume = $value if $key eq "volume";
+	if (!$volume) {$volume=1;}
 	$year = $value if $key eq 'year';
 	$title = $value if $key eq 'title';
 	$url = $value if $key eq 'url';
-    $urlpattern = $value if $key eq 'bib_url';
     }
 
     die(    "url of workshop not specified") unless $url;
     die(  "title of workshop not specified") unless $title;
     die(    "year of workshop not specified") unless $year;
     die("abbrev of workshop not specified") unless $abbrev;
-    die("abbrev of workshop contains slashes/spaces") if $abbrev =~ /[ \/\\]/;
-    die("bib_url of workshop not specified") unless $urlpattern;
+    die("volume name of workshop not specified") unless $volume;
+    die("abbrev of workshop not correct ([A-Za-z0-9]+") unless $abbrev =~ /^[A-Za-z0-9]+$/;
 
-    $urlpattern =~ m/\%0(\d)d/;
-    my $digits = $1; # checked in bib.pl
+    $venue = lc $abbrev;
 
     print STDERR "linking proceedings volume...\n";   # !!! move into makefile
-    system("ln -sf ../book.pdf cdrom/$abbrev-$year.pdf")==0 || die;
+    system("ln -sf ../book.pdf cdrom/$venue-$year.pdf")==0 || die;
 
     system("rm -rf cdrom/pdf; mkdir -p cdrom/pdf")==0 || die;
 
@@ -478,8 +478,8 @@ sub create_cd {
     } 
     close(TEX);
     system("pdflatex --interaction batchmode frontmatter; pdflatex --interaction batchmode frontmatter")==0 || die "pdflatex failed on frontmatter; see frontmatter.log for details\n";
-    my $frontmatter_papnum = sprintf("${abbrev}%0${digits}d.pdf",0);
-    system("mv frontmatter.pdf cdrom/pdf/${frontmatter_papnum}")==0 || die;
+    my $frontmatter_path = sprintf("$year.$venue-$volume.0.pdf",0);
+    system("mv frontmatter.pdf cdrom/pdf/${frontmatter_path}")==0 || die;
 
     print STDERR "creating pdf files stamped with citation info...\n";
     my $papnum = 0;
@@ -525,7 +525,7 @@ sub create_cd {
 	$textemplate =~ s/\\usepackage\[[^\]]+\]\s*\{hyperref\}/\\usepackage{hyperref}/;
 	$textemplate =~ /(hypersetup((.|\n)+))/;
 	if ($1 !~ /PDFTITLE/) {
-	    $textemplate =~ s{\\hypersetup\{[^\}]+\}}{$substring}x;
+	    $textemplate =~ s/\\hypersetup\{[^\}]+\}/$substring/x;
 	}
 
 	$textemplate =~ s/__PDFTITLE__/$pdf_title/;
@@ -562,16 +562,16 @@ sub create_cd {
         # This will print just an overlay with page numbers and citation at bottom.
 	system("pdflatex --interaction batchmode cd.tex")==0 || die "pdflatex failed on cd.tex; see cd.log for details\n";
         $papnum++;
-        my $papnum_formatted = sprintf("%0${digits}d",$papnum);
 
-	system("export PYTHONPATH $ENV{PYTHONPATH}; $ENV{ACLPUB}/bin/pdfunderneath.py $file ./cd.pdf -o cdrom/pdf/$abbrev$papnum_formatted.pdf")==0 || die;
+        my $pdfdest = "cdrom/pdf/$year.$venue-$volume.$papnum.pdf";
+	system("PYTHONPATH=$ENV{PYTHONPATH}; export PYTHONPATH; $ENV{ACLPUB}/bin/pdfunderneath.py $file ./cd.pdf -o $pdfdest")==0 || die;
 
         # Copy additional files (other than paper) into a directory called "additional"
         # Rename the files to conform to the paper numbering/codes for the pdfs and bib files.
-        # 
-        # Important:  For now, we will have a fixed set of possible file names, taken from 
+        #
+        # Important:  For now, we will have a fixed set of possible file names, taken from
         # recent ACL conferences.  We separate them by '|' for regex search.  This string
-        # will also be included in the script index.pl .  We can eventually make this 
+        # will also be included in the script index.pl .  We can eventually make this
         # a parameter in the UI.
         #
 	$possibleFinalAttachments = 'datasets|notes|software|optional|supplementary|optionalattachment';
@@ -580,13 +580,12 @@ sub create_cd {
         my @files = glob("final/$pid/*");   # Get the files in the final place for the paperid.
 
         # paper map - maps the ACL IDs to START IDs.  For external use.
-	print PAPERMAP "$abbrev$papnum_formatted $pid\n";
+	print PAPERMAP "$abbrev$papnum $pid\n";
 
-        
 	@files = grep(/$possibleFinalAttachments/i, @files);       # Limit the files to the choices we want.
 	if (@files) {
 	    my $oldprefix = $pid . '_';
-	    my $newprefix = $abbrev . $papnum_formatted . '_';
+	    my $newprefix = "$year.$venue-$volume.$papnum";
 	    mkdir("cdrom/additional") || 0;
 	    foreach my $file (@files) {
 		my $newname = fname($file);

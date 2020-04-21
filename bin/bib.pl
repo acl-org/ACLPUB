@@ -2,12 +2,15 @@
 
 # READ META FILE FROM STDIN
 
+use strict;
+use warnings;
 use utf8;
 use open qw(:std :utf8);
 
 my ($db,$meta) = @ARGV;
 
-my($title,$abbrev,$month,$year,$location,$booktitle,$urlpattern,@authors);
+my(@titles,$title,$abbrev,$volume,$month,$year,$location,$publisher,$booktitle,$shortbooktitle,@authors);
+my $urlpattern = "https://www.aclweb.org/anthology/%s";
 open(META,$meta) || die;
 while(<META>) {
   my ($key,$value) = split(/\s+/,$_,2);
@@ -16,13 +19,15 @@ while(<META>) {
   #print STDERR "Found in meta: (\"$key\", \"$value\")\n";
 
   $abbrev = $value if $key eq 'abbrev';
+  $volume = $value if $key eq 'volume';
+  if (!$volume) {$volume=1;}
   $title = $value if $key eq 'title';
   $month = $value if $key eq 'month';
   $year = $value if $key eq 'year';
   $location = $value if $key eq 'location';
   $publisher = $value if $key eq 'publisher';
-  $booktitle = $title[0] = $value if $key eq 'booktitle';   # booktitle is also title of "paper 0"
-  $urlpattern = $value if $key eq 'bib_url';
+  $booktitle = $titles[0] = $value if $key eq 'booktitle';   # booktitle is also title of "paper 0"
+  $shortbooktitle = $value if $key eq 'shortbooktitle';   # reserved for future use
   push @{$authors[0]}, $value if $key eq 'chairs';  # chairs are authors of "paper 0"
 }
 close(META);
@@ -31,34 +36,14 @@ if (!$publisher) {
     $publisher = 'Association for Computational Linguistics';
 }
 
+my $venue = lc $abbrev;
+
 # should check that const fields actually get defined?
-@constfields =  ("booktitle = {$booktitle}",
-                 "month     = {$month}",
-                 "year      = {$year}",
-                 "address   = {$location}",
-                 "publisher = {$publisher}");
-
-#
-my $digits = 0;
-
-$urlpattern =~ m/\%0(\d)d/;
-
-if ($1) {
-    $digits = $1;
-}
-else {
-    if ($urlpattern =~ /\/W/) {
-	# Workshop
-	$urlpattern .= '%02d';
-	$digits = 2;
-    }
-    else {
-	# Conference
-	$urlpattern .= '%03d';
-	$digits = 3;
-    }
-}
-
+my @constfields =  ("booktitle      = {$booktitle}",
+                    "month          = {$month}",
+                    "year           = {$year}",
+                    "address        = {$location}",
+                    "publisher      = {$publisher}");
 
 # READ DB FILE
 
@@ -70,6 +55,7 @@ my @flat = <DB>;
 close DB;
 my $stringfile = join("",@flat);
 my @entries = split(/^\s+/m, $stringfile); # this should yield records for each paper, etc.
+my (@pid, @startpage, @endpage, @file);
 
 foreach my $entry (@entries) {
     if ($entry =~ /^X:/) { # do not create a bib entry for headers
@@ -86,9 +72,9 @@ foreach my $entry (@entries) {
 	s/^([A-Z]) /$1: /;   # correct possible typo in db line
 
 	if (s/^T: *//) {
-	    warn "double title for paper $pn: $title[$pn], $_"
-		if defined $title[$pn];
-	    $title[$pn] = $_;
+	    warn "double title for paper $pn: $titles[$pn], $_"
+		if defined $titles[$pn];
+	    $titles[$pn] = $_;
 	}
 	if (s/^P: *//) {
 	    warn "double pid for paper $pn: $pid[$pn], $_"
@@ -96,7 +82,7 @@ foreach my $entry (@entries) {
 	    $pid[$pn] = $_;
 	}
 	elsif (s/^A: *//) {
-	    $_name = $_;
+	    my $_name = $_;
 	    if ($_name !~ /^(.+), (.+)$/) {
 		if ($_name =~ /^(.*)/) {
 		    $_name = $1;
@@ -123,20 +109,21 @@ foreach my $entry (@entries) {
 # FIRST PASS TO FIND BIB KEYS so that we can detect conflicts before printing anything.
 # Start with an entry for the whole volume (paper number "0").
 
+my (@key, %clients);
 $key[0] = sprintf "%s:%d", $abbrev, $year; # don't bother remembering clients (there can be only one in this case)
 
-for ($pn = 1; $pn <= $#title; $pn++) {
+for ($pn = 1; $pn <= $#titles; $pn++) {
 
   # extract last names of authors, lowercased and alpha-only; use EtAl
-  @keyauthors = @{$authors[$pn]};
+  my @keyauthors = @{$authors[$pn]};
   map { s/,.*//; tr /A-Z/a-z/; tr/a-z//cd } @keyauthors;
   if (@keyauthors > 3) {
     splice @keyauthors,1,@keyauthors,"EtAl"; # replace all after first
   }
 
   # now construct the key
-  $key[$pn] = sprintf "%s:%d:%s", join("-",@keyauthors), $year, $abbrev;
-  $clients{$key[$pn]}++; # keep track of conflicts to resolve later -- paper keys must be unique.
+  my $key = $key[$pn] = sprintf "%s:%d:%s", join("-",@keyauthors), $year, $abbrev;
+  $clients{$key} = ($clients{$key} || 0) + 1; # keep track of conflicts to resolve later -- paper keys must be unique.
 }
 
 # OK, NOW GENERATE THE BIB ENTRIES.
@@ -144,24 +131,26 @@ for ($pn = 1; $pn <= $#title; $pn++) {
 
 system("mkdir -p cdrom/bib")==0 || die;
 
-for ($pn = 0; $pn <= $#title; $pn++) {
+my (%seq);
 
-  # pad paper number with zeroes on the left
-  my $fn_base = sprintf "%0${digits}d", $pn;
-  my $fn = "cdrom/bib/$abbrev$fn_base.bib";
+for ($pn = 0; $pn <= $#titles; $pn++) {
+
+  my $anth_id = "$year.$venue-$volume.$pn";
+
+  my $fn = "cdrom/bib/$anth_id.bib";
   open(FILE,"> $fn") || printf(STDERR "Can't open $fn: $!\n");
 
   ### GET CITATION KEY, adding a distinguishing number if
   ###   necessary to resolve a conflict (rare).
 
-  $key = $key[$pn];
-  $key .= ++$seq{$key} if $clients{$key} > 1;
+  my $key = $key[$pn];
+  $key .= ++$seq{$key} if ($clients{$key} || 0) > 1;
 
   printf FILE "\@%s{%s,\n", $pn==0 ? "Book" : "InProceedings", $key;
   printf FILE "  %s    = {%s},\n",
     ($pn==0?"editor":"author"), join("  and  ",@{$authors[$pn]})
       if defined $authors[$pn];
-  print  FILE "  title     = {$title[$pn]},\n" if defined $title[$pn];
+  print  FILE "  title     = {$titles[$pn]},\n" if defined $titles[$pn];
   foreach (@constfields) {
     print  FILE "  $_,\n" unless $pn==0 && /booktitle/;
   }
@@ -171,7 +160,7 @@ for ($pn = 0; $pn <= $#title; $pn++) {
        $startpage[$pn]==$endpage[$pn] ? $startpage[$pn] : "$startpage[$pn]--$endpage[$pn]";
   }
 
-  if (-e "abstracts/$pid[$pn].abs") {
+  if (defined $pid[$pn] and -e "abstracts/$pid[$pn].abs") {
       open(ABS,"<abstracts/$pid[$pn].abs");
       my @lines = <ABS>;
       close(ABS);
@@ -180,7 +169,7 @@ for ($pn = 0; $pn <= $#title; $pn++) {
       print FILE "  abstract  = {$abstract},\n";
   }
 
-  printf FILE "  url       = {".&url($urlpattern,$pn)."}\n" if defined $urlpattern;
+  printf FILE "  url       = {".&url($urlpattern,$anth_id)."}\n" if defined $urlpattern;
   print  FILE "}\n\n";
 
   close(FILE);
@@ -189,13 +178,15 @@ for ($pn = 0; $pn <= $#title; $pn++) {
 # Finally, make a concatenated bib file with all the entries at once,
 # in order.
 
-my $fn = "cdrom/$abbrev-$year.bib";
+my $fn = "cdrom/$venue-$year.bib";
 unlink($fn);
 system("cat cdrom/bib/* > $fn");
 
 ######################################################################
 sub url {
-  my ($urlpattern,$pn) = @_;
+  my ($urlpattern, $anthid) = @_;
+  my @tokens = split /\./, $anthid;
+  my $pn = int($tokens[-1]);
 
   if ($pn != 0) {
 
@@ -204,46 +195,17 @@ sub url {
     # someone will want to use these scripts for other purposes one day,
     # so any printf format string is allowed.
 
-    my $fn = sprintf $urlpattern, $pn;
-    $fn =~ m/\/([^\/]+)$/;
-    my $fn_base = $1;
-
-    if (length($fn_base)!=8) {
-        # the error will be printed for the first suspicious URL;
-        #   then we'll abort
-        warn "\n$0:\n";
-        warn "We think you must have gotten bib_url wrong in your \"meta\" file,\n";
-        warn "  since the filename for paper $pn came out like this: $fn_base\n";
-        if (length($fn) > length(sprintf $urlpattern, 0)) {
-            warn "This appears to be because your volume has more papers than expected.\n";
-        }
-        warn "Please request a new bib_url if necessary to fix the problem.\n";
-        warn "Or if you really do want a URL filename of other than 8 characters,\n";
-        warn "  then comment out this message and the accompanying \"exit\", and try again.\n";
-    }
+    my $fn = sprintf $urlpattern, $anthid;
     return $fn;
 
   } else {
 
-    # For the book as a whole ($pn==0), create a copy of $urlpattern
-    # with no number in it at all.  Unfortunately, we can't just sprintf
-    # with "" as the number since it will be interpreted as 0.
-    #
-    # Here is an attempt to use "" for the number.
-    # It will work with ACL Anthology URL patterns, and in fact
-    # is intended to work with nearly any printf format string
-    # (even, say, "%%abc%5lxdef") without actually parsing that string
-    # directly.  Maybe the meta file should just be improved
-    # so that this skulduggery isn't necessary, but it doesn't seem
-    # worth making the user deal with a more complex convention there.
-
-    my $url1 = sprintf $urlpattern, 12345678;  # will fill up any initial spaces (not that we should see any in a URL)
-    my $url2 = sprintf $urlpattern, -1;        # will start with - or fff... or 377...
-
-    # Now extract longest common prefix and longest common suffix.
-    my $prefix=0; $prefix++ while substr($url1,0,$prefix+1) eq substr($url2,0,$prefix+1);
-    my $suffix=0; $suffix++ while substr($url1,-($suffix+1),$suffix+1) eq substr($url2,-($suffix+1),$suffix+1);
-    return substr($url1,0,$prefix).substr($url1,-$suffix,$suffix);
+    # For the book as a whole ($pn==0), remove the paper number
+    # to just return the entire volume name.
+    my @parts = split /\./, $anthid;
+    pop(@parts);
+    my $fn = sprintf $urlpattern, join(".", @parts);
+    return $fn;
   }
 }
 
