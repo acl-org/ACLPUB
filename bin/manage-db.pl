@@ -446,7 +446,8 @@ sub create_cd {
 	my ($key,$value) = split(/\s+/,$_,2);
 	$value =~ s/\s+$//;
 	$abbrev = $value if $key eq 'abbrev';
-  $volume = $value if $key eq "volume";
+	$volume = $value if $key eq "volume";
+	if (!$volume) {$volume=1;}
 	$year = $value if $key eq 'year';
 	$title = $value if $key eq 'title';
 	$url = $value if $key eq 'url';
@@ -563,7 +564,7 @@ sub create_cd {
         $papnum++;
 
         my $pdfdest = "cdrom/pdf/$year.$venue-$volume.$papnum.pdf";
-	system("export PYTHONPATH $ENV{PYTHONPATH}; $ENV{ACLPUB}/bin/pdfunderneath.py $file ./cd.pdf -o $pdfdest")==0 || die;
+	system("PYTHONPATH=$ENV{PYTHONPATH}; export PYTHONPATH; $ENV{ACLPUB}/bin/pdfunderneath.py $file ./cd.pdf -o $pdfdest")==0 || die;
 
         # Copy additional files (other than paper) into a directory called "additional"
         # Rename the files to conform to the paper numbering/codes for the pdfs and bib files.

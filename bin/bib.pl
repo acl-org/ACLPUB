@@ -20,6 +20,7 @@ while(<META>) {
 
   $abbrev = $value if $key eq 'abbrev';
   $volume = $value if $key eq 'volume';
+  if (!$volume) {$volume=1;}
   $title = $value if $key eq 'title';
   $month = $value if $key eq 'month';
   $year = $value if $key eq 'year';

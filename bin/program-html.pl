@@ -5,23 +5,27 @@ use open qw(:std :utf8);
 
 my ($db,$meta) = @ARGV;
 
-my ($title,$booktitle, $urlpattern);
+my($title,$url,$abbrev,$year,$volume,$chairs,$type,$booktitle);
 open(META, "$ENV{ACLPUB}/bin/db-to-html.pl $meta |") || die "can't open meta";
 while(<META>) {
     chomp;
     my ($key,$value) = split(/\s+/,$_,2);
-    $title = $value if $key eq 'title';
-    $type = $value if $key eq 'type';
+    $value =~ s/\s+$//;
     $abbrev = $value if $key eq 'abbrev';
+    $type = $value if $key eq 'type';
+    $volume = $value if $key eq "volume";
+    if (!$volume) {$volume=1;}
+    $year = $value if $key eq 'year';
+    $title = $value if $key eq 'title';
     $booktitle = $value if $key eq 'booktitle';
+    $url = $value if $key eq 'url';
     $chairs .= $value."<BR>\n" if $key eq 'chairs';
-    $urlpattern = $value if $key eq 'bib_url';
 }
 close(META);
 my $day = "No Day Set";
 
-$urlpattern =~ m/\%0(\d)d/;
-my $digits = $1; # checked in bib.pl
+my $urlpattern = "https://www.aclweb.org/anthology/%s";
+my $venue = lc $abbrev;
 
 $curpage = 1;
 $papnum = 0;
@@ -173,8 +177,11 @@ for ($pn = 0; $pn < $papnum; $pn++) {
 
     ### PRINT TITLE LINE FOR PROGRAM
 
+    my $file = "$year.$venue-$volume.$pn";
+
     if ($haspaper[$pn]) {
-	printf("<a href=\"pdf/${abbrev}%0${digits}d.pdf\">",++$pp);
+
+	printf("<a href=\"pdf/$file.pdf\">",++$pp);
 	$line = $titles[$pn];
 	$line =~ s/[ \t]*\\\\[ \t]*/ \} \\\\ & \{\\em /g;
 	if ($line =~ /Invited Talk:/ || $line =~ /Panel:/) {
