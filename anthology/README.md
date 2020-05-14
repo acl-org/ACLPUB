@@ -22,26 +22,23 @@ If you are using:
 
 ### 2a. Instructions for users of Softconf's STARTv2
 
-Create a file called `acronyms_list.txt` that contains a list of the START names of all tracks/workshops associated with the conference, one per line, and case-sensitive.
-For example, the `acronyms_list` for NAACL 2015 included:
+Create a file called `start_urls.txt` that contains a list of the START urls for all volumes associated with the conference.
+As an example, the `start_urls.txt` file in the current directory contains many of the NAACL 2015 volumes:
 
-    papers
-    shortpapers
-    srw
-    tutorials
-    demos
-    WMT14
-    BioNLP
-    BEA9
-    ...
+    https://www.softconf.com/naacl2015/papers
+    https://www.softconf.com/naacl2015/shortpapers
+    https://www.softconf.com/naacl2015/srw
+    https://www.softconf.com/naacl2015/tutorials
+    https://www.softconf.com/naacl2015/demos
+    https://www.softconf.com/naacl2015/WMT14
+    https://www.softconf.com/naacl2015/BioNLP
+    https://www.softconf.com/naacl2015/BEA9
 
-Each of these corresponds to a URL in START. For example, the `papers` track corresponds to `http://softconf.com/naacl2015/papers`.
 Next, download all the tarballs.
 You can use the provided script:
 
-    download-proceedings.sh <conference> acronyms_list.txt
+    download-proceedings.sh start_urls.txt
 
-where `<conference>` is replaced by the START name of the conference, found in the URL of its START page (e.g., `naacl2015`).
 This automatic downloading is provided as a convenience; you could also do it manually (and may need to do so, if there are workshops that assemble their proceedings outside of START).
 
 This downloads each track/workshop's proceedings.
