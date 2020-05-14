@@ -134,8 +134,10 @@ The following fields are of special importance:
 
 - **abbrev**, **year**, and **volume** are used to assemble the [Anthology ID](https://www.aclweb.org/anthology/info/ids/) in the [ACL Anthology](https://www.aclweb.org/anthology/).
   These three constitute the volume ID (e.g., `2018.semeval-1`), which is prefixed to the paper ID to form the complete paper identifiers (e.g., `2018.semeval-1.19` for the 19th paper).
-- **abbrev** will be lowercased when forming file names.
+- **abbrev** is the venue for this volume.
+  It will be lowercased when forming file names, and will appear at `https://www.aclweb.org/anthology/venues/{abbrev}`.
   It can only contain ASCII letters and numbers ([A-Za-z0-9]+).
+  *A common mistake is to include the year (e.g., SemEval20). Since it is a venue name, it should not contain the year*.
 - **year** is the four-digit year.
 - **volume** is the name of the volume.
   Most workshops have just a single volume, in which case you can just use "1".
