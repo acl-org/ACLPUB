@@ -120,12 +120,12 @@ shortbooktitle Proceedings of SemEval
 month January
 year 2018
 sig siglex
-chair Marianna Apidianaki
-chair Mohammad, Saif M.
-chair Jonathan May
-chair Ekaterina Shutova
-chair Steven Bethard
-chair Marine Carpuat
+chairs Marianna Apidianaki
+chairs Mohammad, Saif M.
+chairs Jonathan May
+chairs Ekaterina Shutova
+chairs Steven Bethard
+chairs Marine Carpuat
 location Berlin, Germany
 publisher Association for Computational Lingustics
 ```
@@ -142,6 +142,11 @@ The following fields are of special importance:
   For larger conferences with multiple volumes, you may wish to choose short, informative names (e.g., "short" for short papers, "long" for long papers, "srw" for papers in a Student Research Workshop, etc.)
 
 For those using START, these should have been set by publications and book chairs (Publication Console -> ACLPUB -> CDROM).
+
+In addition, please ensure that the **chairs** lines are BibTeX-formatted names as above.
+If there are just two names, we can easily format it into BibTeX's "family name, given name" format.
+If there are more than three names (e.g., "Mohammad, Saif M."), please format this way yourself.
+Do not add affiliations as these are not used and they complicate parsing.
 
 **NOTE**: If you are wondering what happened to the `bib_url` field, it is no longer used.
   If it's present in START, you can ignore it.
