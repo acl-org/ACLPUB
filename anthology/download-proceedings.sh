@@ -5,12 +5,12 @@
 #
 # Author: Matt Post <post@cs.jhu.edu>
 
-if [ $# -ne 2 ]; then
+if [ $# -ne 1 ]; then
     echo "usage: download-proceedings.sh <start_urls_file>" 1>&2
     exit 1
 fi
 
-start_urls_file=$2
+start_urls_file=$1
 
 cat $start_urls_file | while read url; do
   acronym=$(basename $url)
@@ -21,6 +21,6 @@ cat $start_urls_file | while read url; do
   echo "Downloading $url -> data/$acronym"
   [[ ! -d "data/$acronym" ]] && mkdir -p data/$acronym
   (cd data/$acronym
-  wget -N --no-check-certificate $url
+  wget -N --no-check-certificate $url/pub/aclpub/proceedings.tgz
   tar -zxf proceedings.tgz)
 done
