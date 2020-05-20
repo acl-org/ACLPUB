@@ -463,7 +463,7 @@ sub create_cd {
     $venue = lc $abbrev;
 
     print STDERR "linking proceedings volume...\n";   # !!! move into makefile
-    system("ln -sf ../book.pdf cdrom/$venue-$year.pdf")==0 || die;
+    system("ln -sf ../book.pdf cdrom/$year.$venue-$volume.0.pdf")==0 || die;
 
     system("rm -rf cdrom/pdf; mkdir -p cdrom/pdf")==0 || die;
 

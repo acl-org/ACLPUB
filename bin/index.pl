@@ -8,9 +8,9 @@ use open qw(:std :utf8);
 # if there are multiple attachments, we cannot use the columned header for the index.
 my $single = q{<table cellspacing="0" cellpadding="5" border="1">
   <tr class="bg1">
-    <td valign="top"><a href="pdf/<XXX ABBREV>000.pdf">pdf</a></td>
-    <td valign="top"><a href="bib/<XXX ABBREV>000.bib">bib</a></td>
-    <td valign="top"><a href="pdf/<XXX ABBREV>000.pdf"><b>Front matter<b></a></td>
+    <td valign="top"><a href="pdf/<XXX ABBREV>.pdf">pdf</a></td>
+    <td valign="top"><a href="bib/<XXX ABBREV>.bib">bib</a></td>
+    <td valign="top"><a href="pdf/<XXX ABBREV>.pdf"><b>Front matter<b></a></td>
     <td valign="top">pages</td>
   </tr>
 };
@@ -18,15 +18,12 @@ my $single = q{<table cellspacing="0" cellpadding="5" border="1">
 
 my $multiple = q{<table cellspacing="0" cellpadding="5" border="1">
   <tr class="bg1">
-    <td valign="top"><a href="pdf/<XXX ABBREV>000.pdf"><b>Front matter<b></a>
-      [<a href="pdf/<XXX ABBREV>000.pdf">pdf</a>] [<a href="bib/<XXX ABBREV>000.bib">bib</a>]
+    <td valign="top"><a href="pdf/<XXX ABBREV>.pdf"><b>Front matter<b></a>
+      [<a href="pdf/<XXX ABBREV>.pdf">pdf</a>] [<a href="bib/<XXX ABBREV>.bib">bib</a>]
     </td>
     <td valign="top">pages</td>
   </tr>
 };
-
-
-
 
 my($db, $meta) = @ARGV;
 
@@ -52,7 +49,8 @@ my $urlpattern = "https://www.aclweb.org/anthology/%s";
 my $venue = lc $abbrev;
 
 my $digits = $1; # checked in bib.pl
-$fmzeros = sprintf "%0${digits}d", 0;
+
+my $fileprefix = "$year.$venue-$volume.0";
 
 # Initialize Type to account for old templates.
 #    linktype = old: Original layout with 4 columns.
@@ -66,6 +64,10 @@ close HEADER;
 
 $out =~ s/(\<br\>\<\/br\>)((.|[\n\s])*)/$1/;
 
+$out =~ s/\Q>\E000/>/g;
+
+$out =~ s/\Q-<XXX YEAR>\E//g;
+
 if (glob("cdrom/additional/*")) {
     $linktype = 'new';
     $out .= $multiple;
@@ -77,12 +79,11 @@ else {
 
 $out =~ s/<XXX TITLE>/$title/g;
 $out =~ s/<XXX TYPE>/$type/g;
-$out =~ s/<XXX ABBREV>/$abbrev/g;
+$out =~ s/<XXX ABBREV>/$fileprefix/g;
 $out =~ s/<XXX YEAR>/$year/g;
 $out =~ s/<XXX BOOKTITLE>/$booktitle/g;
 $out =~ s/<XXX URL>/$url/g;
 $out =~ s/<XXX CHAIRS>/$chairs/g;
-$out =~ s/000/$fmzeros/g;
 
 my $text;
 my @classes;
