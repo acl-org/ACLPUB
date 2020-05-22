@@ -5,23 +5,22 @@
 #
 # Author: Matt Post <post@cs.jhu.edu>
 
-if [ $# -ne 2 ]; then
-    echo "usage: download-proceedings.sh <conference> <acronyms>" 1>&2
+if [ $# -ne 1 ]; then
+    echo "usage: download-proceedings.sh <start_urls_file>" 1>&2
     exit 1
 fi
 
-conference=$1
-acronyms_list=$2
+start_urls_file=$1
 
-cat $acronyms_list | while read acronym; do
+cat $start_urls_file | while read url; do
+  acronym=$(basename $url)
   if [[ -s data/$acronym/proceedings.tgz ]]; then
     echo "* Already have $acronym, skipping"
     continue
   fi
-  url="https://www.softconf.com/$conference/$acronym/pub/aclpub/proceedings.tgz"
   echo "Downloading $url -> data/$acronym"
   [[ ! -d "data/$acronym" ]] && mkdir -p data/$acronym
   (cd data/$acronym
-  wget -N --no-check-certificate $url
+  wget -N --no-check-certificate $url/pub/aclpub/proceedings.tgz
   tar -zxf proceedings.tgz)
 done

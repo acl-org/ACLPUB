@@ -22,26 +22,23 @@ If you are using:
 
 ### 2a. Instructions for users of Softconf's STARTv2
 
-Create a file called `acronyms_list.txt` that contains a list of the START names of all tracks/workshops associated with the conference, one per line, and case-sensitive.
-For example, the `acronyms_list` for NAACL 2015 included:
+Create a file called `start_urls.txt` that contains a list of the START urls for all volumes associated with the conference.
+As an example, the `start_urls.txt` file in the current directory contains many of the NAACL 2015 volumes:
 
-    papers
-    shortpapers
-    srw
-    tutorials
-    demos
-    WMT14
-    BioNLP
-    BEA9
-    ...
+    https://www.softconf.com/naacl2015/papers
+    https://www.softconf.com/naacl2015/shortpapers
+    https://www.softconf.com/naacl2015/srw
+    https://www.softconf.com/naacl2015/tutorials
+    https://www.softconf.com/naacl2015/demos
+    https://www.softconf.com/naacl2015/WMT14
+    https://www.softconf.com/naacl2015/BioNLP
+    https://www.softconf.com/naacl2015/BEA9
 
-Each of these corresponds to a URL in START. For example, the `papers` track corresponds to `http://softconf.com/naacl2015/papers`.
 Next, download all the tarballs.
 You can use the provided script:
 
-    download-proceedings.sh <conference> acronyms_list.txt
+    download-proceedings.sh start_urls.txt
 
-where `<conference>` is replaced by the START name of the conference, found in the URL of its START page (e.g., `naacl2015`).
 This automatic downloading is provided as a convenience; you could also do it manually (and may need to do so, if there are workshops that assemble their proceedings outside of START).
 
 This downloads each track/workshop's proceedings.
@@ -120,12 +117,12 @@ shortbooktitle Proceedings of SemEval
 month January
 year 2018
 sig siglex
-chair Marianna Apidianaki
-chair Mohammad, Saif M.
-chair Jonathan May
-chair Ekaterina Shutova
-chair Steven Bethard
-chair Marine Carpuat
+chairs Marianna Apidianaki
+chairs Mohammad, Saif M.
+chairs Jonathan May
+chairs Ekaterina Shutova
+chairs Steven Bethard
+chairs Marine Carpuat
 location Berlin, Germany
 publisher Association for Computational Lingustics
 ```
@@ -134,14 +131,21 @@ The following fields are of special importance:
 
 - **abbrev**, **year**, and **volume** are used to assemble the [Anthology ID](https://www.aclweb.org/anthology/info/ids/) in the [ACL Anthology](https://www.aclweb.org/anthology/).
   These three constitute the volume ID (e.g., `2018.semeval-1`), which is prefixed to the paper ID to form the complete paper identifiers (e.g., `2018.semeval-1.19` for the 19th paper).
-- **abbrev** will be lowercased when forming file names.
+- **abbrev** is the venue for this volume.
+  It will be lowercased when forming file names, and will appear at `https://www.aclweb.org/anthology/venues/{abbrev}`.
   It can only contain ASCII letters and numbers ([A-Za-z0-9]+).
+  *A common mistake is to include the year (e.g., SemEval20). Since it is a venue name, it should not contain the year*.
 - **year** is the four-digit year.
 - **volume** is the name of the volume.
   Most workshops have just a single volume, in which case you can just use "1".
   For larger conferences with multiple volumes, you may wish to choose short, informative names (e.g., "short" for short papers, "long" for long papers, "srw" for papers in a Student Research Workshop, etc.)
 
 For those using START, these should have been set by publications and book chairs (Publication Console -> ACLPUB -> CDROM).
+
+In addition, please ensure that the **chairs** lines are BibTeX-formatted names as above.
+If there are just two names, we can easily format it into BibTeX's "family name, given name" format.
+If there are more than three names (e.g., "Mohammad, Saif M."), please format this way yourself.
+Do not add affiliations as these are not used and they complicate parsing.
 
 **NOTE**: If you are wondering what happened to the `bib_url` field, it is no longer used.
   If it's present in START, you can ignore it.

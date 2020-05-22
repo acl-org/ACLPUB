@@ -1,0 +1,8 @@
+https://www.softconf.com/naacl2015/papers
+https://www.softconf.com/naacl2015/shortpapers
+https://www.softconf.com/naacl2015/srw
+https://www.softconf.com/naacl2015/tutorials
+https://www.softconf.com/naacl2015/demos
+https://www.softconf.com/naacl2015/WMT14
+https://www.softconf.com/naacl2015/BioNLP
+https://www.softconf.com/naacl2015/BEA9
