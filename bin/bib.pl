@@ -178,7 +178,7 @@ for ($pn = 0; $pn <= $#titles; $pn++) {
 # Finally, make a concatenated bib file with all the entries at once,
 # in order.
 
-my $fn = "cdrom/$venue-$year.bib";
+my $fn = "cdrom/$year.$venue-$volume.0.bib";
 unlink($fn);
 system("cat cdrom/bib/* > $fn");
 
