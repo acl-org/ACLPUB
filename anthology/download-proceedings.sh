@@ -21,6 +21,6 @@ cat $start_urls_file | while read url; do
   echo "Downloading $url -> data/$acronym"
   [[ ! -d "data/$acronym" ]] && mkdir -p data/$acronym
   (cd data/$acronym &&
-  curl -sS --fail -O $url/pub/aclpub/proceedings.tgz &&
+  curl -sS --fail --insecure -O $url/pub/aclpub/proceedings.tgz &&
   tar -zxf proceedings.tgz)
 done
