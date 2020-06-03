@@ -20,7 +20,7 @@ cat $start_urls_file | while read url; do
   fi
   echo "Downloading $url -> data/$acronym"
   [[ ! -d "data/$acronym" ]] && mkdir -p data/$acronym
-  (cd data/$acronym
-  wget -N --no-check-certificate $url/pub/aclpub/proceedings.tgz
+  (cd data/$acronym &&
+  curl -sS --fail --insecure -O $url/pub/aclpub/proceedings.tgz &&
   tar -zxf proceedings.tgz)
 done
