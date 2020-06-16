@@ -585,7 +585,7 @@ sub create_cd {
 	@files = grep(/$possibleFinalAttachments/i, @files);       # Limit the files to the choices we want.
 	if (@files) {
 	    my $oldprefix = $pid . '_';
-	    my $newprefix = "$year.$venue-$volume.$papnum";
+	    my $newprefix = "$year.$venue-$volume.$papnum" . "_";
 	    mkdir("cdrom/additional") || 0;
 	    foreach my $file (@files) {
 		my $newname = fname($file);
