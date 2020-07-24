@@ -463,7 +463,7 @@ sub create_cd {
     $venue = lc $abbrev;
 
     print STDERR "linking proceedings volume...\n";   # !!! move into makefile
-    system("ln -sf ../book.pdf cdrom/$year.$venue-$volume.0.pdf")==0 || die;
+    system("ln -sf ../book.pdf cdrom/$year.$venue-$volume.pdf")==0 || die;
 
     system("rm -rf cdrom/pdf; mkdir -p cdrom/pdf")==0 || die;
 
@@ -574,7 +574,7 @@ sub create_cd {
         # will also be included in the script index.pl .  We can eventually make this
         # a parameter in the UI.
         #
-	$possibleFinalAttachments = 'datasets|notes|software|optional|supplementary|optionalattachment';
+	$possibleFinalAttachments = 'dataset|notes|software|optional|supplementary|optionalattachment';
 
 	my $pid = $DB{$id}{"P"}[0];         # Get START paperid.
         my @files = glob("final/$pid/*");   # Get the files in the final place for the paperid.
@@ -585,7 +585,7 @@ sub create_cd {
 	@files = grep(/$possibleFinalAttachments/i, @files);       # Limit the files to the choices we want.
 	if (@files) {
 	    my $oldprefix = $pid . '_';
-	    my $newprefix = "$year.$venue-$volume.$papnum";
+	    my $newprefix = "$year.$venue-$volume.$papnum" . "_";
 	    mkdir("cdrom/additional") || 0;
 	    foreach my $file (@files) {
 		my $newname = fname($file);
