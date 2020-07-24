@@ -574,7 +574,7 @@ sub create_cd {
         # will also be included in the script index.pl .  We can eventually make this
         # a parameter in the UI.
         #
-	$possibleFinalAttachments = 'datasets|notes|software|optional|supplementary|optionalattachment';
+	$possibleFinalAttachments = 'dataset|notes|software|optional|supplementary|optionalattachment';
 
 	my $pid = $DB{$id}{"P"}[0];         # Get START paperid.
         my @files = glob("final/$pid/*");   # Get the files in the final place for the paperid.
