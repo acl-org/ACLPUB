@@ -1,0 +1,41 @@
+navbar:
+  - section: General
+    entries:
+      - title: Index
+        url: /index.html
+      - title: Who does what?
+        url: /who-does-what.html
+      - title: Timeline
+        url: /timeline.html
+      - title: General Advice
+        url: /advice.html
+  - section: The Fundamentals
+    entries:
+      - title: ACLPUB
+        url:   /aclpub.html
+      - title: Detailed style guide
+        url:   /style.html
+      - title: The order file
+        url:   /order.html
+  - section: Workflows for specific artifacts
+    entries:
+      - title: proceedings.tgz
+        url:   /proceedings-tgz.html
+      - title: CD-ROM
+        url:   /cdrom.html
+      - title: Anthology
+        url:   /anthology.html
+      - title: Copyright
+        url:   /copyright.html
+  - section: XML proceedings
+    entries:
+      - title:    LaTeXML
+        url:      /latexml.html
+  - section: Other
+    entries:
+      - title: Open Issues
+        url:   /open-issues.html
+      - title: Further Reading
+        url:   /further-reading.html
+
+

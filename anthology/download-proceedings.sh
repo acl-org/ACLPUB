@@ -18,9 +18,8 @@ cat $start_urls_file | while read url; do
     echo "* Already have $acronym, skipping"
     continue
   fi
+  url=$url/pub/aclpub/proceedings.tgz
   echo "Downloading $url -> data/$acronym"
   [[ ! -d "data/$acronym" ]] && mkdir -p data/$acronym
-  (cd data/$acronym &&
-  curl -sS --fail --insecure -O $url/pub/aclpub/proceedings.tgz &&
-  tar -zxf proceedings.tgz)
+  (cd data/$acronym && curl -sS --fail --insecure -O $url && tar -zxf proceedings.tgz)
 done
