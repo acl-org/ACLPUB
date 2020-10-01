@@ -20,7 +20,7 @@ Review versions of short papers may have up to four (4) pages of content, plus u
 Final versions of short papers may have up to five (5) pages, plus unlimited pages for acknowledgements and references.
 For both long and short papers, all figures and tables that are part of the main text must fit within these page limits.
 
-The conference encourages submission of appendices and supplementary material, which are not required to fit within these page limits. However, review versions of papers must be self-contained: it is optional for reviewers to look at appendices or supplementary material. Please see [Appendices](#appendices) and [Supplementary](#supplementary-material) for more information.
+The conference encourages submission of appendices and supplementary material, which are not required to fit within these page limits. However, review versions of papers must be self-contained: it is optional for reviewers to look at appendices or supplementary material. Please see [Appendices](#appendices) and [Supplementary Material](#supplementary-material) for more information.
 
 Review versions should not refer, for further detail, to documents, code or data resources that are not available to the reviewers.
 
@@ -179,6 +179,7 @@ or
 > 6.1 File Format
 
 ### Footnotes
+
 Put footnotes at the bottom of the page and use 9 point font.
 They may be numbered or referred to by asterisks or other symbols.
 Footnotes should be separated from the text by a line.
