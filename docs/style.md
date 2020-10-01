@@ -21,10 +21,7 @@ proceedings.
 
 Detailed style decisions:
 
-* Font size in abstract: There is an inconsistency between the style
-  guide (which says the abstract should be written in a 10pt font) and
-  the Latex style file (which puts it at 11pt). We chose to allow both
-  and encourage 11pt as that was the majority.
+* Font size in abstract: The abstract should be written in a 10pt font.
 * Do not tolerate any deviation in page margins.
 * Tolerate narrower line spacing up to a baselinestretch of 0.95 or
   higher. This is because a large fraction of papers use a
