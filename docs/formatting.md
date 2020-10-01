@@ -15,12 +15,12 @@ We strongly recommend the use of these style files, which have been appropriatel
 
 The conference accepts submissions of long papers and short papers.
 Review versions of long papers may have up to eight (8) pages of content plus unlimited pages for references.
-Upon acceptance, final versions of long papers will be given one additional page -- up to nine (9) pages of content plus unlimited pages for acknowledgements and references -- so that reviewers' comments can be taken into account.
+Upon acceptance, final versions of long papers will be given one additional page – up to nine (9) pages of content plus unlimited pages for acknowledgements and references – so that reviewers' comments can be taken into account.
 Review versions of short papers may have up to four (4) pages of content, plus unlimited pages for references.
 Final versions of short papers may have up to five (5) pages, plus unlimited pages for acknowledgements and references.
 For both long and short papers, all figures and tables that are part of the main text must fit within these page limits.
 
-The conference encourages submission of appendices and supplementary material, which are not required to fit within these page limits. However, review versions of papers must be self-contained: it is optional for reviewers to look at appendices or supplementary material. Please see [Appendices](#Appendices) and [Supplementary](#Supplementary Material) for more information.
+The conference encourages submission of appendices and supplementary material, which are not required to fit within these page limits. However, review versions of papers must be self-contained: it is optional for reviewers to look at appendices or supplementary material. Please see [Appendices](#appendices) and [Supplementary](#supplementary-material) for more information.
 
 Review versions should not refer, for further detail, to documents, code or data resources that are not available to the reviewers.
 
@@ -118,7 +118,7 @@ The following table specifies what font sizes and styles must be used for each t
 | paper title           | 15 pt     | bold  |
 | author names          | 12 pt     | bold  |
 | author affiliation    | 12 pt     |       |
-| the word ``Abstract'' | 12 pt     | bold  |
+| the word "Abstract"   | 12 pt     | bold  |
 | section titles        | 12 pt     | bold  |
 | subsection titles     | 11 pt     | bold  |
 | document text         | 11 pt     |       |
@@ -129,7 +129,7 @@ The following table specifies what font sizes and styles must be used for each t
 
 ### Title and Authors
 
-Center the title, author's name(s) and affiliation(s) across both columns.
+Center the title and the author name(s) and affiliation(s) across both columns.
 
 Place the title centered at the top of the first page, in 15-point bold.
 Long titles should be typed on two lines without a blank line intervening.
@@ -210,7 +210,7 @@ Within-document and external hyperlinks should be dark blue (hex #000099), not u
 
 ### Non-English Text
 
-Text in languages other than English should be accompanied by translations into English, and text in scripts other than Latin should \emph{also} be accompanied by transliterations into Latin script, since not all readers can recognize non-Latin characters easily.
+Text in languages other than English should be accompanied by translations into English, and text in scripts other than Latin should *also* be accompanied by transliterations into Latin script, since not all readers can recognize non-Latin characters easily.
 
 For example, παράδειγμα *paradeigma* ‘example’ is a Greek word, and this is a Greek sentence:
 
@@ -222,7 +222,7 @@ For example, παράδειγμα *paradeigma* ‘example’ is a Greek word, an
 
 Citations within the text appear in parentheses (Gusfield, 1997), or, if the author's name appears in the text itself: Gusfield (1997).
 Append lowercase letters to the year in cases of ambiguities.
-Cite papers with two authors using both authors' names (Aho and Ullman, 1972), but cite papers with more than two authors by the first author's name and ``et al.'' (Chandra et al., 1981).
+Cite papers with two authors using both authors' names (Aho and Ullman, 1972), but cite papers with more than two authors by the first author's name and "et al." (Chandra et al., 1981).
 Collapse multiple citations into a single pair of parentheses (Gusfield, 1997; Aho and Ullman, 1972).
 
 Refrain from using full citations as sentence constituents.
