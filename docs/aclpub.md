@@ -75,7 +75,7 @@ This is a little tricky.  Here is an answer from the ACLPUB manual.
 >   \includegraphics{../templates/imagename.pdf}  
 > where ../templates/ is needed because the make command is not run in the templates directory (where the image is stored).
 
-* How to remove unnecssary sections (e.g. preface) from the proceedings?
+* How to remove unnecessary sections (e.g. preface) from the proceedings?
 
 Edit "book.tex" and comment out the line "\includepdf{...}", which
 includes PDF files created from corresponding latex sources.  You can

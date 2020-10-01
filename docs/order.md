@@ -40,6 +40,7 @@ You can input the order file in "ACLPUB > Order".  Three methods are available:
     * This tool is useful when you prefer text editing rather than Excel.  Also, you might need to use this function when you have to make editing that cannot be done using Schedule Maker.
     * The order file looks like this:
 
+```
     * Monday, June 23, 2014
     + 7:30--18:00 Registration
     + 7:30--9:00 Breakfast
@@ -49,6 +50,7 @@ You can input the order file in "ACLPUB > Order".  Three methods are available:
     = Session 1A: Discourse, Dialogue, Coreference and Pragmatics
     111 10:10--10:35 # Paper title 1...
     222 10:35--11:00 # Paper title 2...
+```
 
 ## Style guideline
 
