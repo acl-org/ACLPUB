@@ -25,9 +25,9 @@ navbar:
         url:   /copyright.html
   - section: Authors
     entries:
-      - title: Submission guidelines
+      - title: Formatting guidelines
         url:   /formatting.html
-      - title: Final version FAQ
+      - title: Final version
         url:   /final-version.html
   - section: Other
     entries:

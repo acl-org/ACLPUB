@@ -187,12 +187,12 @@ You should have received an email with more information about this procedure.
 
 ## How should I enter metadata on the START system?
 
-The metadata (title, author, abstract) that you enter into START is very important, because it is used on the conference website, handbook, mobile app, and the [ACL Anthology](https://www.aclweb.org/anthology/) (and propagates to Google Scholar, etc).
+The metadata (title, author, abstract) that you enter into START is very important, because it is used on the conference website, handbook, mobile app, and the [ACL Anthology](https://www.aclweb.org/anthology/) (and propagates to [DBLP](https://dblp.uni-trier.de), Semantic Scholar, Google Scholar, etc).
 
 ![Picture of Softconf user info fields](images/userinfo.png)
 
 Before the metadata is entered, please have all authors ensure that
-the their name in their START profile (User Console &rarr; Update
+the their name in their Global START profile (User Console &rarr; Update
 Profile) appears exactly the way that they want it to appear.
 
 ##  What if my paper's title or other metadata has changed since submission?
