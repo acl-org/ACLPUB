@@ -1,36 +1,32 @@
 navbar:
   - section: General
     entries:
-      - title: Index
-        url: /index.html
       - title: Who does what?
         url: /who-does-what.html
-      - title: Timeline
-        url: /timeline.html
+  - section: Publication Chairs
+    entries:
       - title: General Advice
         url: /advice.html
-  - section: The Fundamentals
-    entries:
-      - title: ACLPUB
-        url:   /aclpub.html
-      - title: Detailed style guide
+      - title: Timeline
+        url: /timeline.html
+      - title: Style files
         url:   /style.html
-      - title: The order file
-        url:   /order.html
-  - section: Workflows for specific artifacts
-    entries:
-      - title: proceedings.tgz
-        url:   /proceedings-tgz.html
       - title: CD-ROM
         url:   /cdrom.html
       - title: Anthology
         url:   /anthology.html
+  - section: Book chairs
+    entries:
+      - title: ACLPUB
+        url:   /aclpub.html
+      - title: The order file
+        url:   /order.html
       - title: Copyright
         url:   /copyright.html
-  - section: XML proceedings
+  - section: Authors
     entries:
-      - title:    LaTeXML
-        url:      /latexml.html
+      - title: Final version FAQ
+        url:   /final-version.html
   - section: Other
     entries:
       - title: Open Issues
