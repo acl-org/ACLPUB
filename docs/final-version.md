@@ -1,26 +1,12 @@
 ---
 layout: default
-title: General *ACL instructions for final paper submissions
+title: Final paper submissions
 ---
 
 Below are the general *ACL policies for preparing the final version of your paper (sometimes still anachronistically called the "camera-ready").
 
 If your question is not answered here, please email the current publications chairs for any questions or clarifications.
 We will update this page if new issues arise.
-
-- [General information](#general-information)
-   -  [When and where do I send the final camera-ready paper?](#when-and-where-do-i-send-my-final-camera-ready-paper)
-   -  [How should I enter my metadata?](#how-should-i-enter-my-metadata?)
-   -  [How should the final copy differ from the original submission?](#how-should-the-final-copy-differ-from-the-original-submission)
-   -  [How long can it be?](#how-long-can-it-be)
-   -  [What's the deal with including an Appendix? Do I include it as supplemental?](#whats-the-deal-with-including-an-appendix-do-i-include-it-as-supplemental)
-   -  [What is the format for the camera-ready copy?](#what-is-the-format-for-the-camera-ready-copy)
-   -  [How do I ensure that my file is correctly formatted?](#how-do-i-ensure-that-my-file-is-correctly-formatted)
-   -  [What if my paper includes graphics?](#what-if-my-paper-includes-graphics)
-   -  [What about copyright?](#what-about-copyright)
-   -  [What if my paper's title or author list has changed?](#what-if-my-papers-title-or-other-metadata-has-changed)
-   -  [My question isn't answered here...?](#my-question-isnt-answered-here)
-- [For users of START](#start-users)
 
 # General information
 
@@ -203,7 +189,7 @@ You should have received an email with more information about this procedure.
 
 The metadata (title, author, abstract) that you enter into START is very important, because it is used on the conference website, handbook, mobile app, and the [ACL Anthology](https://www.aclweb.org/anthology/) (and propagates to Google Scholar, etc).
 
-![Picture of Softconf user info fields](assets/images/userinfo.png)
+![Picture of Softconf user info fields](images/userinfo.png)
 
 Before the metadata is entered, please have all authors ensure that
 the their name in their START profile (User Console &rarr; Update

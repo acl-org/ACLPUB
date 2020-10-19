@@ -19,6 +19,7 @@ title: Anthology
 - things that can go wrong, and how to fix them (e.g. missing Bibtex
   files; Unicode characters in Bibtex)
 
+
 ACLPUB does a reasonable job at converting characters with funny diacritics to Latex and HTML entities, but its support for Unicode is not complete, to the extent that the proceedings.tgz
 
 book.pdf vs proceedings.tgz
