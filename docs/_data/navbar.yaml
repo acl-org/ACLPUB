@@ -35,5 +35,5 @@ navbar:
         url:   /open-issues.html
       - title: Further Reading
         url:   /further-reading.html
-
-
+      - title: Credits
+        url:   /credits.html
