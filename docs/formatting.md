@@ -7,6 +7,12 @@ The following instructions are for authors of papers submitted for review to ACL
 All authors are required to adhere to these specifications.
 Authors of accepted papers are advised also to [review the final submission FAQ](final-version.html).
 
+## Outline
+{: .no_toc}
+
+- TOC
+{:toc}
+
 ## Style Files
 
 *ACL provides style files for LaTeX and Microsoft Word that meet these requirements. They can be found at:

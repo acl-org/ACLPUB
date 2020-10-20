@@ -8,9 +8,15 @@ Below are the general *ACL policies for preparing the final version of your pape
 If your question is not answered here, please email the current publications chairs for any questions or clarifications.
 We will update this page if new issues arise.
 
-# General information
+## Outline
+{: .no_toc}
 
-## How should the final version differ from the submitted version?
+- TOC
+{:toc}
+
+## General information
+
+### How should the final version differ from the submitted version?
 
 The final version of your paper should incorporate the comments of the reviewers as well as other changes you see fit to make. 
 In addition, be sure to do all of the following:
@@ -25,12 +31,12 @@ In addition, be sure to do all of the following:
 - If you have supplemental material (including written material, data, and/or code) ensure that all the components are put at the right place
  (see the [Appendices and supplemental material](#where-do-appendices-and-supplemental-material-go) section below for more details).
 
-##  How can I make my final paper version more accessible?
+###  How can I make my final paper version more accessible?
 
 As a central venue of publication for our community, please prioritise the accessibility of your final version.
 The Diversity & Inclusion committee for ACL2020 has outlined some tips on how to do this: https://acl2020.org/blog/accessibility-for-camera-ready/
 
-## Where do appendices and supplemental material go?
+### Where do appendices and supplemental material go?
 
 Supplemental material can be divided into two types: appendices and non-readable supplemental material.
 
@@ -38,7 +44,7 @@ Supplemental material can be divided into two types: appendices and non-readable
   Appendices do not count towards the page limit.
 - Non-readable supplemental material (data, software, all other material) is uploaded separately.
 
-##  How long can it be?
+###  How long can it be?
 
 For both long and short papers, most *ACL conferences allow one extra page to help address reviewer comments.
 So long papers are permitted at most 9 pages of text while short papers may use up to 5 pages of text.
@@ -49,7 +55,7 @@ plus additional pages containing References, and Appendix.
 
 If you are unsure about the page limit for the conference, please contact your conference publication chairs.
 
-##  What is the format for the camera-ready copy?
+###  What is the format for the camera-ready copy?
 
 The file must be in Portable Document Format (PDF) on A4 paper.
 We strongly recommend the use of ACL LaTeX style files (or Microsoft Word Style files) tailored for this year's conference.
@@ -60,7 +66,7 @@ This ensures use of the proper fonts and also takes advantage of other PDF featu
 You will have the best results using a modern LaTeX distribution, in particular, [TeX Live](http://www.tug.org/texlive/).
 Using the geometry package to set the A4 format is recommended.
 
-##  How do I ensure that my file is correctly formatted?
+###  How do I ensure that my file is correctly formatted?
 
 - [Make sure the paper is A4](#format-size)
 - [Embed custom fonts](#format-fonts)
@@ -96,7 +102,7 @@ Using the geometry package to set the A4 format is recommended.
   If you are including graphics with the PDF extension, these files must also have embedded fonts.
   If your paper uses Asian fonts, they must be embedded in the PDF file so that they can be displayed by non-Asian versions of the PDF reader (Asian versions ship with a larger set of default fonts.)
 
-##  What if my paper includes graphics?
+###  What if my paper includes graphics?
 
 Remember that you are providing a camera-ready copy.  Thus, artwork
 and photos should be included directly in the paper in their final
@@ -114,7 +120,7 @@ that vector graphics (e.g., encapsulated PostScript) look good at
 any scale and take up little space (unless you are plotting many
 thousands of data points).
 
-## How do I record metadata?
+### How do I record metadata?
 
 It is very important that your paper's metadata (title, author names, and abstract) is entered correctly.
 It is used in a number of places, including generating the BibTeX and in creating the paper page, which is crawled by search engines such as DBLP, Semantic Scholar, and Google Scholar.
@@ -167,7 +173,7 @@ Please try to follow these guidelines:
 
  - If you copy-and-paste from your PDF file, please be sure to rejoin words broken by hyphenation.
 
-##  What about copyright?
+###  What about copyright?
 
 When you submit the paper, you will be asked to sign the [ACL Copyright Transfer Agreement](https://github.com/ACLPUB/blob/master/templates/copyright/acl-copyright-transfer.pdf) on behalf of all authors, either electronically (via the START Conference Manager) or physically.
 Authors retain many rights under this agreement and it is appropriate in the vast majority of cases.
@@ -177,25 +183,23 @@ Before signing this form, please confirm with your co-authors (and, if applicabl
 sign on their behalf.
 Please sign your full name (not just your first or last initials).
 
-# START users
+## START users
 
-## When and where do I send the final version of my paper?
+### When and where do I send the final version of my paper?
 
 You may submit the final version of your paper by navigating to your conference START login (for example, for ACL 2020, it was here: [https://www.softconf.com/acl2020/papers/user].
 From there, follow internal links.
 You should have received an email with more information about this procedure.
 
-## How should I enter metadata on the START system?
+### How should I enter metadata on the START system?
 
 The metadata (title, author, abstract) that you enter into START is very important, because it is used on the conference website, handbook, mobile app, and the [ACL Anthology](https://www.aclweb.org/anthology/) (and propagates to [DBLP](https://dblp.uni-trier.de), Semantic Scholar, Google Scholar, etc).
 
 ![Picture of Softconf user info fields](images/userinfo.png)
 
-Before the metadata is entered, please have all authors ensure that
-the their name in their Global START profile (User Console &rarr; Update
-Profile) appears exactly the way that they want it to appear.
+Before the metadata is entered, please have all authors ensure that their names are correctly set in [their Global START profiles](https://www.softconf.com/l/super/scmd.cgi?ucmd=updateProfile).
 
-##  What if my paper's title or other metadata has changed since submission?
+###  What if my paper's title or other metadata has changed since submission?
 
 Then please edit those metadata fields when you upload the camera-ready version, so that they will appear correctly in the table of contents, author index, conference schedule, etc.
 <font color="red">Please also note that your name will appear in conference metadata as you have configured it in START</font>, so make sure that it is correct there (e.g., capitalization, full name, etc).
