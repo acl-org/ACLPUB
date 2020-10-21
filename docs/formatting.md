@@ -15,9 +15,9 @@ Authors of accepted papers are advised also to [review the final submission FAQ]
 
 ## Style Files
 
-*ACL provides style files for LaTeX and Microsoft Word that meet these requirements. They can be found at:
+*ACL provides style files for LaTeX and Microsoft Word that meet these requirements. They can be found here:
 
-> https://acl-org.github.io/ACLPUB/
+> https://github.com/acl-org/ACLPUB/tree/master/templates
 
 We strongly recommend the use of these style files, which have been appropriately tailored for the *ACL proceedings.
 
