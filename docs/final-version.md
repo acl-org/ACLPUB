@@ -26,11 +26,6 @@ In addition, be sure to do all of the following:
 - If appropriate, add an Acknowledgments section for colleagues, reviewers, and grants.
   Do not number the Acknowledgments section.
 
-### Accessibility
-
-As a central venue of publication for our community, please prioritise the accessibility of your final version.
-The Diversity & Inclusion committee for ACL2020 has outlined some tips on how to do this: https://acl2020.org/blog/accessibility-for-camera-ready/
-
 ### Paper Length
 
 For both long and short papers, most *ACL conferences allow one extra page to help address reviewer comments.
@@ -42,14 +37,7 @@ If you are unsure about the page limit for the conference, please contact your c
 
 ### File Format
 
-The file must be in Portable Document Format (PDF) on A4 paper.
-We strongly recommend the use of ACL LaTeX style files (or Microsoft Word Style files) tailored for this year's conference.
-You can view the style files and detailed formatting instructions on your conference website.
-
-If you are using LaTeX, please create the PDF file with `pdflatex` or `xelatex`.
-This ensures use of the proper fonts and also takes advantage of other PDF features.
-You will have the best results using a modern LaTeX distribution, in particular, [TeX Live](http://www.tug.org/texlive/).
-Using the geometry package to set the A4 format is recommended.
+The file must be in Portable Document Format (PDF) on A4 paper, with all fonts embedded.
 
 #### Checking the paper size
 
@@ -102,12 +90,32 @@ that vector graphics (e.g., encapsulated PostScript) look good at
 any scale and take up little space (unless you are plotting many
 thousands of data points).
 
-## Metadata
+### Accessibility
+
+As a central venue of publication for our community, please prioritise the accessibility of your final version.
+The Diversity & Inclusion committee for ACL2020 has outlined some tips on how to do this: https://acl2020.org/blog/accessibility-for-camera-ready/
+
+## Submitting the final version in START
+
+You may submit the final version of your paper by navigating to your conference START login (for example, for ACL 2020, it was here: [https://www.softconf.com/acl2020/papers/user].
+From there, follow internal links.
+You should have received an email with more information about this procedure.
+
+### Metadata
 
 It is very important that your paper's metadata (title, author names, and abstract) is entered correctly.
-It is used in a number of places, including generating the BibTeX and in creating the paper page, which is crawled by search engines such as DBLP, Semantic Scholar, and Google Scholar.
+It is used on the conference website, handbook, mobile app, and the [ACL Anthology](https://www.aclweb.org/anthology/) (and propagates to [DBLP](https://dblp.uni-trier.de), Semantic Scholar, Google Scholar, etc).
 
-Please note carefully the following information:
+![Picture of Softconf user info fields](images/userinfo.png)
+
+Before the metadata is entered, please have all authors ensure that their names are correctly set in [their global START profiles](https://www.softconf.com/l/super/scmd.cgi?ucmd=updateProfile), because <font color="red">authors' names will appear in the conference proceedings as set in their global START profiles</font>.
+
+If your paper's title or other metadata has changed since submission, please edit those metadata fields when you upload the camera-ready version, so that they will appear correctly in the table of contents, author index, conference schedule, etc.
+
+Note: Your conference may or may not allow authors to be added or reordered after submission.
+Please check with your conference.
+
+When entering author names, please note carefully the following information:
 
 * Unicode (UTF-8) can be used for accented or special characters.
 
@@ -119,7 +127,7 @@ Please note carefully the following information:
 
 * The "First Name" is usually a given name or names, including middle names/initials.
 
-The metadata should be written using Unicode (UTF-8) with LaTeX commands.
+The title and abstract should be written using Unicode (UTF-8) with LaTeX commands.
 Please try to follow these guidelines:
 
  - In titles, please capitalize the first word, the first word
@@ -128,32 +136,30 @@ Please try to follow these guidelines:
    conjunctions, and the infinitive marker "to." This includes
    hyphenated words like `Mixed-Case`.
 
- - In many bibliography styles, including ACL's, BibTeX lowercases
-   the titles of conference papers, and needs to be told which letters
-   _not_ to lowercase. This is handled by using curly braces around
-   such terms: e.g., `{E}nglish`, `{C}homsky`, `{IBM}`, `{CFG}s`, `{HMM}s`.
-   *As of 2020, this protection is now applied automatically* upon
-   ingestion to the Anthology by means of heuristics (applied to CamelCase
-   and UPPERCASE terms, and after punctuation) and a [very long curated list](https://github.com/acl-org/acl-anthology/blob/master/bin/fixedcase/truelist) of proper nouns and phrases. As such there is *no need
-   for you to apply your own case protection*, unless your paper
-   title contains a very uncommon proper noun.
-
-   Note that curly braces will _not_ appear in the online conference
-   program or proceedings. They will only appear in the BibTeX file
-   that others will use to cite your paper.
+ - The ACL Anthology automatically detects most proper nouns and noun
+   phrases that should always be capitalized. However, if your paper
+   title contains a very uncommon proper noun, you can put curly
+   braces around its first letter, like this:
+   `{T}aumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu}`.
+ 
+   Note that these curly braces will _not_ appear in the online
+   conference program or proceedings. They will only appear in the
+   BibTeX file that others will use to cite your paper.
 
  - If you need literal curly braces, please escape them like this:
    `\{` `\}`
 
- - Please don't use any nonstandard LaTeX commands, and there should
-   be no `\footnote`s or citations using `\cite` or related commands.
+ - Please don't use any nonstandard LaTeX commands.
+
+ - The title and abstract should not contains footnotes or citations.
 
  - You can use LaTeX math mode where appropriate: `An $O(n^2)$
    Algorithm for $n$-gram Smoothing`.
 
  - You can use Unicode (UTF-8) for accented or special characters.
 
- - If you copy-and-paste from your PDF file, please be sure to rejoin words broken by hyphenation.
+ - Please don't copy-and-paste the abstract from your PDF file, but if
+   you must, please be sure to rejoin words broken by hyphenation.
 
 ## Copyright
 
@@ -165,23 +171,3 @@ Before signing this form, please confirm with your co-authors (and, if applicabl
 sign on their behalf.
 Please sign your full name (not just your first or last initials).
 
-## Submitting the final version in START
-
-You may submit the final version of your paper by navigating to your conference START login (for example, for ACL 2020, it was here: [https://www.softconf.com/acl2020/papers/user].
-From there, follow internal links.
-You should have received an email with more information about this procedure.
-
-### Metadata
-
-The metadata (title, author, abstract) that you enter into START is very important, because it is used on the conference website, handbook, mobile app, and the [ACL Anthology](https://www.aclweb.org/anthology/) (and propagates to [DBLP](https://dblp.uni-trier.de), Semantic Scholar, Google Scholar, etc).
-
-![Picture of Softconf user info fields](images/userinfo.png)
-
-Before the metadata is entered, please have all authors ensure that their names are correctly set in [their Global START profiles](https://www.softconf.com/l/super/scmd.cgi?ucmd=updateProfile).
-
-If your paper's title or other metadata has changed since submission, please edit those metadata fields when you upload the camera-ready version, so that they will appear correctly in the table of contents, author index, conference schedule, etc.
-<font color="red">Please also note that your name will appear in conference metadata as you have configured it in START</font>, so make sure that it is correct there (e.g., capitalization, full name, etc).
-You can change this on [user settings page](https://www.softconf.com/naacl2015/papers/user/scmd.cgi?scmd=updateProfile) of the START conference manager, under "User" &rarr; "Account Information" &rarr; "Update Profile".
-
-Note: Your conference may or may not allow authors to be added or reordered after submission.
-Please check with your conference.
