@@ -25,21 +25,11 @@ In addition, be sure to do all of the following:
 - Ensure that all [tables, graphs, and figures](#graphics) are readable at standard resolutions.
 - If appropriate, add an Acknowledgments section for colleagues, reviewers, and grants.
   Do not number the Acknowledgments section.
-- If you have supplemental material (including written material, data, and/or code) ensure that all the components are put at the right place
- (see the [Appendices and supplemental material](#appendices-and-supplemental-material) section below for more details).
 
 ### Accessibility
 
 As a central venue of publication for our community, please prioritise the accessibility of your final version.
 The Diversity & Inclusion committee for ACL2020 has outlined some tips on how to do this: https://acl2020.org/blog/accessibility-for-camera-ready/
-
-### Appendices and supplemental material
-
-Supplemental material can be divided into two types: appendices and non-readable supplemental material.
-
-- Appendices are material that can be read, and include lemmas, formulas, proofs, and tables that are not critical to the reading and understanding of the paper. In your final camera-ready paper, appendices come after the references in the main paper and use the same two-column format as the rest of the paper (see the ACL 2020 style files for an example).
-  Appendices do not count towards the page limit.
-- Non-readable supplemental material (data, software, all other material) is uploaded separately.
 
 ### Paper Length
 
