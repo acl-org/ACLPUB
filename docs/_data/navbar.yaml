@@ -27,8 +27,8 @@ navbar:
     entries:
       - title: Formatting guidelines
         url:   /formatting.html
-      - title: Final version
-        url:   /final-version.html
+      - title: Help with START
+        url:   /formatting-start.html
   - section: Other
     entries:
       - title: Open Issues
