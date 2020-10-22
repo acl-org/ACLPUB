@@ -30,7 +30,7 @@ In addition, be sure to do all of the following:
 
 ## Submitting the final version in START
 
-You may submit the final version of your paper by navigating to the conference's START page &rarr; Your current Submission(s) &rarr; your paper &rarr; Submit final version.
+You may submit the final version of your paper by navigating to the conference's START page &rarr; Your current Submission(s) &rarr; your paper &rarr; Final submission.
 You should have received an email with more information about this procedure.
 
 ## Metadata
