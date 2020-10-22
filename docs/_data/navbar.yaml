@@ -25,10 +25,14 @@ navbar:
         url:   /copyright.html
   - section: Authors
     entries:
+      - title: Submitting your paper for review
+        url:   /review-version.html
+      - title: Submitting the final version of your paper
+        url:   /final-version.html
       - title: Formatting guidelines
         url:   /formatting.html
-      - title: Help with START
-        url:   /formatting-start.html
+      - title: Entering paper metadata in START
+        url:   /metadata.html
   - section: Other
     entries:
       - title: Open Issues
