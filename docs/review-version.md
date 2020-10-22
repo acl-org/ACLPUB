@@ -37,7 +37,7 @@ should also be avoided. Instead, use citations such as
 
 > Gusfield (1997) previously showed...
 
-Review versions must not include acknowledgements.
+Review versions must not include acknowledgments.
 
 **Papers that do not conform to these requirements may be rejected without review.**
 

@@ -24,7 +24,7 @@ In addition, be sure to do all of the following:
 - De-anonymize references to your own work in the body of the paper.
 - Ensure that all [tables, graphs, and figures](formatting.html#figures-and-tables) are readable.
 - Ensure that the paper does not exceed the [page limit](formatting.html#paper-length). Most *ACL conferences allow one extra page to address reviewer comments.
-- If appropriate, add an [Acknowledgments section](formatting.html#acknowledgements).
+- If appropriate, add an [Acknowledgments section](formatting.html#acknowledgments).
 - Check the [paper size and embedded fonts](formatting.html#file-format).
 - If your paper's [title or other metadata](#metadata) has changed since submission, please update them so that they will appear correctly in the table of contents, author index, conference schedule, etc.
 

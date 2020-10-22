@@ -28,9 +28,9 @@ We strongly recommend the use of these style files, which have been appropriatel
 
 The conference accepts submissions of long papers and short papers.
 Review versions of long papers may have up to eight (8) pages of content plus unlimited pages for references.
-Upon acceptance, final versions of long papers will be given one additional page – up to nine (9) pages of content plus unlimited pages for acknowledgements and references – so that reviewers' comments can be taken into account.
+Upon acceptance, final versions of long papers will be given one additional page – up to nine (9) pages of content plus unlimited pages for acknowledgments and references – so that reviewers' comments can be taken into account.
 Review versions of short papers may have up to four (4) pages of content, plus unlimited pages for references.
-Final versions of short papers may have up to five (5) pages, plus unlimited pages for acknowledgements and references.
+Final versions of short papers may have up to five (5) pages, plus unlimited pages for acknowledgments and references.
 For both long and short papers, all figures and tables that are part of the main text must fit within these page limits.
 
 The conference encourages submission of appendices and supplementary material, which are not required to fit within these page limits. However, review versions of papers must be self-contained: it is optional for reviewers to look at appendices or supplementary material. Please see [Appendices](#appendices) and [Supplementary Material](#supplementary-material) for more information.
