@@ -24,9 +24,8 @@ In addition, be sure to do all of the following:
 - Ensure that your paper conforms to the provided styles, font and page size.
 - Include the authors' names and affiliations under the title.
 - De-anonymize references to your own work in the body of the paper.
-- Where appropriate, add acknowledgments for colleagues, reviewers, and grants.
+- If appropriate, add an Acknowledgments section for colleagues, reviewers, and grants.
   Do not number the Acknowledgments section.
-  Please note that the acknowledgment section should fit within the allowed page limits and be in the same font as the rest of the paper.
 - Ensure that all tables, graphs, and figures are readable at standard resolutions.
 - If you have supplemental material (including written material, data, and/or code) ensure that all the components are put at the right place
  (see the [Appendices and supplemental material](#where-do-appendices-and-supplemental-material-go) section below for more details).
@@ -44,14 +43,12 @@ Supplemental material can be divided into two types: appendices and non-readable
   Appendices do not count towards the page limit.
 - Non-readable supplemental material (data, software, all other material) is uploaded separately.
 
-###  How long can it be?
+### How long can it be?
 
 For both long and short papers, most *ACL conferences allow one extra page to help address reviewer comments.
 So long papers are permitted at most 9 pages of text while short papers may use up to 5 pages of text.
-Acknowledgments are included in these limits on pages of text.
 Please use the extra space to help address reviewer comments.
-For both long and short papers, there is no page limit for references or appendices.
-plus additional pages containing References, and Appendix.
+For both long and short papers, there is no page limit for acknowledgements, references or appendices.
 
 If you are unsure about the page limit for the conference, please contact your conference publication chairs.
 
@@ -90,7 +87,7 @@ Using the geometry package to set the A4 format is recommended.
       </li>
       <li>
       Using Adobe Acrobat. Open the PDF, navigate to File, Properties..., Description. The
-        field labeled "Page Size" should read 8.27 × 11.69 inches in.
+        field labeled "Page Size" should read 8.27 × 11.69 in.
 
       </li>
       </ul>
