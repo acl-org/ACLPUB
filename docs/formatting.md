@@ -63,17 +63,18 @@ All papers must use **A4 paper format** (21 cm x 29.7 cm).
 Papers must not be submitted with any other paper size.
 Here are a couple of ways to check this:
 
-- Using pdfinfo. The `pdfinfo` command should include
+- Using pdfinfo: The `pdfinfo` command should include
 
       Page size:      595.276 x 841.89 pts
 
   in its output.
 
-- Using Apple's Preview.app. Open the PDF, and select Tools &rarr; Show Inspector or type &#8984-I. It should report
-  a page size of 8.27 x 11.7 inches.
+- Using Apple's Preview.app:
+  Open the PDF, and select Tools &rarr; Show Inspector or type ⌘I.
+  It should report a page size of 8.27 x 11.7 inches.
 
-- Using Adobe Acrobat. Open the PDF, navigate to File &rarr; Properties... &rarr; Description. The
-  field labeled "Page Size" should read 8.27 × 11.69 in.
+- Using Adobe Acrobat: Open the PDF, navigate to File &rarr; Properties... &rarr; Description.
+  The field labeled "Page Size" should read 8.27 × 11.69 in.
 
 If you cannot meet the above requirements, please contact the publication chairs as soon as possible.
 
