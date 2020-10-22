@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Final paper submissions
+title: Submitting the final version of your paper
 ---
 
 Below are the general *ACL policies for preparing the final version of your paper (sometimes still anachronistically called the "camera-ready").

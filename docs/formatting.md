@@ -5,7 +5,10 @@ title: Paper formatting guidelines
 
 The following instructions are for authors of papers submitted for review to ACL conferences (hereafter, "review version") or paper accepted for publication in its proceedings (hereafter, "final version").
 All authors are required to adhere to these specifications.
-Authors of accepted papers are advised also to [review the final submission instructions](final-version.html).
+
+Authors submitting papers for review must also follow: [Submitting your paper for review](review-version.html).
+
+Authors of accepted papers must also follow: [Submitting the final version of your paper](final-version.html).
 
 ## Outline
 {: .no_toc}
@@ -39,41 +42,7 @@ Papers that do not conform to these requirements may be rejected without review.
 Workshop chairs may have different rules for allowed length and whether appendices or supplementary materials are welcome.
 As always, the respective call for papers is the authoritative source.
 
-## Anonymity
-
-As reviewing will be double-blind, review versions must not include any identifying information about the authors (such as names, affiliations, or URLs).
-Self-references that reveal the author's identity, e.g.,
-
-> We previously showed (Gusfield, 1997)...
-
-must be avoided, and anonymous citations, e.g.,
-
-> We previously showed (Anonymous, 1997)...
-
-should also be avoided. Instead, use citations such as
-
-> Gusfield (1997) previously showed...
-
-Review versions must not include acknowledgements.
-
-**Papers that do not conform to these requirements may be rejected without review.**
-
-Any preliminary non-archival versions of submitted papers should be listed in the submission form but not in the review version of the paper.
-Reviewers are generally aware that authors may present preliminary versions of their work in other venues, but will not be provided the list of previous presentations from the submission form.
-
-Once a paper has been accepted to the conference, the final version should include the author's names and affiliations, and is allowed to use self-references.
-
-## Multiple Submission
-
-Papers that have been or will be submitted to other meetings or publications must indicate this at submission time in the START submission form, and must be withdrawn from the other venues if accepted by *ACL.
-Authors of papers accepted for presentation at *ACL must notify the program chairs by the deadline for final versions ("camera-ready deadline") whether the paper will be presented.
-We will not accept for publication or presentation any papers that overlap significantly in content or results with papers that will be (or have been) published elsewhere.
-
-Authors submitting more than one paper to *ACL must ensure that submissions do not overlap significantly (>25%) with each other in content or results.
-
-## Formatting Instructions
-
-### File Format
+## File Format
 
 Papers must be in Adobe Portable Document Format (PDF).
 Some word processors may generate very large PDF files, where each page is rendered as an image.
@@ -108,7 +77,7 @@ Here are a couple of ways to check this:
 
 If you cannot meet the above requirements, please contact the publication chairs as soon as possible.
 
-### Layout
+## Layout
 
 All text except for page numbers must fit within the margins.
 
@@ -134,7 +103,7 @@ The final version should not contain a ruler.
 **Reviewers:**
 If the ruler measurements do not align well with lines in the paper, you can also use fractional references (e.g., "line 295.5").
 
-### Fonts
+## Fonts
 
 All text (except non-Latin scripts and mathematical formulas) should be set in **Times Roman**.
 If Times Roman is unavailable, you may use **Times New Roman** or **Computer Modern Roman.**
@@ -155,7 +124,7 @@ The following table specifies what font sizes and styles must be used for each t
 | bibliography          | 10 pt     |       |
 | footnotes             | 9 pt      |       |
 
-### Title and Authors
+## Title and Authors
 
 Center the title and the author name(s) and affiliation(s) across both columns.
 
@@ -177,7 +146,7 @@ If they are different, the publication chairs may resolve the difference without
 Start the body of the first page 7.5 cm from the top of the page.
 **Even in the review version of the paper, you should maintain space for names and addresses so that they will fit in the final version.**
 
-### Abstract
+## Abstract
 
 Type the abstract at the beginning of the first column.
 Center the word **Abstract** in 12 point bold above the body of the abstract.
@@ -188,14 +157,14 @@ The abstract text should be 10 point roman, single-spaced.
 The abstract should be a concise summary of the general thesis and conclusions of the paper.
 It should be no longer than 200 words.
 
-### Text
+## Text
 
 Begin typing the main body of the text immediately after the abstract, continuing in two columns.
 The text should be 11 point roman, single-spaced.
 
 Indent 0.4 cm when starting a new paragraph, except for the first paragraph in a section.
 
-### Sections
+## Sections
 
 Use numbered sections (Arabic numerals) to facilitate cross references.
 Number subsections with the section number and the subsection number separated by a dot, in Arabic numerals, e.g.,
@@ -206,13 +175,13 @@ or
 
 > 6.1 File Format
 
-### Footnotes
+## Footnotes
 
 Put footnotes at the bottom of the page and use 9 point font.
 They may be numbered or referred to by asterisks or other symbols.
 Footnotes should be separated from the text by a line.
 
-### Figures and tables
+## Figures and tables
 
 Place figures and tables in the paper near where they are first discussed, rather than at the end, if possible.
 Wide figures/tables may run across both columns.
@@ -243,11 +212,11 @@ Captions should be placed below figures/tables, in 10 point roman type.
 Captions that are one line are centered.
 Captions longer than one line are left-aligned.
 
-### Hyperlinks
+## Hyperlinks
 
 Within-document and external hyperlinks should be dark blue (hex #000099), not underlined or boxed.
 
-### Non-English Text
+## Non-English Text
 
 Text in languages other than English should be accompanied by translations into English, and text in scripts other than Latin should *also* be accompanied by transliterations into Latin script, since not all readers can recognize non-Latin characters easily.
 
@@ -257,7 +226,7 @@ For example, παράδειγμα *paradeigma* ‘example’ is a Greek word, an
 > auto einai ena paradeigma.  
 > ‘This is an example.’
 
-### Citations
+## Citations
 
 Citations within the text appear in parentheses (Gusfield, 1997), or, if the author's name appears in the text itself: Gusfield (1997).
 Append lowercase letters to the year in cases of ambiguities.
@@ -279,13 +248,13 @@ Submissions should accurately reference prior and related work, including code a
 If a piece of prior work appeared in multiple venues, the version that appeared in a refereed, archival venue should be referenced.
 If multiple versions of a piece of prior work exist, the one used by the authors should be referenced.
 
-### Acknowledgments
+## Acknowledgments
 
 The acknowledgments should go immediately before the references.
 Do not number the acknowledgments section.
 Do not include this section in the review version.
 
-### References
+## References
 
 Gather the full set of references together under the unnumbered section heading **References**.
 Place the References section before any Appendices.
