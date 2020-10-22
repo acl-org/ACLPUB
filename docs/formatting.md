@@ -76,17 +76,35 @@ Authors submitting more than one paper to *ACL must ensure that submissions do n
 ### File Format
 
 Papers must be in Adobe Portable Document Format (PDF).
-Please make sure that your PDF file embeds all necessary fonts (especially for tree diagrams, symbols, and Asian languages).
-When you print or create the PDF file, there is usually an option in your printer setup to include none, all or just non-standard fonts.
-Please make sure that you select the option of including *all* the fonts.
-**Before sending it, test your PDF by printing it from a computer different from the one where it was created.**
-
 Some word processors may generate very large PDF files, where each page is rendered as an image.
 Such images may reproduce poorly.
 In this case, try alternative ways to obtain the PDF.
 
+Please make sure that your PDF file embeds all necessary fonts, especially for tree diagrams, symbols, and Asian languages.
+If your paper uses Asian fonts, they must be embedded in the PDF file so that they can be displayed by non-Asian versions of the PDF reader (Asian versions ship with a larger set of default fonts).
+START will not let you upload your final PDF without all fonts embedded.
+When you print or create the PDF file, there is usually an option in your printer setup to include none, all or just non-standard fonts.
+Please make sure that you select the option of including *all* the fonts.
+If your paper includes PDF graphics, these files must also have embedded fonts.
+
+You can check your final PDF with the command `pdffonts mypaper.pdf` and confirm that all the fonts say "yes" under "emb".
+You can also test your PDF by viewing it and printing it on a different computer from the one where it was created.
+
 All papers must use **A4 paper format** (21 cm x 29.7 cm).
 Papers must not be submitted with any other paper size.
+Here are a couple of ways to check this:
+
+- Using pdfinfo. The `pdfinfo` command should include
+
+      Page size:      595.276 x 841.89 pts
+
+  in its output.
+
+- Using Apple's Preview.app. Open the PDF, and select Tools &rarr; Show Inspector or type &#8984-I. It should report
+  a page size of 8.27 x 11.7 inches.
+
+- Using Adobe Acrobat. Open the PDF, navigate to File &rarr; Properties... &rarr; Description. The
+  field labeled "Page Size" should read 8.27 × 11.69 in.
 
 If you cannot meet the above requirements, please contact the publication chairs as soon as possible.
 
@@ -199,7 +217,17 @@ Footnotes should be separated from the text by a line.
 Place figures and tables in the paper near where they are first discussed, rather than at the end, if possible.
 Wide figures/tables may run across both columns.
 
-To accommodate people who are color-blind (as well as those printing with black-and-white printers), grayscale readability is strongly encouraged.
+Graphics and photos should, if possible, use vector graphic formats (PDF,
+EPS), which allow the graphics to scale arbitrarily. Avoid GIF or
+JPEG images that are low resolution or highly compressed.
+
+Your paper must look good both when printed (A4 size) and when viewed onscreen as PDF (zoomable to any
+size). Please check that graphics and photos
+are legible when printed and in a PDF viewer at different resolutions.
+At the same time, keep file sizes manageable.
+
+**Accessibility:**
+Please prioritise the accessibility of your paper. The Diversity & Inclusion committee for ACL2020 has provided some [tips](https://acl2020.org/blog/accessibility-for-camera-ready/) on how to do this. To accommodate people who are color-blind (as well as those printing with black-and-white printers), grayscale readability is strongly encouraged.
 Color is not forbidden, but authors should ensure that tables and figures do not rely solely on color to convey critical distinctions.
 
 **Captions:**
