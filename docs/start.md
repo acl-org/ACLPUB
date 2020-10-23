@@ -15,7 +15,7 @@ Document originally written by Meg Mitchell, for ACL 2017, NAACL 2018, and ACL 2
 ## tl;dr
 
 You will be used softconf/START to generate your proceedings. Your goal is to get to the last step, Generate `All`, under the **Generate** tab, without any errors.
-![alt text](assets/images/aclpub_goal.png "Image of last Generate tab view, with 'All' button producing successful proceedings.")
+![alt text](images/start/aclpub_goal.png "Image of last Generate tab view, with 'All' button producing successful proceedings.")
 
 :point_right: :point_right: It has to look good and abide by the ACL paper and style guidelines. It's up to you to make sure it does. :point_left: :point_left: :ok_hand: :thumbsup:
 
@@ -44,10 +44,10 @@ To get to the Softconf ACL Proceedings Generator:
  - Go to your softconf website, e.g., https://www.softconf.com/acl2017/${WSAbbreviation}, where ${WSAbbreviation} is your Softconf abbreviation.
  - Go to the Publication Console (/pub):  https://www.softconf.com/acl2017/${WSAbbreviation}/pub
  - Under **Conference Program**, follow the `ACLPUB` link.   
-   ![alt text](assets/images/aclpub.png "ACLPUB link.")
+   ![alt text](images/start/aclpub.png "ACLPUB link.")
    This will bring you to the url:  https://www.softconf.com/acl2017/${WSAbbreviation}/pub/scmd.cgi?scmd=ACLPUB
  - Now you should see the `ACLPUB Proceedings Generator`.
-   ![alt text](assets/images/start_tabs.png "Left to Right START Tabs.")
+   ![alt text](images/start/start_tabs.png "Left to Right START Tabs.")
 
 The Softconf ACL Proceedings Generator creates two things:
 
@@ -121,7 +121,7 @@ __*If you'd prefer to edit files directly, go the [Expert Route](#expert-route).
 
 Your first job is to check that your authors signed their copyright forms via START. To create the `copyright-signatures` file, go on the **Generate tab**, and click on the **Copyright Signatures** button.
 
-![alt text](assets/images/generate_example.png "Image of last Generate tab view, with 'Copyright Signatures' circled.")
+![alt text](images/start/generate_example.png "Image of last Generate tab view, with 'Copyright Signatures' circled.")
 
 At this point, click on the "Download copyright signatures" link to download the copyright signatures.
 
@@ -131,14 +131,14 @@ If authors send you an externally signed copyright form, pass it along to the co
 
 **Errors**: You may see a "Warning" message in the upper right corner of the website. This means that that authors have updated their START profiles (most commonly their affiliation). You will need to refresh in order for the changes to be reflected in the copyright signatures, and in the html `order` file later on.
 
-![alt text](assets/images/start_warning.png "Image of 'Warning' notification in START portal.")
+![alt text](images/start/start_warning.png "Image of 'Warning' notification in START portal.")
 
 
 
 ### Step 1.2 Get Rough Cut
 Now **click on the Draft button**. 
 
-![alt text](assets/images/generate_draft.png "Image of last Generate tab view, with 'Draft' circled.")
+![alt text](images/start/generate_draft.png "Image of last Generate tab view, with 'Draft' circled.")
 
 The command compiles all camera ready papers into a single pdf, adds margin markings and generates a first rough cut of the proceedings, `book.pdf`.  Click **Download Draft** to download after it is generated.
 
@@ -161,14 +161,14 @@ Flip through the rough cut.
 
 If any of these things are amiss, you will need to ask the author to reupload a new final submission. If the submission portal is closed, have the authors email you a copy. You can upload it yourself by going to **Monitor Final Submissions**, then click **Get Final Form** for the paper in question. From "Monitor Final Submissions", you can also see the date and time when the authors last uploaded their versions. 
 
-![alt text](assets/images/final_submissions.png "Image of homepage, with 'Monitor Final Submissions' circled.")
+![alt text](images/start/final_submissions.png "Image of homepage, with 'Monitor Final Submissions' circled.")
 
 
 ### Step 1.4 Check and Fix Paper Information
 
 Now you will check that the information provided by authors are correct and correctly formatted. Clicking **Shipout** will generate a new version of the proceedings, but with an author index at the end and without the draft margin lines. 
 
-![alt text](assets/images/generate_shipout.png "Image of last Generate tab view, with 'Shipout' circled.")
+![alt text](images/start/generate_shipout.png "Image of last Generate tab view, with 'Shipout' circled.")
 
 Please see the [Camera-Ready instructions under "Entering metadata"](camera-ready-faq.md#entering-metadata) for guidelines for author names, titles, and abstracts. Below are some additional instructions for chairs.
 
@@ -179,7 +179,7 @@ Look at the author index and ensure that:
 
 You can edit the way the author name appears in your proceedings using **Edit Author and User Information**. 
 
-![alt text](assets/images/edit_author_info.png "Image of homepage, with 'Edit Author and User Information' circled.")
+![alt text](images/start/edit_author_info.png "Image of homepage, with 'Edit Author and User Information' circled.")
 Additionally, look at the titles and abstracts and ensure that the guidelines in the [Camera-Ready instructions](camera-ready-faq.md#entering-metadata) are followed.
 
 
@@ -196,7 +196,7 @@ The authors should have already checked their margins at submission time of thie
 
 You can change margins in this tab by clicking on the cell all the way to the right -- this will bring up the Margins adjustment, circled in red image right :arrow_right:. 
 
-![alt text](assets/images/margins.png "The Margins Tab.")
+![alt text](images/start/margins.png "The Margins Tab.")
 
 The format of the line is
 
@@ -227,13 +227,13 @@ Alternatively, for each paper, go to the left column and click on the rightmost 
 
 This step is if you have logos and/or know what you are doing and want to edit your proceedings offline. If these do not apply to you, you may skip this step. 
 
-![alt text](assets/images/dwnl_templates.png "The Download/Upload Tab.")
+![alt text](images/start/dwnl_templates.png "The Download/Upload Tab.")
  
 Download the ACLPUB `.zip` file, add in your sponsorship logos, rezip, and upload.  
 
 To download all the current files, click on the "Current ACLPub Templates", circled here in red.  You will receive a zip file with all the files for your proceedings compilation.  If you don't want to use START, and know what you're doing, here is where you would upload all your files.
 
-Once downloaded and unzipped, **you can edit all `tex` files here directly**.  You also add sponsorship logos here, via `\includegraphics` and ![alt text](assets/images/graphicspath.png "Latex instructions to set graphics path"), and referencing the images added to the directory.
+Once downloaded and unzipped, **you can edit all `tex` files here directly**.  You also add sponsorship logos here, via `\includegraphics` and ![alt text](images/start/graphicspath.png "Latex instructions to set graphics path"), and referencing the images added to the directory.
 
 When you are done, zip the edited directory back up again, and upload it again by clicking the `Choose File` button ("ACLPUB templates zip name"), the "Import template".
 
@@ -245,7 +245,7 @@ You can also edit all `.html` files using the CDROM `.zip`
 
 This is where you edit most of the front matter and online information for the proceedings. If you have imported a modified template from [Step 3](#step-3--dwnl-templates-tab), it will appear changed here. To check how well each part compiles, press the buttons in the Preview Templates table, then click on the Quick Link that is generated. 
 
-![alt text](assets/images/templates.png "The Templates Tab.")
+![alt text](images/start/templates.png "The Templates Tab.")
 
 
 
@@ -378,9 +378,9 @@ You can either:
 ### Step 5a option: Edit `order` file with Schedule Maker tool
 If you use the ScheduleMaker tool, the order file is generated automatically and should be to spec.
 
-![alt text](assets/images/schedule_maker1.png "The Schedule Maker")
+![alt text](images/start/schedule_maker1.png "The Schedule Maker")
 
-![alt text](assets/images/schedule_maker3.png "The Schedule Maker")
+![alt text](images/start/schedule_maker3.png "The Schedule Maker")
 
 * The **Visual Ordering** lists all the papers accepted to your track. 
 * Use the **Add Day** button to designate the day (a `*` will start this line in the generated order file)
@@ -411,7 +411,7 @@ If you edit by the `order` file by hand, remember:
 
 You can find the `order` file under the ACLPUB Proceednigs generator, and Order tab. 
 
-![alt text](assets/images/order_file_location.png "Edit the Order File")
+![alt text](images/start/order_file_location.png "Edit the Order File")
 
 The  `order` file below is adapted from SSST-7 at NAACL 2013. You can use it as a template.  Remember to use a space, not a tab, to separate items on a line. 
 
@@ -440,14 +440,14 @@ The  `order` file below is adapted from SSST-7 at NAACL 2013. You can use it as 
 
 You may view an online version of your schedule from the Schedule Maker screen.
 
-![alt text](assets/images/schedule_maker2.png "The Schedule Maker")
+![alt text](images/start/schedule_maker2.png "The Schedule Maker")
 
 ## Step 6:  CDROM Tab (Online Proceedings Tab)
 [Jump to Step 7](#step-7--program-tab)
 
 You will need to fill out this tab with the correct values for your volume. **Even though this tab is called 'CDROM', it is one of the most important tabs in the process as it is critical for uploading your proceedings to the anthology!**
 
-![alt text](assets/images/cdrom.png "The CDROM Tab.")
+![alt text](images/start/cdrom.png "The CDROM Tab.")
 
 As an example, here are the values used for the ACL 2020 long paper main conference proceedings:
 
@@ -534,7 +534,7 @@ Customize your `toc.tex` here.  This is generated automatically in the Templates
 
 ## Step 9:  Generate! Tab :trophy: :trophy:
 
-![alt text](assets/images/generate.png "The Generate Tab.")
+![alt text](images/start/generate.png "The Generate Tab.")
    
 Push these buttoms, top to bottom, in order.   If one of them doesn't compile, check out the error log to see why and debug.
 Once you can compile `All` without errors, you are done! :balloon: :balloon:
@@ -586,7 +586,7 @@ As this is a relatively new process, please contact your Publication Chairs for 
 
 Here is a flowchart to illustrate the process. The ACLPUB scripts in this download use makefiles that roughly follow the steps in this flowchart.
 
-![](assets/images/aclpub_howto.png)
+![](images/start/aclpub_howto.png)
   
 2. After you've uploaded, generate `All`, under the **Generate** tab, without any errors.  See the [Step 9:  Generate! Tab](#step-9--generate-tab-trophy-trophy) section for more.
 
