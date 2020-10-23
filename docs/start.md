@@ -26,15 +26,15 @@ Document originally written by Meg Mitchell, for ACL 2017, NAACL 2018, and ACL 2
    [Step 5:  Order Tab](#step-5--order-tab)
 
    [Step 6:  CDROM Tab (Online Proceedings Tab)](#step-6--cdrom-tab-online-proceedings-tab)
-   
+
    [Step 7:  Program Tab](#step-7--program-tab)
-   
+
    [Step 8:  Toc Tab](#step-8--toc-tab)
-   
+
    [Step 9:  Generate! Tab](#step-9--generate-tab-trophy-trophy) :trophy:
 
 4. [Non Archival Papers](#non-archival-papers)
-   
+
 5. [Expert Route](#expert-route)
 
 6. [What to Look Out For](#what-to-look-out-for)
@@ -46,14 +46,14 @@ Document originally written by Meg Mitchell, for ACL 2017, NAACL 2018, and ACL 2
    [Table 1:  Files used in Book Proceedings Generation](#table-1--files-used-in-book-proceedings-generation)
 
    [Table 2:  Files used in Online Proceedings Generation](#table-2--files-used-in-online-proceedings-generation)
-   
+
    [Table 3:  Softconf ACLPUB Proceedings Generator Tabs](#table-3--the-tabs-in-the-softconf-aclpub-proceedings-generator)
 
 
 ## tl;dr
 
 You will be used softconf/START to generate your proceedings. Your goal is to get to the last step, Generate `All`, under the **Generate** tab, without any errors.
-<kbd>![alt text](assets/images/aclpub_goal.png "Image of last Generate tab view, with 'All' button producing successful proceedings.")</kbd>
+![alt text](assets/images/aclpub_goal.png "Image of last Generate tab view, with 'All' button producing successful proceedings.")
 
 :point_right: :point_right: It has to look good and abide by the ACL paper and style guidelines. It's up to you to make sure it does. :point_left: :point_left: :ok_hand: :thumbsup:
 
@@ -61,13 +61,12 @@ You will be used softconf/START to generate your proceedings. Your goal is to ge
 
 1. Confirm with your Publication or Workshop chairs that they have the **precise name** of your workshop. Based on the workshop name, you will be provided an ISBN. 
 
-2. Your ACL ID Prefix, henceforth called **Bibtex URL** is used to index your proceedings in the anthology (e.g., `http://www.aclweb.org/anthology/W17-20%2d`, and yes, including the `%`. This is not an actual website, it is a template for when your proceedings are put on the anthology). Your Publication or Workshop chair will provide this URL from the Anthology Editor.
+1. Papers should be in A4 format.
 
-3. Papers should be in A4 format.
+1. Program times should be in 24-hour format.
 
-4. Program times should be in 24-hour format.
-
-5. *A note to Publication Chairs*: In the past, we have had success creating a spreadsheet with all the tracks and workshop information [like this one for NAACL 2019](https://docs.google.com/spreadsheets/d/1hSlqWCcTHZw-vaUQz-CBULIWtO99e0mNI8QP9sDohT0/edit?usp=sharing). From this spreadsheet, workshop titles can be confirmed, and ISBNs and Bibtex URLs can be assigned by the ACL and Anthology director. Consider creating this yourselves, or coordinating with your Workshop Chairs on a combined spreadsheet. 
+1. *A note to Publication Chairs*: In the past, we have had success creating a spreadsheet with all the tracks and workshop information [like this one for NAACL 2019](https://docs.google.com/spreadsheets/d/1hSlqWCcTHZw-vaUQz-CBULIWtO99e0mNI8QP9sDohT0/edit?usp=sharing). From this spreadsheet, workshop titles can be confirmed, and ISBNs can be assigned by the ACL (via Priscilla Rasmussen).
+Consider creating this yourselves, or coordinating with your Workshop Chairs on a combined spreadsheet.
 
 ## Introduction
 
@@ -83,12 +82,10 @@ To get to the Softconf ACL Proceedings Generator:
  - Go to your softconf website, e.g., https://www.softconf.com/acl2017/${WSAbbreviation}, where ${WSAbbreviation} is your Softconf abbreviation.
  - Go to the Publication Console (/pub):  https://www.softconf.com/acl2017/${WSAbbreviation}/pub
  - Under **Conference Program**, follow the `ACLPUB` link.   
-   <kbd>
    ![alt text](assets/images/aclpub.png "ACLPUB link.")
-   </kbd>  
    This will bring you to the url:  https://www.softconf.com/acl2017/${WSAbbreviation}/pub/scmd.cgi?scmd=ACLPUB
  - Now you should see the `ACLPUB Proceedings Generator`.
-   <kbd>![alt text](assets/images/start_tabs.png "Left to Right START Tabs.")</kbd>
+   ![alt text](assets/images/start_tabs.png "Left to Right START Tabs.")
 
 The Softconf ACL Proceedings Generator creates two things:
 
@@ -162,7 +159,7 @@ __*If you'd prefer to edit files directly, go the [Expert Route](#expert-route).
 
 Your first job is to check that your authors signed their copyright forms via START. To create the `copyright-signatures` file, go on the **Generate tab**, and click on the **Copyright Signatures** button.
 
-<kbd>![alt text](assets/images/generate_example.png "Image of last Generate tab view, with 'Copyright Signatures' circled.")</kbd>
+![alt text](assets/images/generate_example.png "Image of last Generate tab view, with 'Copyright Signatures' circled.")
 
 At this point, click on the "Download copyright signatures" link to download the copyright signatures.
 
@@ -172,14 +169,14 @@ If authors send you an externally signed copyright form, pass it along to the co
 
 **Errors**: You may see a "Warning" message in the upper right corner of the website. This means that that authors have updated their START profiles (most commonly their affiliation). You will need to refresh in order for the changes to be reflected in the copyright signatures, and in the html `order` file later on.
 
-<kbd>![alt text](assets/images/start_warning.png "Image of 'Warning' notification in START portal.")</kbd>
+![alt text](assets/images/start_warning.png "Image of 'Warning' notification in START portal.")
 
 
 
 ### Step 1.2 Get Rough Cut
 Now **click on the Draft button**. 
 
-<kbd>![alt text](assets/images/generate_draft.png "Image of last Generate tab view, with 'Draft' circled.")</kbd>
+![alt text](assets/images/generate_draft.png "Image of last Generate tab view, with 'Draft' circled.")
 
 The command compiles all camera ready papers into a single pdf, adds margin markings and generates a first rough cut of the proceedings, `book.pdf`.  Click **Download Draft** to download after it is generated.
 
@@ -202,14 +199,14 @@ Flip through the rough cut.
 
 If any of these things are amiss, you will need to ask the author to reupload a new final submission. If the submission portal is closed, have the authors email you a copy. You can upload it yourself by going to **Monitor Final Submissions**, then click **Get Final Form** for the paper in question. From "Monitor Final Submissions", you can also see the date and time when the authors last uploaded their versions. 
 
-<kbd>![alt text](assets/images/final_submissions.png "Image of homepage, with 'Monitor Final Submissions' circled.")</kbd>
+![alt text](assets/images/final_submissions.png "Image of homepage, with 'Monitor Final Submissions' circled.")
 
 
 ### Step 1.4 Check and Fix Paper Information
 
 Now you will check that the information provided by authors are correct and correctly formatted. Clicking **Shipout** will generate a new version of the proceedings, but with an author index at the end and without the draft margin lines. 
 
-<kbd>![alt text](assets/images/generate_shipout.png "Image of last Generate tab view, with 'Shipout' circled.")</kbd>
+![alt text](assets/images/generate_shipout.png "Image of last Generate tab view, with 'Shipout' circled.")
 
 Please see the [Camera-Ready instructions under "Entering metadata"](camera-ready-faq.md#entering-metadata) for guidelines for author names, titles, and abstracts. Below are some additional instructions for chairs.
 
@@ -220,8 +217,7 @@ Look at the author index and ensure that:
 
 You can edit the way the author name appears in your proceedings using **Edit Author and User Information**. 
 
-<kbd>![alt text](assets/images/edit_author_info.png "Image of homepage, with 'Edit Author and User Information' circled.")</kbd>
-
+![alt text](assets/images/edit_author_info.png "Image of homepage, with 'Edit Author and User Information' circled.")
 Additionally, look at the titles and abstracts and ensure that the guidelines in the [Camera-Ready instructions](camera-ready-faq.md#entering-metadata) are followed.
 
 
@@ -238,7 +234,7 @@ The authors should have already checked their margins at submission time of thie
 
 You can change margins in this tab by clicking on the cell all the way to the right -- this will bring up the Margins adjustment, circled in red image right :arrow_right:. 
 
-<kbd>![alt text](assets/images/margins.png "The Margins Tab.")</kbd>
+![alt text](assets/images/margins.png "The Margins Tab.")
 
 The format of the line is
 
@@ -269,7 +265,7 @@ Alternatively, for each paper, go to the left column and click on the rightmost 
 
 This step is if you have logos and/or know what you are doing and want to edit your proceedings offline. If these do not apply to you, you may skip this step. 
 
-<kbd>![alt text](assets/images/dwnl_templates.png "The Download/Upload Tab.")</kbd>
+![alt text](assets/images/dwnl_templates.png "The Download/Upload Tab.")
  
 Download the ACLPUB `.zip` file, add in your sponsorship logos, rezip, and upload.  
 
@@ -287,7 +283,7 @@ You can also edit all `.html` files using the CDROM `.zip`
 
 This is where you edit most of the front matter and online information for the proceedings. If you have imported a modified template from [Step 3](#step-3--dwnl-templates-tab), it will appear changed here. To check how well each part compiles, press the buttons in the Preview Templates table, then click on the Quick Link that is generated. 
 
-<kbd>![alt text](assets/images/templates.png "The Templates Tab.")</kbd>
+![alt text](assets/images/templates.png "The Templates Tab.")
 
 
 
@@ -489,7 +485,7 @@ You may view an online version of your schedule from the Schedule Maker screen.
 
 You will need to fill out this tab with the correct values for your volume. **Even though this tab is called 'CDROM', it is one of the most important tabs in the process as it is critical for uploading your proceedings to the anthology!**
 
-<kbd> ![alt text](assets/images/cdrom.png "The CDROM Tab.") </kbd>
+![alt text](assets/images/cdrom.png "The CDROM Tab.")
 
 As an example, here are the values used for the ACL 2020 long paper main conference proceedings:
 
@@ -505,6 +501,7 @@ As an example, here are the values used for the ACL 2020 long paper main confere
 | Year            |  2020 |
 | Location      	|  Seattle, Washington |
 | Publisher	      |  Association for Computational Linguistics |
+| SIG             |    |
 | Chair 1        	|  Dan Jurafsky |
 | Chair 2        	|  Joyce Chai |
 | Chair 3        	|  Natalie Schluter |
@@ -562,7 +559,7 @@ Customize your book proceedings Program `program.tex` here.  This is generated a
 
 Note: If you create a custom program **make sure that the order file matches the custom program**. The order file is what is used for the handbook and the website/app, so it must contain the correct information.
 
-<kbd>![alt text](assets/images/program.png "The Program Tab.")</kbd>
+![alt text](images/start/program.png "The Program Tab.")
 
 
 ## Step 8:  Toc Tab
@@ -570,12 +567,12 @@ Note: If you create a custom program **make sure that the order file matches the
 
 Customize your `toc.tex` here.  This is generated automatically in the Templates Tab, when you click the `Toc` Button.  See [Step Five](#step-5--templates-tab). If you are not satisfied with the automatic generation, you may edit it further here. Otherwise, you may skip this step.
 
-<kbd>![alt text](assets/images/toc.png "The Table of Contents Tab.")</kbd>
+![alt text](images/start/toc.png "The Table of Contents Tab.")
 
 
 ## Step 9:  Generate! Tab :trophy: :trophy:
 
-<kbd>![alt text](assets/images/generate.png "The Generate Tab.")</kbd>
+![alt text](assets/images/generate.png "The Generate Tab.")
    
 Push these buttoms, top to bottom, in order.   If one of them doesn't compile, check out the error log to see why and debug.
 Once you can compile `All` without errors, you are done! :balloon: :balloon:
@@ -627,7 +624,7 @@ As this is a relatively new process, please contact your Publication Chairs for 
 
 Here is a flowchart to illustrate the process. The ACLPUB scripts in this download use makefiles that roughly follow the steps in this flowchart.
 
-<kbd>![](assets/images/aclpub_howto.png)</kbd>
+![](assets/images/aclpub_howto.png)
   
 2. After you've uploaded, generate `All`, under the **Generate** tab, without any errors.  See the [Step 9:  Generate! Tab](#step-9--generate-tab-trophy-trophy) section for more.
 
@@ -679,13 +676,11 @@ edit manually in START's provided textbox or which you can create with the Excel
 
 See the [Order](#step-5--order-tab) section above for more.
 
-### ISBN and Bibtex url
+### ISBN
 
 ISBNs are assigned based on the precise name of your workshop.  Make sure to figure out the precise name, and confirm it with the Publication or Workshop Chairs in order for them to give you your ISBN. 
 
 The ISBN is placed in the bottom of your `copyright.tex` file.
-
-The Bibtex url should be put in place in [Step 6:  Online Proceedings Tab (CDROM)](#step-6--cdrom-tab-online-proceedings-tab), to aid generation of the online proceedings.
 
 ### Logos  
 
