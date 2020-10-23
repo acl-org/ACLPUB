@@ -4,51 +4,13 @@ title: Instructions for generating proceedings in START
 updated: 16 dec 2018 by slukin
 ---
 
-# How to produce proceedings for ACL Conferences and Workshops
-
 Document originally written by Meg Mitchell, for ACL 2017, NAACL 2018, and ACL 2018, combining and building off of work and writing from Matt Post and the original ACLPUB instructions. Additional details provided by Stephanie Lukin after NAACL 2018. 
 
 ## Table of Contents
-1. [tl;dr](#tldr)
+{: .no_toc}
 
-2. [Introduction](#introduction)
-
-3. [Instructions](#instructions)
-
-   [Step 1:  Generate Tab (Initial Generation)](#step-1-generate-tab)
-
-   [Step 2:  Margins Tab](#step-2--margins-tab)
-
-   [Step 3:  Dwnl Templates Tab](#step-3--dwnl-templates-tab)
-
-   [Step 4:  Templates Tab](#step-4--templates-tab)
-
-   [Step 5:  Order Tab](#step-5--order-tab)
-
-   [Step 6:  CDROM Tab (Online Proceedings Tab)](#step-6--cdrom-tab-online-proceedings-tab)
-
-   [Step 7:  Program Tab](#step-7--program-tab)
-
-   [Step 8:  Toc Tab](#step-8--toc-tab)
-
-   [Step 9:  Generate! Tab](#step-9--generate-tab-trophy-trophy) :trophy:
-
-4. [Non Archival Papers](#non-archival-papers)
-
-5. [Expert Route](#expert-route)
-
-6. [What to Look Out For](#what-to-look-out-for)
-
-7. [Authors](#authors)
-
-8. Tables
-
-   [Table 1:  Files used in Book Proceedings Generation](#table-1--files-used-in-book-proceedings-generation)
-
-   [Table 2:  Files used in Online Proceedings Generation](#table-2--files-used-in-online-proceedings-generation)
-
-   [Table 3:  Softconf ACLPUB Proceedings Generator Tabs](#table-3--the-tabs-in-the-softconf-aclpub-proceedings-generator)
-
+- TOC
+{:toc}
 
 ## tl;dr
 
