@@ -11,9 +11,9 @@ navbar:
         url: /timeline.html
       - title: Style files
         url:   /style.html
-      - title: CD-ROM
-        url:   /cdrom.html
-      - title: Anthology
+      - title: START walkthrough
+        url:   /start.html
+      - title: Anthology handoff
         url:   /anthology.html
   - section: Book chairs
     entries:
