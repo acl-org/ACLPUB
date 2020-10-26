@@ -607,9 +607,8 @@ Here is a flowchart to illustrate the process. The ACLPUB scripts in this downlo
 
 ### Paper formatting
 
-Please make sure that all of your papers meet the camera-ready standards as laid
-out <a href="https://github.com/acl-org/acl-pub/blob/gh-pages/camera-ready-faq.md">in this document</a>. In particular, there are four main
-areas of compliance you should look for:
+Please make sure that all of your papers meet the camera-ready standards as laid out [here](https://acl-org.github.io/ACLPUB/final-version.html).
+In particular, there are four main areas of compliance you should look for:
 
 1. *Margins*. Papers should fit entirely within the margins prescribed by the
    conference booklet.   See [Step 2: Margins above.](#step-2--margins-tab)
@@ -619,14 +618,10 @@ areas of compliance you should look for:
 
 1. *References*. Please make sure there are no obvious problems with the formatting of
    the References section.
-   
-1. *Metadata*. Please make sure there are no obvious problems with the
-   formatting of names in the metadata for each paper (which is
-   viewable from the proceedings draft index). In particular, authors
-   should be aware that their names
-   [will be formatted according to how they have entered it](https://github.com/acl-org/acl-pub/blob/gh-pages/camera-ready-faq.md#what-common-mistakes-do-people-make-what-should-i-pay-special-attention-to)
-   on their Softconf unified user info page.
-   
+
+1. *Metadata*. Please make sure there are no obvious problems with the formatting of names in the metadata for each paper (which is viewable from the proceedings draft index).
+   In particular, authors should be aware that their names [will be formatted according to how they have entered it](https://acl-org.github.io/ACLPUB/metadata.html) on their Softconf unified user info page.
+
 ### Schedules
 
 You will need to produce a schedule for your workshop/session while
@@ -672,10 +667,6 @@ Sponsors for your workshop/conference should have their logos appear on the `cop
 Note from the ACL Anthology Editor, Min (~circa 2017): Please do also read all of the ACL Anthology ingestion materials, present in the footer of the ACL Anthology (http://aclanthology.info/, especially the links FAQ and Contributors).  Do note that the URLs above **do not** have the any intermediate paths (no `W/W17/`) and no filename extensions (no `.pdf`)
 
 ## Authors
-
-This [git repository](https://github.com/acl-org/acl-pubs) 
-is currenty maintained by the 2019 NAACL publications chairs, 
-[Stephanie Lukin](https://users.soe.ucsc.edu/~slukin/) and Alla Rozovskaya.
 
 The material
 included in it has evolved over many years through the work of a 
