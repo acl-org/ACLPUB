@@ -104,7 +104,6 @@ img {
 header {
   width:270px;
   float:left;
-  position:fixed;
 }
 
 header ul {
@@ -224,12 +223,7 @@ footer {
   
   header, section, footer {
     float:none;
-    position:static;
     width:auto;
-  }
-  
-  header {
-    padding-right:320px;
   }
   
   section {
@@ -244,9 +238,7 @@ footer {
   }
   
   header ul {
-    position:absolute;
-    right:50px;
-    top:52px;
+    display:none;
   }
 }
 
@@ -273,9 +265,6 @@ footer {
     padding:15px;
   }
   
-  header ul {
-    display:none;
-  }
 }
 
 @media print {
