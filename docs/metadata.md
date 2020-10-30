@@ -24,7 +24,7 @@ You can enter your co-authors' names directly, or enter their START IDs.
 
 Your [global START profile](https://www.softconf.com/l/super/scmd.cgi?ucmd=updateProfile) looks like this:
 
-![Picture of Softconf user info fields](images/userinfo.png)
+![Picture of Softconf user info fields](images/start/userinfo.png)
 
 When entering author names, please note carefully the following information:
 
