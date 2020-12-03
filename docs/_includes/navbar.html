@@ -1,0 +1,21 @@
+
+<ul>
+{% for section in site.data.navbar.navbar %}
+  <li> {{ section.section }}
+     <ul>
+     {% for entry in section.entries %}
+        {% if page.title and page.title == entry.title %}
+           <li class="navitem-selected">{{ entry.title }}</li>
+	{% else %}
+          {% if entry.nonlocal %}
+            <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
+  	  {% else %}
+            <li><a href="{{ site.baseurl }}{{ entry.url }}">{{ entry.title }}</a></li>
+          {% endif %}
+	{% endif %}
+     {% endfor %}
+     </ul>
+  </li>
+{% endfor %}
+</ul>
+

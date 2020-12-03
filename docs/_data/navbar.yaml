@@ -1,0 +1,43 @@
+navbar:
+  - section: General
+    entries:
+      - title: Who does what?
+        url: /who-does-what.html
+  - section: Publication Chairs
+    entries:
+      - title: General Advice
+        url: /advice.html
+      - title: Timeline
+        url: /timeline.html
+      - title: Style files
+        url:   /style.html
+      - title: START walkthrough
+        url:   /start.html
+      - title: Anthology handoff
+        url:   /anthology.html
+  - section: Book chairs
+    entries:
+      - title: ACLPUB
+        url:   /aclpub.html
+      - title: The order file
+        url:   /order.html
+      - title: Copyright
+        url:   /copyright.html
+  - section: Authors
+    entries:
+      - title: Submitting your paper for review
+        url:   /review-version.html
+      - title: Submitting the final version of your paper
+        url:   /final-version.html
+      - title: Formatting guidelines
+        url:   /formatting.html
+      - title: Entering paper metadata in START
+        url:   /metadata.html
+  - section: Other
+    entries:
+      - title: Open Issues
+        url:   /open-issues.html
+      - title: Further Reading
+        url:   /further-reading.html
+      - title: Credits
+        url:   /credits.html

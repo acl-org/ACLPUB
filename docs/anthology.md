@@ -1,4 +1,7 @@
-# Generating proceedings for the ACL Anthology
+---
+layout: default
+title: Generating proceedings for the ACL Anthology
+---
 
 The ACL Anthology requires a particular file layout in order to ingest material (described in Step 3 below).
 This README describes how to produce this layout from files exported from STARTv2 or EasyChair, or manually.
@@ -37,7 +40,7 @@ As an example, the `start_urls.txt` file in the current directory contains many 
 Next, download all the tarballs.
 You can use the provided script:
 
-    download-proceedings.sh start_urls.txt
+    bin/download-proceedings.sh start_urls.txt
 
 This automatic downloading is provided as a convenience; you could also do it manually (and may need to do so, if there are workshops that assemble their proceedings outside of START).
 
