@@ -24,7 +24,7 @@ while (<META>) {
 close(META);
 
 #add header information
-open(HEADER, "$ENV{ACLPUB}/templates/authors.html.head") || die;
+open(HEADER, "$ENV{ACLPUB}/templates/proceedings/authors.html.head") || die;
 while (<HEADER>) {
     s/<XXX TITLE>/$title/g;
     s/<XXX BOOKTITLE>/$booktitle/g;

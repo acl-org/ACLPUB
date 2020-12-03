@@ -106,7 +106,7 @@ foreach my $record (@records) {
 ## PROGRAM HTML HEADER TO STDOUT
 # !!! should have a generic translation mechanism here,
 # not hardcoding specific subsets of the fields everywhere
-open(HEADER, "$ENV{ACLPUB}/templates/program.html.head") || die;
+open(HEADER, "$ENV{ACLPUB}/templates/proceedings/program.html.head") || die;
 while (<HEADER>) {
   s/<XXX TITLE>/$title/g;
   s/<XXX TYPE>/$type/g;

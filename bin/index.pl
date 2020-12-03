@@ -58,7 +58,7 @@ my $fileprefix = "$year.$venue-$volume.0";
 #
 
 #add header information
-open(HEADER, "$ENV{ACLPUB}/templates/index.html.head") || die;
+open(HEADER, "$ENV{ACLPUB}/templates/proceedings/index.html.head") || die;
 my $out = join("",<HEADER>);
 close HEADER;
 
