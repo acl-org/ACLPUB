@@ -25,7 +25,7 @@ ifneq (ok,$(shell if [ -d $(ACLPUB) ]; then echo ok; fi ))
 	ACLPUB = $(error Please set the environment variable ACLPUB to the aclpub package directory)
 endif
 BIN = $(ACLPUB)/bin
-TEMPLATES = $(ACLPUB)/templates
+TEMPLATES = $(ACLPUB)/templates/proceedings
 
 # Where to find inputs.  The books/* directories for 
 # particular proceedings should be created before running this makefile.
