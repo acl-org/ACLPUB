@@ -9,7 +9,7 @@ $authornum = 0;
 $prevblank = 1;
 
 
-$fn = "$ENV{ACLPUB}/templates/toc.tex.head";
+$fn = "$ENV{ACLPUB}/templates/proceedings/toc.tex.head";
 open(FILE,$fn) || die "Can't open $fn: $!\n";
 while(<FILE>) {
   printf("%s",$_);

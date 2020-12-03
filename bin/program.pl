@@ -8,7 +8,7 @@ $papnum = 0;
 $authornum = 0;
 $prevblank = 1;
 
-$fn = "$ENV{ACLPUB}/templates/program.tex.head";
+$fn = "$ENV{ACLPUB}/templates/proceedings/program.tex.head";
 open(FILE,$fn) || die "Can't open $fn: $!\n";
 while(<FILE>) {
   printf("%s",$_);

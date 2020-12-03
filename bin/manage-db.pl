@@ -504,7 +504,7 @@ sub create_cd {
         my $pdf_authors = join(" ; ", @authors);
         my $pdf_subject = "$abbrev $year";
         
-        open(TEXTEMPLATE, "<$ENV{ACLPUB}/templates/cd.tex.head") || die;
+        open(TEXTEMPLATE, "<$ENV{ACLPUB}/templates/proceedings/cd.tex.head") || die;
 	my $textemplate = join("",<TEXTEMPLATE>);
 	close TEXTEMPLATE;
 

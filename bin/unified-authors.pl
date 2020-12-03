@@ -10,7 +10,7 @@ use open qw(:std :utf8);
 use Unicode::Collate;
 $Collator = Unicode::Collate->new();
 
-system("cat $ENV{ACLPUB}/templates/unified-authors.html.head")==0 || die;
+system("cat $ENV{ACLPUB}/templates/proceedings/unified-authors.html.head")==0 || die;
 
 my $text;
 my @classes;
