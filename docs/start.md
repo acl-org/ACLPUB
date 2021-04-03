@@ -170,17 +170,17 @@ Now you will check that the information provided by authors are correct and corr
 
 ![alt text](images/start/generate_shipout.png "Image of last Generate tab view, with 'Shipout' circled.")
 
-Please see the [Camera-Ready instructions under "Entering metadata"](camera-ready-faq.md#entering-metadata) for guidelines for author names, titles, and abstracts. Below are some additional instructions for chairs.
+Please see the [Camera-Ready instructions under "Entering metadata"](final-version.md#metadata) for guidelines for author names, titles, and abstracts. Below are some additional instructions for chairs.
 
 Look at the author index and ensure that:  
-*   The guidelines in the [Camera-Ready instructions](camera-ready-faq.md#entering-metadata) are followed.
+*   The guidelines in the [Camera-Ready instructions](final-version.md#metadata) are followed.
 *   If an author uses their full name (not just their first initial) on the paper, their full name should appear in the index (i.e., "Doe, Jane" and not "Doe, J.").
 *   There are no separate entries for "Doe, Jane" and "Doe, Jane X." That is, if the same author contributed to multiple papers, make sure their name is written the same way each time.
 
 You can edit the way the author name appears in your proceedings using **Edit Author and User Information**. 
 
 ![alt text](images/start/edit_author_info.png "Image of homepage, with 'Edit Author and User Information' circled.")
-Additionally, look at the titles and abstracts and ensure that the guidelines in the [Camera-Ready instructions](camera-ready-faq.md#entering-metadata) are followed.
+Additionally, look at the titles and abstracts and ensure that the guidelines in the [Camera-Ready instructions](final-version.md#metadata) are followed.
 
 
 ## Step 2:  Margins Tab
@@ -211,7 +211,7 @@ Common values are:
 > 0 -12
 > </pre>
 
-Horizontal correction is rarely needed. In an exceptional case, you may need to shrink a page or clip it against a specified bounding box or something. You can do this by appending some options that will be passed to the [LaTeX includegraphics command](http://www.cs.brown.edu/system/software/latex/doc/grfguide.pdf), which slurps in the page as a graphical object:
+Horizontal correction is rarely needed. In an exceptional case, you may need to shrink a page or clip it against a specified bounding box or something. You can do this by appending some options that will be passed to the [LaTeX includegraphics command](https://cs.brown.edu/system/software/latex/doc/grfguide.pdf), which slurps in the page as a graphical object:
 
 > <pre>0 6,scale=0.95
 > 0 10,bb=0 90 612 792,clip
@@ -285,7 +285,7 @@ Select among the subtabs within this tab -- Sections, Settings, Headers, and CDR
 
 ### Step 4.1 Title Page (Sections Subtab)
 
-   [titlepage.tex](assets/files/current_templates/titlepage.tex) 
+   [titlepage.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/titlepage.tex) 
 
    Edit to reflect your title page. For uniformity, the following format is recommended for all workshops, demos, tutorials, etc:  
    * Acronym of the main conference, regardless of workshop (e.g., "NAACL HLT 2018")  
@@ -303,56 +303,56 @@ Select among the subtabs within this tab -- Sections, Settings, Headers, and CDR
 
 ### Step 4.2 Copyright Page (Sections Subtab)
 
-  [copyright.tex](assets/files/current_templates/copyright.tex) 
+  [copyright.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/copyright.tex) 
 
   Fill out the ISBN you received from your Publication or Workshop Chairs.  This is also where to use the \includegraphics tex call for sponsor logos, which we uploaded in [Step Two](#step-2--dwnl-templates-tab).
 
 ### Step 4.3 Preface Page (Sections Subtab)
 
-  [preface.tex](assets/files/current_templates/preface.tex) 
+  [preface.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/preface.tex) 
 
 The general introductory, welcome message from the organizers goes here.
   
 ### Step 4.4 Organizers Page (Sections Subtab)
 
-  [organizers.tex](assets/files/current_templates/organizers.tex)
+  [organizers.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/organizers.tex)
   
 This is where you list all the people who made this possible -- Organizers, Program Committee, Advisory Board, Panel, etc.
 
 ### Step 4.5 Citation Stamp (Settings Subtab)
 
-   [citation-stamp.tex](assets/files/current_templates/citation-stamp.tex)
+   [citation-stamp.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/citation-stamp.tex)
 
 This is the official citation for your proceedings, which gets stamped on the bottom of the first page of each author's work in your proceedings. Make sure the ciation stamp doesn't go into the margins (you can visually verify this in the generated **Draft** output. You can abbreviate your proceedings title, if you must shrink it). Make sure to change the date too.
 
 
 ### Step 4.6 Book (Settings Subtab)
 
-   [book.tex](assets/files/current_templates/book.tex)
+   [book.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/book.tex)
 
 This is the main file enveloping your proceedings.
 
 ### Step 4.7 Program (Headers Subtab)
 
-   [program.tex.head](assets/files/current_templates/program.tex.head)
+   [program.tex.head](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/program.tex.head)
 
 Edit your program header if desired. 
 
 ### Step 4.8 TOC (Headers Subtab)
 
-   [toc.tex.head](assets/files/current_templates/toc.tex.head)
+   [toc.tex.head](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/toc.tex.head)
 
 Edit your Table of Contents header if desired.
 
 ### Step 4.9 HTML Pages (CDROM Subtab)
 
-   [index.html.head](assets/files/current_templates/index.html.head)
+   [index.html.head](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/index.html.head)
 
-   [authors.html.head](assets/files/current_templates/authors.html.head)
+   [authors.html.head](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/authors.html.head)
 
-   [program.html.head](assets/files/current_templates/authors.html.head)
+   [program.html.head](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/authors.html.head)
    
-   [standard.css](assets/files/current_cdrom/standard.css)
+   [standard.css](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/cdrom-root-files/standard.css)
   
 These files are used to create the `index.html`, `authors.html`, and `program.html` files for the Online proceedings.  Edit the headers here so that they point to your conference/website.
 
@@ -672,14 +672,14 @@ The material
 included in it has evolved over many years through the work of a 
 large number of volunteers, including past NAACL publications chairs
 [Margaret Mitchell](http://www.m-mitchell.com/),
-[Adam Lopez](http://homepages.inf.ed.ac.uk/alopez/),
-[Matt Post](http://www.cs.jhu.edu/~post/),
+[Adam Lopez](https://homepages.inf.ed.ac.uk/alopez/),
+[Matt Post](https://www.cs.jhu.edu/~post/),
 [Colin Cherry](https://sites.google.com/site/colinacherry/),
-[Nizar Habash](http://www.nizarhabash.com/),
+[Nizar Habash](https://www.nizarhabash.com/),
 [Claudia Leacock](https://www.linkedin.com/in/claudialeacockphd),
-[Joakim Nivre](http://stp.lingfil.uu.se/~nivre/),
-[Matt Post](http://www.cs.jhu.edu/~post/),
+[Joakim Nivre](https://cl.lingfil.uu.se/~nivre/),
+[Matt Post](https://www.cs.jhu.edu/~post/),
 [Noah Smith](http://www.cs.cmu.edu/~nasmith/),
 [William Schuler](https://www.ling.ohio-state.edu/~schuler/),
 and
-[Richard Wicentowski](http://www.cs.swarthmore.edu/~richardw/).
+[Richard Wicentowski](https://www.cs.swarthmore.edu/~richardw/).
