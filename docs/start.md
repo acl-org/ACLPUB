@@ -170,17 +170,17 @@ Now you will check that the information provided by authors are correct and corr
 
 ![alt text](images/start/generate_shipout.png "Image of last Generate tab view, with 'Shipout' circled.")
 
-Please see the [Camera-Ready instructions under "Entering metadata"](camera-ready-faq.md#entering-metadata) for guidelines for author names, titles, and abstracts. Below are some additional instructions for chairs.
+Please see the [Camera-Ready instructions under "Entering metadata"](final-version.md#metadata) for guidelines for author names, titles, and abstracts. Below are some additional instructions for chairs.
 
 Look at the author index and ensure that:  
-*   The guidelines in the [Camera-Ready instructions](camera-ready-faq.md#entering-metadata) are followed.
+*   The guidelines in the [Camera-Ready instructions](final-version.md#metadata) are followed.
 *   If an author uses their full name (not just their first initial) on the paper, their full name should appear in the index (i.e., "Doe, Jane" and not "Doe, J.").
 *   There are no separate entries for "Doe, Jane" and "Doe, Jane X." That is, if the same author contributed to multiple papers, make sure their name is written the same way each time.
 
 You can edit the way the author name appears in your proceedings using **Edit Author and User Information**. 
 
 ![alt text](images/start/edit_author_info.png "Image of homepage, with 'Edit Author and User Information' circled.")
-Additionally, look at the titles and abstracts and ensure that the guidelines in the [Camera-Ready instructions](camera-ready-faq.md#entering-metadata) are followed.
+Additionally, look at the titles and abstracts and ensure that the guidelines in the [Camera-Ready instructions](final-version.md#metadata) are followed.
 
 
 ## Step 2:  Margins Tab
