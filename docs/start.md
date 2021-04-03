@@ -285,7 +285,7 @@ Select among the subtabs within this tab -- Sections, Settings, Headers, and CDR
 
 ### Step 4.1 Title Page (Sections Subtab)
 
-   [titlepage.tex](assets/files/current_templates/titlepage.tex) 
+   [titlepage.tex](/acl-org/ACLPUB/blob/master/templates/proceedings/titlepage.tex) 
 
    Edit to reflect your title page. For uniformity, the following format is recommended for all workshops, demos, tutorials, etc:  
    * Acronym of the main conference, regardless of workshop (e.g., "NAACL HLT 2018")  
@@ -303,54 +303,54 @@ Select among the subtabs within this tab -- Sections, Settings, Headers, and CDR
 
 ### Step 4.2 Copyright Page (Sections Subtab)
 
-  [copyright.tex](assets/files/current_templates/copyright.tex) 
+  [copyright.tex](/acl-org/ACLPUB/blob/master/templates/proceedings/copyright.tex) 
 
   Fill out the ISBN you received from your Publication or Workshop Chairs.  This is also where to use the \includegraphics tex call for sponsor logos, which we uploaded in [Step Two](#step-2--dwnl-templates-tab).
 
 ### Step 4.3 Preface Page (Sections Subtab)
 
-  [preface.tex](assets/files/current_templates/preface.tex) 
+  [preface.tex](/acl-org/ACLPUB/blob/master/templates/proceedings/preface.tex) 
 
 The general introductory, welcome message from the organizers goes here.
   
 ### Step 4.4 Organizers Page (Sections Subtab)
 
-  [organizers.tex](assets/files/current_templates/organizers.tex)
+  [organizers.tex](/acl-org/ACLPUB/blob/master/templates/proceedings/organizers.tex)
   
 This is where you list all the people who made this possible -- Organizers, Program Committee, Advisory Board, Panel, etc.
 
 ### Step 4.5 Citation Stamp (Settings Subtab)
 
-   [citation-stamp.tex](assets/files/current_templates/citation-stamp.tex)
+   [citation-stamp.tex](/acl-org/ACLPUB/blob/master/templates/proceedings/citation-stamp.tex)
 
 This is the official citation for your proceedings, which gets stamped on the bottom of the first page of each author's work in your proceedings. Make sure the ciation stamp doesn't go into the margins (you can visually verify this in the generated **Draft** output. You can abbreviate your proceedings title, if you must shrink it). Make sure to change the date too.
 
 
 ### Step 4.6 Book (Settings Subtab)
 
-   [book.tex](assets/files/current_templates/book.tex)
+   [book.tex](/acl-org/ACLPUB/blob/master/templates/proceedings/book.tex)
 
 This is the main file enveloping your proceedings.
 
 ### Step 4.7 Program (Headers Subtab)
 
-   [program.tex.head](assets/files/current_templates/program.tex.head)
+   [program.tex.head](/acl-org/ACLPUB/blob/master/templates/proceedings/program.tex.head)
 
 Edit your program header if desired. 
 
 ### Step 4.8 TOC (Headers Subtab)
 
-   [toc.tex.head](assets/files/current_templates/toc.tex.head)
+   [toc.tex.head](/acl-org/ACLPUB/blob/master/templates/proceedings/toc.tex.head)
 
 Edit your Table of Contents header if desired.
 
 ### Step 4.9 HTML Pages (CDROM Subtab)
 
-   [index.html.head](assets/files/current_templates/index.html.head)
+   [index.html.head](/acl-org/ACLPUB/blob/master/templates/proceedings/index.html.head)
 
-   [authors.html.head](assets/files/current_templates/authors.html.head)
+   [authors.html.head](/acl-org/ACLPUB/blob/master/templates/proceedings/authors.html.head)
 
-   [program.html.head](assets/files/current_templates/authors.html.head)
+   [program.html.head](/acl-org/ACLPUB/blob/master/templates/proceedings/authors.html.head)
    
    [standard.css](assets/files/current_cdrom/standard.css)
   
