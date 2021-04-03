@@ -352,7 +352,7 @@ Edit your Table of Contents header if desired.
 
    [program.html.head](/templates/proceedings/authors.html.head)
    
-   [standard.css](assets/files/current_cdrom/standard.css)
+   [standard.css](/templates/proceedings/cdrom-root-files/standard.css)
   
 These files are used to create the `index.html`, `authors.html`, and `program.html` files for the Online proceedings.  Edit the headers here so that they point to your conference/website.
 
