@@ -285,11 +285,7 @@ Select among the subtabs within this tab -- Sections, Settings, Headers, and CDR
 
 ### Step 4.1 Title Page (Sections Subtab)
 
-<<<<<<< HEAD
-   [titlepage.tex](/templates/proceedings/titlepage.tex) 
-=======
    [titlepage.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/titlepage.tex) 
->>>>>>> fix-links
 
    Edit to reflect your title page. For uniformity, the following format is recommended for all workshops, demos, tutorials, etc:  
    * Acronym of the main conference, regardless of workshop (e.g., "NAACL HLT 2018")  
@@ -307,86 +303,49 @@ Select among the subtabs within this tab -- Sections, Settings, Headers, and CDR
 
 ### Step 4.2 Copyright Page (Sections Subtab)
 
-<<<<<<< HEAD
-  [copyright.tex](/templates/proceedings/copyright.tex) 
-=======
   [copyright.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/copyright.tex) 
->>>>>>> fix-links
 
   Fill out the ISBN you received from your Publication or Workshop Chairs.  This is also where to use the \includegraphics tex call for sponsor logos, which we uploaded in [Step Two](#step-2--dwnl-templates-tab).
 
 ### Step 4.3 Preface Page (Sections Subtab)
 
-<<<<<<< HEAD
-  [preface.tex](/templates/proceedings/preface.tex) 
-=======
   [preface.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/preface.tex) 
->>>>>>> fix-links
 
 The general introductory, welcome message from the organizers goes here.
   
 ### Step 4.4 Organizers Page (Sections Subtab)
 
-<<<<<<< HEAD
-  [organizers.tex](/templates/proceedings/organizers.tex)
-=======
   [organizers.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/organizers.tex)
->>>>>>> fix-links
   
 This is where you list all the people who made this possible -- Organizers, Program Committee, Advisory Board, Panel, etc.
 
 ### Step 4.5 Citation Stamp (Settings Subtab)
 
-<<<<<<< HEAD
-   [citation-stamp.tex](/templates/proceedings/citation-stamp.tex)
-=======
    [citation-stamp.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/citation-stamp.tex)
->>>>>>> fix-links
 
 This is the official citation for your proceedings, which gets stamped on the bottom of the first page of each author's work in your proceedings. Make sure the ciation stamp doesn't go into the margins (you can visually verify this in the generated **Draft** output. You can abbreviate your proceedings title, if you must shrink it). Make sure to change the date too.
 
 
 ### Step 4.6 Book (Settings Subtab)
 
-<<<<<<< HEAD
-   [book.tex](/templates/proceedings/book.tex)
-=======
    [book.tex](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/book.tex)
->>>>>>> fix-links
 
 This is the main file enveloping your proceedings.
 
 ### Step 4.7 Program (Headers Subtab)
 
-<<<<<<< HEAD
-   [program.tex.head](/templates/proceedings/program.tex.head)
-=======
    [program.tex.head](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/program.tex.head)
->>>>>>> fix-links
 
 Edit your program header if desired. 
 
 ### Step 4.8 TOC (Headers Subtab)
 
-<<<<<<< HEAD
-   [toc.tex.head](/templates/proceedings/toc.tex.head)
-=======
    [toc.tex.head](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/toc.tex.head)
->>>>>>> fix-links
 
 Edit your Table of Contents header if desired.
 
 ### Step 4.9 HTML Pages (CDROM Subtab)
 
-<<<<<<< HEAD
-   [index.html.head](/templates/proceedings/index.html.head)
-
-   [authors.html.head](/templates/proceedings/authors.html.head)
-
-   [program.html.head](/templates/proceedings/authors.html.head)
-   
-   [standard.css](/templates/proceedings/cdrom-root-files/standard.css)
-=======
    [index.html.head](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/index.html.head)
 
    [authors.html.head](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/authors.html.head)
@@ -394,7 +353,6 @@ Edit your Table of Contents header if desired.
    [program.html.head](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/authors.html.head)
    
    [standard.css](https://github.com/acl-org/ACLPUB/blob/master/templates/proceedings/cdrom-root-files/standard.css)
->>>>>>> fix-links
   
 These files are used to create the `index.html`, `authors.html`, and `program.html` files for the Online proceedings.  Edit the headers here so that they point to your conference/website.
 
