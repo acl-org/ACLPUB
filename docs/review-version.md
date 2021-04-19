@@ -48,7 +48,7 @@ Once a paper has been accepted to the conference, the final version should inclu
 
 ## Multiple Submission
 
-Papers that have been or will be submitted to other meetings or publications must indicate this at submission time in the START submission form, and must be withdrawn from the other venues if accepted by *ACL.
+Papers that have been or will be submitted to other meetings or publications must indicate this at submission time in the system submission form, and must be withdrawn from the other venues if accepted by *ACL.
 Authors of papers accepted for presentation at *ACL must notify the program chairs by the deadline for final versions ("camera-ready deadline") whether the paper will be presented.
 We will not accept for publication or presentation any papers that overlap significantly in content or results with papers that will be (or have been) published elsewhere.
 
