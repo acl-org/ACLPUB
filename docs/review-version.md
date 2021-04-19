@@ -41,7 +41,8 @@ Review versions must not include acknowledgments.
 
 **Papers that do not conform to these requirements may be rejected without review.**
 
-Any preliminary non-archival versions of submitted papers should be listed in the submission form, but not in the paper itself.
+Any preliminary non-archival versions of submitted papers should be listed in the submission form, if requested.
+They should not be listed in the paper itself.
 Reviewers are generally aware that authors may present preliminary versions of their work in other venues, but will not be provided the list of previous presentations from the submission form.
 
 Once a paper has been accepted to the conference, the final version should include the author's names and affiliations, and is allowed to use self-references.
