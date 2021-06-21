@@ -1,2 +1,2 @@
-#baseurl: "https://cs.jhu.edu/~post/tmp/aclpub"
+baseurl: /
 markdown: kramdown
