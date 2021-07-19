@@ -45,7 +45,7 @@ while (<META>) {
 }
 close(META);
 
-my $urlpattern = "https://www.aclweb.org/anthology/%s";
+my $urlpattern = "https://aclanthology.org/%s";
 my $venue = lc $abbrev;
 
 my $digits = $1; # checked in bib.pl

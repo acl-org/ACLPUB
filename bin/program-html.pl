@@ -24,7 +24,7 @@ while(<META>) {
 close(META);
 my $day = "No Day Set";
 
-my $urlpattern = "https://www.aclweb.org/anthology/%s";
+my $urlpattern = "https://aclanthology.org/%s";
 my $venue = lc $abbrev;
 
 open(DB, "$ENV{ACLPUB}/bin/db-to-html.pl $db |") || die;
