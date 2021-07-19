@@ -268,7 +268,7 @@ Authors should not rely on automated citation indices to provide accurate refere
 As part of our work to make ACL materials more widely used and cited outside of our discipline, ACL has registered as a CrossRef member, as a registrant of Digital Object Identifiers (DOIs), the standard for registering permanent URNs for referencing scholarly materials.
 
 All references are required to contain DOIs of all cited works when possible, or, as a second resort, links to ACL Anthology pages.
-Appropriate records should be found for most materials in the current [ACL Anthology](https://aclweb.org/anthology/).
+Appropriate records should be found for most materials in the current [ACL Anthology](https://aclanthology.org/).
 
 Example article in a journal:
 
@@ -284,7 +284,7 @@ Example ACL Anthology paper with DOI:
 
 Example ACL Anthology paper without DOI:
 
-> Benjamin Börschinger and Mark Johnson. 2011. [A particle filter algorithm for Bayesian word segmentation](https://www.aclweb.org/anthology/U11-1004/). In *Proceedings of the Australasian Language Technology Association Workshop 2011*, pages 10–44718, Canberra, Australia.
+> Benjamin Börschinger and Mark Johnson. 2011. [A particle filter algorithm for Bayesian word segmentation](https://aclanthology.org/U11-1004/). In *Proceedings of the Australasian Language Technology Association Workshop 2011*, pages 10–44718, Canberra, Australia.
 
 Example arXiv paper:
 

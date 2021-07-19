@@ -48,12 +48,12 @@ the Anthology.  You interact with other people in the following ways.
   with them is to set the camera-ready deadline for the workshops.
   
 * The director of the *ACL Anthology* is in charge of maintaining the
-  [ACL Anthology](http://anthology.aclweb.org).  They will assign you
+  [ACL Anthology](https://aclanthology.org).  They will assign you
   Anthology identifiers for all the books in your conference, which
   you will then pass on to the individual book chairs.  They will also
   eventually ask you for the complete proceedings of all the books
   together so they can upload them to the Anthology.
-  Information on this process can be found [here](https://www.aclweb.org/anthology/info/contrib/).
+  Information on this process can be found [here](https://aclanthology.org/info/contrib/).
   
 * *Priscilla Rasmussen* is the person to go to when nobody else can
    help.  One item that is specifically her job is to obtain ISBN

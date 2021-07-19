@@ -36,7 +36,7 @@ You should have received an email with more information about this procedure.
 ## Metadata
 
 It is very important that your paper's metadata (title, author names, and abstract) is entered correctly.
-It is used on the conference website, handbook, mobile app, and the [ACL Anthology](https://www.aclweb.org/anthology/) (and propagates to [DBLP](https://dblp.uni-trier.de), Semantic Scholar, Google Scholar, etc).
+It is used on the conference website, handbook, mobile app, and the [ACL Anthology](https://aclanthology.org/) (and propagates to [DBLP](https://dblp.uni-trier.de), Semantic Scholar, Google Scholar, etc).
 
 Please see [Entering paper metadata in START](metadata.html) for instructions on doing this.
 

@@ -41,14 +41,15 @@ Review versions must not include acknowledgments.
 
 **Papers that do not conform to these requirements may be rejected without review.**
 
-Any preliminary non-archival versions of submitted papers should be listed in the submission form, but not in the paper itself.
+Any preliminary non-archival versions of submitted papers should be listed in the submission form, if requested.
+They should not be listed in the paper itself.
 Reviewers are generally aware that authors may present preliminary versions of their work in other venues, but will not be provided the list of previous presentations from the submission form.
 
 Once a paper has been accepted to the conference, the final version should include the author's names and affiliations, and is allowed to use self-references.
 
 ## Multiple Submission
 
-Papers that have been or will be submitted to other meetings or publications must indicate this at submission time in the START submission form, and must be withdrawn from the other venues if accepted by *ACL.
+Papers that have been or will be submitted to other meetings or publications must indicate this at submission time in the system submission form, and must be withdrawn from the other venues if accepted by *ACL.
 Authors of papers accepted for presentation at *ACL must notify the program chairs by the deadline for final versions ("camera-ready deadline") whether the paper will be presented.
 We will not accept for publication or presentation any papers that overlap significantly in content or results with papers that will be (or have been) published elsewhere.
 

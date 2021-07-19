@@ -10,7 +10,7 @@ use open qw(:std :utf8);
 my ($db,$meta) = @ARGV;
 
 my(@titles,$title,$abbrev,$volume,$month,$year,$location,$publisher,$booktitle,$shortbooktitle,@authors);
-my $urlpattern = "https://www.aclweb.org/anthology/%s";
+my $urlpattern = "https://aclanthology.org/%s";
 open(META,$meta) || die;
 while(<META>) {
   my ($key,$value) = split(/\s+/,$_,2);

@@ -12,7 +12,7 @@ title: Entering paper metadata in START
 ## Entering paper metadata in START
 
 It is very important that your paper's metadata (title, author names, and abstract) is entered correctly.
-It is used on the conference website, handbook, mobile app, and the [ACL Anthology](https://www.aclweb.org/anthology/) (and propagates to [DBLP](https://dblp.uni-trier.de), Semantic Scholar, Google Scholar, etc).
+It is used on the conference website, handbook, mobile app, and the [ACL Anthology](https://aclanthology.org/) (and propagates to [DBLP](https://dblp.uni-trier.de), Semantic Scholar, Google Scholar, etc).
 
 ### Author names
 
@@ -53,13 +53,13 @@ Please try to follow these guidelines:
    phrases that should always be capitalized. However, if your paper
    title contains a very uncommon proper noun, you can put curly
    braces around its first letter, like this:
-   `{T}aumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu}`.
+   `{T}aumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu`.
  
    Note that these curly braces will _not_ appear in the online
    conference program or proceedings. They will only appear in the
    BibTeX file that others will use to cite your paper.
 
- - If you need literal curly braces, please escape them like this:
+ - If you need literal curly braces, please escape them with a backslash like this:
    `\{` `\}`
 
  - Please don't use any nonstandard LaTeX commands.

@@ -484,7 +484,7 @@ Please note the following restrictions on these fields:
 - **abbrev** will be lowercased when forming file names.
   It can only contain ASCII letters and numbers ([A-Za-z0-9]+).
   Please be consistent with prior years.
-  Your volume will appear under `https://aclweb.org/anthology/venues/{abbrev}`.
+  Your volume will appear under `https://aclanthology.org/venues/{abbrev}`.
 - **year** is the four-digit year.
 - **volume** is the name of the volume.
   Most workshops have just a single volume, in which case you can just use "1".
