@@ -47,13 +47,7 @@ in the following ways:
   latex sources.  It is also nice to put fields for uploading
   supplementary materials, which can be included in the online
   proceedings.
-* Once the workshops have been selected, obtain ISBN numbers for the
-  main conference and all the other books from Priscilla and Anthology
-  identifiers from the Anthology editor. We usually follow the
-  practice that each book gets its own ISBN and its own Anthology
-  identifier; the long papers and short papers volumes of the main
-  conference count as two different books.
-* Also set up a mailing list where you can reach all the book chairs,
+* Set up a mailing list where you can reach all the book chairs,
   and send them a welcome email where you explain what will be
   expected of them in terms of book preparation.
 * Enter the metadata for your own books as well as all the other books
@@ -69,9 +63,11 @@ in the following ways:
   students.
 * Get a test site in the START system and try out the publication
   process on some demo papers.
-
-
-
+* Once you have formal titles of all the workshops and main conference
+  volumes, email Priscilla Rasmussen to obtain ISBN numbers for them.
+  The normal practice is that each book gets its own ISBN, so if you,
+  for example, split the main conference proceedings into separate long
+  and short paper volumes, there will be two books and two ISBNs.
 
 ## Phase 3: Before the conference
 
