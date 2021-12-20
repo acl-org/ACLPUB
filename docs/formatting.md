@@ -20,7 +20,7 @@ Authors of accepted papers must also follow: [Submitting the final version of yo
 
 *ACL provides style files for LaTeX and Microsoft Word that meet these requirements. They can be found here:
 
-> https://github.com/acl-org/ACLPUB/tree/master/templates
+> https://github.com/acl-org/acl-style-files/tree/master
 
 We strongly recommend the use of these style files, which have been appropriately tailored for the *ACL proceedings.
 
