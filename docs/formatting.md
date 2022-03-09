@@ -18,9 +18,7 @@ Authors of accepted papers must also follow: [Submitting the final version of yo
 
 ## Style Files
 
-*ACL provides style files for LaTeX and Microsoft Word that meet these requirements. They can be found here:
-
-> https://github.com/acl-org/acl-style-files/tree/master
+*ACL provides style files for LaTeX and Microsoft Word that meet these requirements. They can be found at [https://github.com/acl-org/acl-style-files](https://github.com/acl-org/acl-style-files).
 
 We strongly recommend the use of these style files, which have been appropriately tailored for the *ACL proceedings.
 
@@ -78,7 +76,9 @@ Here are a couple of ways to check this:
 
 If you cannot meet the above requirements, please contact the publication chairs as soon as possible.
 
-## Layout
+## Paper Format
+
+### Layout
 
 All text except for page numbers must fit within the margins.
 
@@ -104,7 +104,7 @@ The final version should not contain a ruler.
 **Reviewers:**
 If the ruler measurements do not align well with lines in the paper, you can also use fractional references (e.g., "line 295.5").
 
-## Fonts
+### Fonts
 
 All text (except non-Latin scripts and mathematical formulas) should be set in **Times Roman**.
 If Times Roman is unavailable, you may use **Times New Roman** or **Computer Modern Roman.**
@@ -125,7 +125,7 @@ The following table specifies what font sizes and styles must be used for each t
 | bibliography          | 10 pt     |       |
 | footnotes             | 9 pt      |       |
 
-## Title and Authors
+### Title and Authors
 
 Center the title and the author name(s) and affiliation(s) across both columns.
 
@@ -147,7 +147,7 @@ If they are different, the publication chairs may resolve the difference without
 Start the body of the first page 7.5 cm from the top of the page.
 **Even in the review version of the paper, you should maintain space for names and addresses so that they will fit in the final version.**
 
-## Abstract
+### Abstract
 
 Type the abstract at the beginning of the first column.
 Center the word **Abstract** in 12 point bold above the body of the abstract.
@@ -158,14 +158,14 @@ The abstract text should be 10 point roman, single-spaced.
 The abstract should be a concise summary of the general thesis and conclusions of the paper.
 It should be no longer than 200 words.
 
-## Text
+### Text
 
 Begin typing the main body of the text immediately after the abstract, continuing in two columns.
 The text should be 11 point roman, single-spaced.
 
 Indent 0.4 cm when starting a new paragraph, except for the first paragraph in a section.
 
-## Sections
+### Sections
 
 Use numbered sections (Arabic numerals) to facilitate cross references.
 Number subsections with the section number and the subsection number separated by a dot, in Arabic numerals, e.g.,
@@ -176,13 +176,13 @@ or
 
 > 6.1 File Format
 
-## Footnotes
+### Footnotes
 
 Put footnotes at the bottom of the page and use 9 point font.
 They may be numbered or referred to by asterisks or other symbols.
 Footnotes should be separated from the text by a line.
 
-## Figures and tables
+### Figures and tables
 
 Place figures and tables in the paper near where they are first discussed, rather than at the end, if possible.
 Wide figures/tables may run across both columns.
@@ -213,11 +213,11 @@ Captions should be placed below figures/tables, in 10 point roman type.
 Captions that are one line are centered.
 Captions longer than one line are left-aligned.
 
-## Hyperlinks
+### Hyperlinks
 
 Within-document and external hyperlinks should be dark blue (hex #000099), not underlined or boxed.
 
-## Non-English Text
+### Non-English Text
 
 Text in languages other than English should be accompanied by translations into English, and text in scripts other than Latin should *also* be accompanied by transliterations into Latin script, since not all readers can recognize non-Latin characters easily.
 
@@ -227,7 +227,7 @@ For example, παράδειγμα *paradeigma* ‘example’ is a Greek word, an
 > auto einai ena paradeigma.  
 > ‘This is an example.’
 
-## Citations
+### Citations
 
 Citations within the text appear in parentheses (Gusfield, 1997), or, if the author's name appears in the text itself: Gusfield (1997).
 Append lowercase letters to the year in cases of ambiguities.
@@ -249,13 +249,13 @@ Submissions should accurately reference prior and related work, including code a
 If a piece of prior work appeared in multiple venues, the version that appeared in a refereed, archival venue should be referenced.
 If multiple versions of a piece of prior work exist, the one used by the authors should be referenced.
 
-## Acknowledgments
+### Acknowledgments
 
 The acknowledgments should go immediately before the references.
 Do not number the acknowledgments section.
 Do not include this section in the review version.
 
-## References
+### References
 
 Gather the full set of references together under the unnumbered section heading **References**.
 Place the References section before any Appendices.
@@ -290,7 +290,9 @@ Example arXiv paper:
 
 > Mohammad Sadegh Rasooli and Joel R. Tetreault. 2015. [Yara parser: A fast and accurate dependency parser](http://arxiv.org/abs/1503.06733). *Computing Research Repository*, arXiv:1503.06733. Version 2.
 
-## Appendices
+## Appendices and Supplementary Material
+
+### Appendices
 
 Appendices are material that can be read, and include lemmas, formulas, proofs, and tables that are not critical to the reading and understanding of the paper.
 Letter them in sequence and provide an informative title:
@@ -301,7 +303,7 @@ The appendices come after the references.
 
 Review versions of appendices must follow the same anonymity guidelines as the main paper.
 
-## Supplementary Material
+### Supplementary material
 
 Submissions may include non-readable supplementary material used in the work and described in the paper.
 Any accompanying software and/or data should include licenses and documentation of research review as appropriate.
