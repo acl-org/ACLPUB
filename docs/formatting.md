@@ -14,6 +14,7 @@ Authors of accepted papers must also follow: [Submitting the final version of yo
 {: .no_toc}
 
 - TOC
+{::options toc_levels="2"}
 {:toc}
 
 ## Style Files
@@ -290,9 +291,7 @@ Example arXiv paper:
 
 > Mohammad Sadegh Rasooli and Joel R. Tetreault. 2015. [Yara parser: A fast and accurate dependency parser](http://arxiv.org/abs/1503.06733). *Computing Research Repository*, arXiv:1503.06733. Version 2.
 
-## Appendices and Supplementary Material
-
-### Appendices
+## Appendices
 
 Appendices are material that can be read, and include lemmas, formulas, proofs, and tables that are not critical to the reading and understanding of the paper.
 Letter them in sequence and provide an informative title:
@@ -303,7 +302,7 @@ The appendices come after the references.
 
 Review versions of appendices must follow the same anonymity guidelines as the main paper.
 
-### Supplementary material
+## Supplementary material
 
 Submissions may include non-readable supplementary material used in the work and described in the paper.
 Any accompanying software and/or data should include licenses and documentation of research review as appropriate.
