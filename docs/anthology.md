@@ -12,9 +12,6 @@ First, clone the official repository:
 
     git clone https://github.com/acl-org/ACLPUB
 
-The scripts you will be using are in the subdirectory `ACLPUB/anthologize`.
-Below, we assume that you have this directory in your `PATH`; if not, you'll need to provide full pathnames to scripts.
-
 ## 2. Assembling the data
 
 If you are using:
