@@ -1,2 +1,4 @@
 baseurl: /
 markdown: kramdown
+toc:
+  max_level: 2
