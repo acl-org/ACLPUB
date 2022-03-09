@@ -14,7 +14,6 @@ Authors of accepted papers must also follow: [Submitting the final version of yo
 {: .no_toc}
 
 - TOC
-{::options toc_levels="2"}
 {:toc}
 
 ## Style Files
