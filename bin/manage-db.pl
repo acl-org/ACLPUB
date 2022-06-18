@@ -331,11 +331,19 @@ sub order {
     my (@ORDER,@SCHEDULE,%TIME,%DUP_CHECK);
     while(<STDIN>) {
 	chomp;
-	s/\S*\#.*$//;
-	next if /^\s*$/;
-	my ($id,$time,$title) = split(/ +/,$_,3);
+	my $line = $_;
+
+	if ($line !~ /^\Q=\E/) {
+	  $line =~ s/\s*\#.*$//;  # getting rid of comments.
+	}
+
+	if ($line =~ /^\s*$/) {  # empty line.
+	  next;
+	}
+
+	my ($id,$time,$title) = split(/ +/,$line,3);
 	if ($id eq '*' || $id eq '=' || $id eq '+' || $id eq '!') {
-	    push @SCHEDULE,$_;
+	    push @SCHEDULE,$line;
 	    next;
 	}
 	else {
