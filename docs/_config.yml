@@ -1,2 +1,4 @@
 baseurl: /
 markdown: kramdown
+kramdown: 
+  toc_levels: "2"
