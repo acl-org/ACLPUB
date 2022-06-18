@@ -19,7 +19,6 @@ printf("\n");
 while(<STDIN>) {
    chop;
    $line=$_;
-
    if ($line =~ /^T:/) {
       $line =~ s/^T:[ ]*//;
       $titles[$papnum] = $line;
@@ -95,7 +94,44 @@ sub print_program {
 
 	   ## SESSION TITLE
 	   elsif ($type eq '=') {
+	     # look for room, session chairs. Will be in a comment.
+	     # tags are %room, %chair1 %chair2 %aff1 %aff2
+	     my ($td,$extra) = split(/\s*\#\s*/,$content,2); 
+	     $content = $td;
+
+	     $extra =~ s/^\s* | \s*$//;
+
+	     my $additional = "";
+
+	     if ($extra) {
+
+	       $room = $chair1 = $chair2 = $aff1 = $aff2 = "";
+	       my @extras = split(/[ ]*%[ ]*/,$extra);
+	       shift @extras;
+
+	       foreach my $item (@extras) {
+		 my ($name,$val) = split(' ',$item,2);
+		 local $Name = qq{\$} . qq{$name};
+		 $res = eval "$Name = qq{$val}";
+	       }
+
+	       # If there is a room, put it first, then a new line
+	       if ($room) {
+		 $additional .= sprintf(" & Room: %s\\\\\n",$room);
+	       }
+	       my $chairword = ($chair1 && $chair2) ? 'Chairs' : 'Chair';
+
+	       if ($chair1) {
+		 $additional .= sprintf(" & $chairword: %s",$chair1);
+		 if ($chair2) {
+		   $additional .= sprintf(", %s",$chair2);
+		 }
+		 $additional .= "\\\\\n";
+	       }
+
+	     }
                # look for time if exists
+
 	       if ($content =~ /^([0-9,\.\:\-]+) (.*)$/) {
 		   my ($time,$description) = ($1,$2);
 		   printf("\\\\{\\bf %s} & {\\bf %s} \\\\\n",$time,$description);
@@ -103,6 +139,10 @@ sub print_program {
 	       else {
 	        printf("\\\\ & {\\bf %s} \\\\\n",$content);
 	       }
+	     if ($additional) {
+	       print($additional);
+	     }
+
                $numlines += 0.8; 
 	    }
 
@@ -150,23 +190,6 @@ sub print_program {
 		   printf("{\\em %s}\\\\\n",$description);
 		   $numlines += 0.6;
 	       }
-
-#              No affiliations/URLs - so much for that idea.
-#
-#	       if ($rest =~ /[\s ]*%a[\s ]*([^%]+)/) {
-#		   my $affiliation = $1;
-#		   printf("         & ");
-#		   printf("%s\\\\\n",$affiliation);
-#		   $numlines += 0.8;
-#	       }
-#
-#	       if ($rest =~ /[\s ]*%u[\s ]*([^%]+)/) {
-#		   my $url = $1;
-#		   printf("         & ");
-#		   printf("%s\\\\\n",$url);
-#		   $numlines += 0.8;
-#	       }
-
 	   }
 	   else {
 	   }
