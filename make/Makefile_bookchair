@@ -203,7 +203,7 @@ get-order:  # explicit request to create or update order file
 
 $(templates): %: $(TEMPLATES)/%
 	cp $< $@  # !!! shouldn't just copy
-#	cp $(TEMPLATES)/*.tex .  # for additional files to input
+	cp $(TEMPLATES)/*.tex .  # for additional files to input
 
 ####################
 # Individual front-matter sections of proceedings
