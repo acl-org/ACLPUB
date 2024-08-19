@@ -22,7 +22,7 @@ while(<META>) {
     $chairs .= $value."<BR>\n" if $key eq 'chairs';
 }
 close(META);
-my $day = "No Day Set";
+my $day = "";
 
 my $urlpattern = "https://aclanthology.org/%s";
 my $venue = lc $abbrev;
