@@ -254,8 +254,10 @@ sub print_program {
           printf("\\begin{tabular}{p{20mm}p{128mm}}\n");
           printf("\\\\\n");
 	  if (!defined($extra[$pn+1]) || $extra[$pn+1] !~ /^\*/) {
-	      printf("\\multicolumn{2}{l}{\\bf $day (continued)} \\\\");
-	      printf("\\\\\n");
+              if ($day) {
+	         printf("\\multicolumn{2}{l}{\\bf $day (continued)} \\\\");
+	         printf("\\\\\n");
+	       }
 	  }
           $numlines = 0;
       }
