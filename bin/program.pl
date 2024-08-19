@@ -71,7 +71,7 @@ printf("\n\n\\end{tabular}\n");
 
 sub print_program {
 
-    my $day = "No Day Set";
+    my $day = "";
     
    for ($pn = 0; $pn < $papnum; $pn++) {
     
