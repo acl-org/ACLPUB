@@ -125,6 +125,8 @@ The following table specifies what font sizes and styles must be used for each t
 | bibliography          | 10 pt     |       |
 | footnotes             | 9 pt      |       |
 
+For any text or numbers in tables and figures, whenever possible, please use the font size of the document text. As a rule of thumb, any text or numbers should be clearly readable when the paper is printed on A4 paper. Submissions that abuse the font size or spacing for figures/tables may be desk rejected.
+
 ### Title and Authors
 
 Center the title and the author name(s) and affiliation(s) across both columns.
@@ -249,9 +251,17 @@ Submissions should accurately reference prior and related work, including code a
 If a piece of prior work appeared in multiple venues, the version that appeared in a refereed, archival venue should be referenced.
 If multiple versions of a piece of prior work exist, the one used by the authors should be referenced.
 
+### Limitations
+
+ACL currently requires all submissions to have a section titled "Limitations", which discusses the limitations of the work. It may *not* contain any additional experiments, figures or analysis. It should be placed after the conclusion section and before references, without page breaks. It does not count towards the page limit. 
+
+### Ethical Considerations
+
+ACL encourages the authors to include an optional section dedicated to discussing the broader impacts and ethical considerations of the submission. Likewise, it may *not* contain any additional experiments, figures or analysis. This section should be placed after the conclusion and before references, without page breaks. Its content does not count towards the page limit.
+
 ### Acknowledgments
 
-The acknowledgments should go immediately before the references.
+The acknowledgments should go immediately before the references. Their content does not count towards the page limit.
 Do not number the acknowledgments section.
 Do not include this section in the review version.
 
@@ -292,7 +302,7 @@ Example arXiv paper:
 
 ## Appendices
 
-Appendices are material that can be read, and include lemmas, formulas, proofs, and tables that are not critical to the reading and understanding of the paper.
+Appendices are material that can be read, and include lemmas, formulas, proofs, and tables that are not critical to the reading and understanding of the paper. They should conform to the 2-column format. 
 Letter them in sequence and provide an informative title:
 
 > Appendix A. Title of Appendix
