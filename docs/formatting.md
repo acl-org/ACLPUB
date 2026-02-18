@@ -134,7 +134,7 @@ Center the title and the author name(s) and affiliation(s) across both columns.
 Place the title centered at the top of the first page, in 15-point bold.
 Long titles should be typed on two lines without a blank line intervening.
 Put the title 2.5 cm from the top of the page.
-Write the title in [title case](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case); do not write the title in all capital letters, except for acronyms and names (e.g., "BLEU") that are normally written in all capitals.
+Write the title in [title case](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case); do not write the title in all capital letters, except for acronyms and names (e.g., "BLEU") that are normally written in all capitals. The title should contain only plain text without extra markup and Latex commands (for compatibility across various platforms where metadata is displayed).
 
 Place the author name(s) and affiliation(s) under the title.
 Write authors' full names; do not abbreviate given names to initials, unless they are normally written as initials ("Margaret Mitchell", not "M. Mitchell").
@@ -158,7 +158,7 @@ normal column width by 0.6 cm on each side.
 The abstract text should be 10 point roman, single-spaced.
 
 The abstract should be a concise summary of the general thesis and conclusions of the paper.
-It should be no longer than 200 words.
+It should be no longer than 200 words. The abstract should contain only plain text without extra markup and Latex commands (for compatibility across various platforms where metadata is displayed). 
 
 ### Text
 
@@ -187,7 +187,7 @@ Footnotes should be separated from the text by a line.
 ### Figures and tables
 
 Place figures and tables in the paper near where they are first discussed, rather than at the end, if possible.
-Wide figures/tables may run across both columns.
+Wide figures/tables may run across both columns, and may combine several subfigures or tables. Figures and tables must be at least one column wide; wrapped text within a column is not permitted.
 
 Graphics and photos should, if possible, use vector graphic formats (PDF,
 EPS), which allow the graphics to scale arbitrarily. Avoid GIF or
@@ -302,7 +302,7 @@ Example arXiv paper:
 
 ## Appendices
 
-Appendices are material that can be read, and include lemmas, formulas, proofs, and tables that are not critical to the reading and understanding of the paper. Appendices must conform to the 2-column format, with the exception of math-heavy sections (e.g., sections with theorem proofs or derivations), whose readability can be improved in a 1-column format. The requirements for the font, margins etc. are the same as for the main body of the article. 
+Appendices are material that can be read, and include lemmas, formulas, proofs, and tables that are not critical to the reading and understanding of the paper. Appendices must conform to the 2-column format, with the exception of math-heavy sections, whose readability would be improved in a single-column format. A math-heavy section is a section consisting _predominantly_ of formal mathematical material (e.g. theorem proofs or derivations). The requirements for the font, margins etc. are the same as for the main body of the article. 
 
 Letter the appendices in sequence and provide an informative title:
 
