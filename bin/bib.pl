@@ -159,7 +159,18 @@ for ($pn = 0; $pn <= $#titles; $pn++) {
     printf FILE "  pages     = {%s},\n",
        $startpage[$pn]==$endpage[$pn] ? $startpage[$pn] : "$startpage[$pn]--$endpage[$pn]";
   }
-
+  if (defined $pid[$pn]) {
+    open(MYMETA,"final/$pid[$pn]/$pid[$pn]" . "_metadata.txt");
+    my $anth_id = "$year.$venue-$volume.$pn";
+    my $fn = "cdrom/bib/$anth_id.orc";
+    open(ORC,">$fn");
+    my @orcs = grep(/Orcid/,<MYMETA>);
+    foreach my $orcline (@orcs) {
+      $orcline =~ s/\#\=\%\=\#/:/g;
+      print ORC $orcline;
+    }
+    close(ORC);
+  }
   if (defined $pid[$pn] and -e "abstracts/$pid[$pn].abs") {
       open(ABS,"<abstracts/$pid[$pn].abs");
       my @lines = <ABS>;
