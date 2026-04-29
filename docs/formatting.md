@@ -125,16 +125,16 @@ The following table specifies what font sizes and styles must be used for each t
 | bibliography          | 10 pt     |       |
 | footnotes             | 9 pt      |       |
 
-For any text or numbers in tables and figures, whenever possible, please use the font size of the document text. As a rule of thumb, any text or numbers should be clearly readable when the paper is printed on A4 paper. Submissions that abuse the font size or spacing for figures/tables may be desk rejected.
+For any text or numbers in tables and figures, whenever possible, please use the font size of the document text. As a rule of thumb, any text or numbers should be clearly readable when the paper is printed on A4 paper. Submissions that abuse the font size or spacing for figures/tables, or use non-human-visible text, may be desk rejected.
 
 ### Title and Authors
 
-Center the title and the author name(s) and affiliation(s) across both columns.
+Follow the ACL style file, which centers the title and the author name(s) and affiliation(s) across both columns. Standard font features (bold, italics, underlining) are permitted in the PDF, title, but this is not a place for visual creativity. No extra visual content (images, annotations, or other flair) may be added to the title box.
 
 Place the title centered at the top of the first page, in 15-point bold.
 Long titles should be typed on two lines without a blank line intervening.
 Put the title 2.5 cm from the top of the page.
-Write the title in [title case](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case); do not write the title in all capital letters, except for acronyms and names (e.g., "BLEU") that are normally written in all capitals.
+Write the title in [title case](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case); do not write the title in all capital letters, except for acronyms and names (e.g., "BLEU") that are normally written in all capitals. The title should contain only plain text without extra markup and LateX commands (for compatibility across various platforms where metadata is displayed).
 
 Place the author name(s) and affiliation(s) under the title.
 Write authors' full names; do not abbreviate given names to initials, unless they are normally written as initials ("Margaret Mitchell", not "M. Mitchell").
@@ -158,7 +158,20 @@ normal column width by 0.6 cm on each side.
 The abstract text should be 10 point roman, single-spaced.
 
 The abstract should be a concise summary of the general thesis and conclusions of the paper.
-It should be no longer than 200 words.
+It should be no longer than 200 words. The abstract should contain only plain text without extra markup and LateX commands (for compatibility across various platforms where metadata is displayed). 
+
+### Metadata
+
+The title and abstract in the main text of the paper can include (La)TeX commands. However, the same content also needs to be entered into a range of platforms, including the ARR camera-ready submission form, OpenReview, the ACL Anthology, and others. In the interest of compatibility across these platforms, metadata fields (for example, in the ARR camera-ready submission form) should contain *plain Unicode text only*, without any HTML tags or (La)TeX commands. If plain Unicode text cannot match the PDF text verbatim, please approximate as closely as possible. You may find tools such as [unicodeit.net](unicodeit.net) helpful for converting formatting to Unicode. For example:
+
+* Disallowed: `$\textit{L-CiteEval}$: A Suite for Evaluating Fidelity of Long-context Models`
+* Ok: `L-CiteEval: A Suite for Evaluating Fidelity of Long-context Models`
+
+* Disallowed: `S<sup>3</sup> - Semantic Signal Separation`
+* Disallowed: `S$^3$ - Semantic Signal Separation`
+* Ok: `S³ - Semantic Signal Separation`
+
+* Allowed: `On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? 🦜`
 
 ### Text
 
@@ -187,7 +200,7 @@ Footnotes should be separated from the text by a line.
 ### Figures and tables
 
 Place figures and tables in the paper near where they are first discussed, rather than at the end, if possible.
-Wide figures/tables may run across both columns.
+Wide figures/tables may run across both columns, and may combine several subfigures or tables. Figures and tables must be at least one column wide; wrapped text within a column is not permitted.
 
 Graphics and photos should, if possible, use vector graphic formats (PDF,
 EPS), which allow the graphics to scale arbitrarily. Avoid GIF or
@@ -302,7 +315,7 @@ Example arXiv paper:
 
 ## Appendices
 
-Appendices are material that can be read, and include lemmas, formulas, proofs, and tables that are not critical to the reading and understanding of the paper. Appendices must conform to the 2-column format, with the exception of math-heavy sections (e.g., sections with theorem proofs or derivations), whose readability can be improved in a 1-column format.
+Appendices are material that can be read, and include lemmas, formulas, proofs, and tables that are not critical to the reading and understanding of the paper. Appendices must conform to the 2-column format, with the exception of math-heavy sections, whose readability would be improved in a single-column format. A math-heavy section is a section consisting _predominantly_ of formal mathematical material (e.g. theorem proofs or derivations). The requirements for the font, margins etc. are the same as for the main body of the article. 
 
 Letter the appendices in sequence and provide an informative title:
 
