@@ -45,7 +45,7 @@ Please check with your conference organizers.
 
 ## Copyright
 
-When you submit the paper, you will be asked to sign the [ACL Copyright Transfer Agreement](https://github.com/ACLPUB/blob/master/templates/copyright/acl-copyright-transfer.pdf) on behalf of all authors, either electronically (via the START Conference Manager) or physically.
+When you submit the paper, you will be asked to sign the [ACL Copyright Transfer Agreement](https://github.com/acl-org/ACLPUB/blob/master/templates/copyright/ACL-copyright-form.pdf) on behalf of all authors, either electronically (via the START Conference Manager) or physically.
 Authors retain many rights under this agreement and it is appropriate in the vast majority of cases.
 Please contact the publication chairs with any concerns regarding copyright.
 
